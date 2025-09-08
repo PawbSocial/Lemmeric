@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemmeric - Settings</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet">
+    <link href="/assets/css/themes.css" rel="stylesheet">
+</head>
+<body class="settings-page">
+    <!-- Navigation will be loaded by navbar component -->
+
+    <!-- Main Content -->
+    <main class="container-fluid mt-3" id="main-content">
+        <div class="row justify-content-center">
+            <!-- Settings Content Area -->
+            <section class="col-12 col-xl-8" id="settings-content-area">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 id="settings-title">
+                        <i class="bi bi-gear-fill me-2"></i>Settings
+                    </h2>
+                    <button class="btn btn-outline-secondary" id="back-btn">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </button>
+                </div>
+
+                <!-- Settings Tabs -->
+                <ul class="nav nav-tabs mb-4" id="settings-tabs">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="lemmeric-tab" data-bs-toggle="tab" data-bs-target="#lemmeric-content" type="button" role="tab">
+                            <i class="bi bi-layout-text-window me-1"></i>Lemmeric
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="account-tab" data-bs-toggle="tab" data-bs-target="#account-content" type="button" role="tab">
+                            <i class="bi bi-person-circle me-1"></i>Account
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation" id="admin-tab-item" style="display: none;">
+                        <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-content" type="button" role="tab">
+                            <i class="bi bi-shield-lock me-1"></i>Admin
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="settings-tabs-content">
+                    <!-- Lemmeric Settings -->
+                    <div class="tab-pane fade show active" id="lemmeric-content" role="tabpanel">
+                        <div class="row">
+                            <!-- General Preferences -->
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-sliders me-1"></i>General Preferences
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Default Instance -->
+                                        <div class="mb-4" id="instance-selector-container">
+                                            <label for="default-instance" class="form-label">
+                                                <i class="bi bi-globe me-1"></i>Default Instance
+                                            </label>
+                                            <select class="form-select" id="default-instance">
+                                                <!-- Will be populated by JavaScript -->
+                                            </select>
+                                            <div class="form-text">Choose your preferred Lemmy instance</div>
+                                        </div>
+
+                                        <!-- Default Sort -->
+                                        <div class="mb-4">
+                                            <label for="default-sort" class="form-label">
+                                                <i class="bi bi-sort-down me-1"></i>Default Post Sort
+                                            </label>
+                                            <select class="form-select" id="default-sort">
+                                                <option value="Active">Active</option>
+                                                <option value="Hot">Hot</option>
+                                                <option value="New">New</option>
+                                                <option value="TopDay">Top Day</option>
+                                                <option value="TopWeek">Top Week</option>
+                                            </select>
+                                            <div class="form-text">Default sorting option for posts</div>
+                                        </div>
+
+                                        <!-- Default Listing Type -->
+                                        <div class="mb-4">
+                                            <label for="default-listing" class="form-label">
+                                                <i class="bi bi-list-ul me-1"></i>Default Listing Type
+                                            </label>
+                                            <select class="form-select" id="default-listing">
+                                                <option value="Local">Local</option>
+                                                <option value="All">All</option>
+                                                <option value="Subscribed">Subscribed</option>
+                                            </select>
+                                            <div class="form-text">Default view when loading the home page</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Appearance & Display -->
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-palette me-1"></i>Appearance & Display
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Theme Selection -->
+                                        <div class="mb-4">
+                                            <label class="form-label">
+                                                <i class="bi bi-moon-stars me-1"></i>Theme
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="card theme-card" data-theme="light">
+                                                        <div class="card-body text-center">
+                                                            <i class="bi bi-sun-fill display-4 text-warning"></i>
+                                                            <h6 class="mt-2">Light Theme</h6>
+                                                            <input type="radio" name="theme" value="light" id="theme-light" checked>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="card theme-card" data-theme="dark">
+                                                        <div class="card-body text-center">
+                                                            <i class="bi bi-moon-fill display-4 text-primary"></i>
+                                                            <h6 class="mt-2">Dark Theme</h6>
+                                                            <input type="radio" name="theme" value="dark" id="theme-dark">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Show Avatars -->
+                                        <div class="mb-4">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="show-avatars" checked>
+                                                <label class="form-check-label" for="show-avatars">
+                                                    <i class="bi bi-person-circle me-1"></i>Show User Avatars
+                                                </label>
+                                            </div>
+                                            <div class="form-text">Display user profile pictures</div>
+                                        </div>
+
+                                        <!-- Thumbnail Display -->
+                                        <div class="mb-4">
+                                            <label for="thumbnail-display" class="form-label">
+                                                <i class="bi bi-image me-1"></i>Post Thumbnails
+                                            </label>
+                                            <select class="form-select" id="thumbnail-display">
+                                                <option value="small">Show small thumbnails for links</option>
+                                                <option value="match-media">Match media size for links</option>
+                                                <option value="none">No thumbnails for links</option>
+                                            </select>
+                                            <div class="form-text">Control how thumbnails for external links are displayed. Image posts always follow the Large Post Images setting.</div>
+                                        </div>
+
+                                        <!-- Large Images -->
+                                        <div class="mb-4">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="large-images">
+                                                <label class="form-check-label" for="large-images">
+                                                    <i class="bi bi-aspect-ratio me-1"></i>Large Post Images
+                                                </label>
+                                            </div>
+                                            <div class="form-text">Display larger images in post cards for better visibility</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Settings -->
+                    <div class="tab-pane fade" id="account-content" role="tabpanel">
+                        <div class="row">
+                            <!-- Account Information -->
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-person-badge me-1"></i>Account Information
+                                        </h5>
+                                    </div>
+                                    <div class="card-body" id="account-info">
+                                        <div class="text-center p-4">
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Loading account information...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mt-4">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-gear me-1"></i>Content Preferences
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Show NSFW -->
+                                        <div class="mb-4">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="show-nsfw">
+                                                <label class="form-check-label" for="show-nsfw">
+                                                    <i class="bi bi-eye-slash me-1"></i>Show NSFW Content
+                                                </label>
+                                            </div>
+                                            <div class="form-text">Display posts marked as Not Safe For Work</div>
+                                        </div>
+
+                                        <!-- Show Scores -->
+                                        <div class="mb-4">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="show-scores" checked>
+                                                <label class="form-check-label" for="show-scores">
+                                                    <i class="bi bi-arrow-up-circle me-1"></i>Show Vote Scores
+                                                </label>
+                                            </div>
+                                            <div class="form-text">Display upvote/downvote counts</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Privacy & Security -->
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-shield-check me-1"></i>Privacy & Security
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Send Notifications -->
+                                        <div class="mb-4">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="send-notifications" checked>
+                                                <label class="form-check-label" for="send-notifications">
+                                                    <i class="bi bi-bell me-1"></i>Email Notifications
+                                                </label>
+                                            </div>
+                                            <div class="form-text">Receive email notifications for replies and mentions</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mt-4">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-database me-1"></i>Data Management
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Clear Data -->
+                                        <div class="mb-4">
+                                            <label class="form-label">
+                                                <i class="bi bi-trash me-1"></i>Clear Data
+                                            </label>
+                                            <div class="d-grid gap-2">
+                                                <button type="button" class="btn btn-outline-warning" id="clear-cache-btn">
+                                                    <i class="bi bi-arrow-clockwise me-1"></i>Clear Cache
+                                                </button>
+                                                <button type="button" class="btn btn-outline-danger" id="clear-all-data-btn">
+                                                    <i class="bi bi-exclamation-triangle me-1"></i>Clear All Data
+                                                </button>
+                                            </div>
+                                            <div class="form-text mt-2">Clear cached data or reset all settings to defaults</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Settings -->
+                    <div class="tab-pane fade" id="admin-content" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-shield-lock me-1"></i>Administrative Settings
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center p-5">
+                                            <i class="bi bi-gear-wide display-1 text-muted"></i>
+                                            <h4 class="mt-3 text-muted">Admin Panel</h4>
+                                            <p class="text-muted">Administrative features will be available here soon.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn btn-success" id="save-settings-btn">
+                        <i class="bi bi-check-circle me-1"></i>Save Settings
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Our JavaScript modules -->
+    <script type="module" src="/js/config.js"></script>
+    <script type="module" src="/js/auth.js"></script>
+    <script type="module" src="/js/components/navbar.js"></script>
+    <script type="module" src="/js/settings-page.js"></script>
+</body>
+</html> 

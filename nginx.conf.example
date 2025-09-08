@@ -1,0 +1,75 @@
+# Example Nginx configuration for Lemmeric
+# Add this to your server block
+
+location / {
+    try_files $uri $uri/ @fallback;
+}
+
+# Handle communities page: /communities -> /communities.html
+location = /communities {
+    try_files /communities.html =404;
+}
+
+# Handle post URLs: /post/123 -> /post.html?id=123
+location ~ ^/post/([0-9]+)/?$ {
+    try_files /post.html?id=$1 =404;
+}
+
+# Handle user URLs: /u/username -> /user.html?username=username
+location ~ ^/u/([^/?]+)/?$ {
+    try_files /user.html?username=$1 =404;
+}
+
+# Handle community URLs: /c/community_name -> /community.html?name=community_name
+location ~ ^/c/([^/?]+)/?$ {
+    try_files /community.html?name=$1 =404;
+}
+
+# Handle search URLs: /search -> /search.html
+location = /search {
+    try_files /search.html =404;
+}
+
+# Handle create post URLs: /create-post -> /create_post.html
+location = /create-post {
+    try_files /create_post.html =404;
+}
+
+# Handle create community URLs: /create-community -> /create-community.html
+location = /create-community {
+    try_files /create-community.html =404;
+}
+
+# Handle inbox URLs: /inbox -> /inbox.html
+location = /inbox {
+    try_files /inbox.html =404;
+}
+
+# Handle settings URLs: /settings -> /settings.html
+location = /settings {
+    try_files /settings.html =404;
+}
+
+# Fallback for other routes
+location @fallback {
+    try_files /index.html =404;
+}
+
+# Cache static assets
+location ~* \.(css|js|png|jpg|jpeg|gif|svg|woff|woff2)$ {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+}
+
+# Enable gzip compression
+gzip on;
+gzip_vary on;
+gzip_min_length 1024;
+gzip_types
+    text/plain
+    text/css
+    text/xml
+    text/javascript
+    application/javascript
+    application/xml+rss
+    application/json; 

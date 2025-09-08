@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Community - Lemmeric</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/themes.css" rel="stylesheet">
+    
+    <!-- Additional Styles for Create Community Page -->
+    <style>
+        .upload-area {
+            border: 2px dashed #6c757d;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .upload-area:hover {
+            border-color: #0d6efd;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            transform: translateY(-2px);
+        }
+        
+        .upload-area.dragover {
+            border-color: #0d6efd;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            transform: scale(1.02);
+        }
+        
+        /* Dark theme support */
+        [data-bs-theme="dark"] .upload-area {
+            border-color: #495057;
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        }
+        
+        [data-bs-theme="dark"] .upload-area:hover {
+            border-color: #0d6efd;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        
+        [data-bs-theme="dark"] .upload-area.dragover {
+            border-color: #0d6efd;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        
+        .upload-placeholder {
+            color: #6c757d;
+        }
+        
+        .upload-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+        }
+        
+        .card {
+            border-radius: 12px;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+        
+        .btn-lg {
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .text-primary {
+            color: #0d6efd !important;
+        }
+        
+        .border-warning {
+            border-color: #ffc107 !important;
+        }
+        
+        .border-info {
+            border-color: #0dcaf0 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .upload-area {
+                padding: 1.5rem;
+            }
+            
+            .upload-preview img {
+                max-width: 150px;
+                max-height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation will be loaded by navbar component -->
+
+    <!-- Main Content -->
+    <main class="container-fluid mt-3" id="main-content">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+                <!-- Header Section -->
+                <div class="text-center mb-4">
+                    <div class="d-flex align-items-center justify-content-center mb-3">
+                        <h2 class="mb-0">
+                            <i class="bi bi-plus-circle-fill text-primary me-2"></i>
+                            Create New Community
+                        </h2>
+                    </div>
+                    <p class="text-muted">Start a new community and bring people together around shared interests</p>
+                </div>
+
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-gradient-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-gear-fill me-2"></i>
+                            Community Settings
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="create-community-form">
+                            <!-- Community Name -->
+                            <div class="mb-3">
+                                <label for="community-name" class="form-label">
+                                    Community Name <span class="text-danger">*</span>
+                                    <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                       title="3-20 characters, lowercase letters, numbers, and underscores only. Cannot be changed after creation."></i>
+                                </label>
+                                <input type="text" class="form-control" id="community-name" 
+                                       placeholder="e.g., my_awesome_community" required 
+                                       minlength="3" maxlength="20" pattern="^[a-z0-9_]+$">
+                                <div class="form-text">
+                                    <span id="community-url-preview" class="text-muted">Community URL will appear here as you type</span>
+                                </div>
+                            </div>
+
+                            <!-- Display Title -->
+                            <div class="mb-3">
+                                <label for="community-title" class="form-label">
+                                    Display Title <span class="text-danger">*</span>
+                                    <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                       title="The friendly name that users will see for your community."></i>
+                                </label>
+                                <input type="text" class="form-control" id="community-title" 
+                                       placeholder="e.g., My Awesome Community" required 
+                                       minlength="3" maxlength="100">
+                                <div class="form-text">This is the human-readable name displayed to users</div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="mb-3">
+                                <label for="community-description" class="form-label">
+                                    Description
+                                    <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                       title="Optional description of your community. Supports Markdown formatting."></i>
+                                </label>
+                                <textarea class="form-control" id="community-description" rows="4" 
+                                          placeholder="Describe what your community is about..."></textarea>
+                                <div class="form-text">Supports <a href="https://commonmark.org/help/" target="_blank">Markdown</a> formatting</div>
+                            </div>
+
+                            <!-- Community Images Section -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h6 class="text-primary mb-3">
+                                        <i class="bi bi-image me-2"></i>
+                                        Community Images
+                                    </h6>
+                                </div>
+                                
+                                <!-- Icon Upload -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="community-icon-upload" class="form-label">
+                                        Community Icon
+                                        <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                           title="Square image for your community. Recommended size: 500x500px"></i>
+                                    </label>
+                                    <div class="upload-area" id="icon-upload-area">
+                                        <input type="file" class="form-control d-none" id="community-icon-upload" 
+                                               accept="image/*" data-type="icon">
+                                        <div class="upload-content text-center">
+                                            <div id="icon-preview" class="upload-preview d-none">
+                                                <img id="icon-preview-img" src="" alt="Icon preview" class="img-fluid rounded">
+                                                <button type="button" class="btn btn-sm btn-outline-danger mt-2" id="remove-icon">
+                                                    <i class="bi bi-trash"></i> Remove
+                                                </button>
+                                            </div>
+                                            <div id="icon-placeholder" class="upload-placeholder">
+                                                <i class="bi bi-cloud-upload fs-1 text-muted"></i>
+                                                <p class="mt-2 mb-1">Click to upload icon</p>
+                                                <small class="text-muted">500x500px recommended</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small class="text-muted">Or provide a URL:</small>
+                                        <input type="url" class="form-control form-control-sm mt-1" id="community-icon-url" 
+                                               placeholder="https://example.com/icon.png">
+                                    </div>
+                                </div>
+
+                                <!-- Banner Upload -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="community-banner-upload" class="form-label">
+                                        Community Banner
+                                        <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                           title="Wide banner image for your community. Recommended size: 1500x500px"></i>
+                                    </label>
+                                    <div class="upload-area" id="banner-upload-area">
+                                        <input type="file" class="form-control d-none" id="community-banner-upload" 
+                                               accept="image/*" data-type="banner">
+                                        <div class="upload-content text-center">
+                                            <div id="banner-preview" class="upload-preview d-none">
+                                                <img id="banner-preview-img" src="" alt="Banner preview" class="img-fluid rounded">
+                                                <button type="button" class="btn btn-sm btn-outline-danger mt-2" id="remove-banner">
+                                                    <i class="bi bi-trash"></i> Remove
+                                                </button>
+                                            </div>
+                                            <div id="banner-placeholder" class="upload-placeholder">
+                                                <i class="bi bi-image fs-1 text-muted"></i>
+                                                <p class="mt-2 mb-1">Click to upload banner</p>
+                                                <small class="text-muted">1500x500px recommended</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small class="text-muted">Or provide a URL:</small>
+                                        <input type="url" class="form-control form-control-sm mt-1" id="community-banner-url" 
+                                               placeholder="https://example.com/banner.png">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Community Settings Section -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h6 class="text-primary mb-3">
+                                        <i class="bi bi-sliders me-2"></i>
+                                        Community Settings
+                                    </h6>
+                                </div>
+                                
+                                <!-- NSFW Toggle -->
+                                <div class="col-md-6 mb-3">
+                                    <div class="card border-warning">
+                                        <div class="card-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="community-nsfw">
+                                                <label class="form-check-label" for="community-nsfw">
+                                                    <strong class="text-warning">
+                                                        <i class="bi bi-exclamation-triangle me-1"></i>
+                                                        NSFW Community
+                                                    </strong>
+                                                    <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                                       title="Mark this community as Not Safe For Work. Users will need to confirm they want to view NSFW content."></i>
+                                                </label>
+                                            </div>
+                                            <small class="text-muted">Check this if your community contains adult content</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Visibility -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="community-visibility" class="form-label">
+                                        <i class="bi bi-globe me-1"></i>
+                                        Community Visibility
+                                        <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                           title="Controls who can see and join your community."></i>
+                                    </label>
+                                    <select class="form-select" id="community-visibility">
+                                        <option value="Public">
+                                            <i class="bi bi-globe"></i> Public - Anyone can see and join
+                                        </option>
+                                        <option value="LocalOnly">
+                                            <i class="bi bi-house"></i> Local Only - Only visible to users on this instance
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- Posting Restrictions -->
+                                <div class="col-md-6 mb-3">
+                                    <div class="card border-info">
+                                        <div class="card-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="community-posting-restricted">
+                                                <label class="form-check-label" for="community-posting-restricted">
+                                                    <strong class="text-info">
+                                                        <i class="bi bi-shield-lock me-1"></i>
+                                                        Restrict posting to moderators only
+                                                    </strong>
+                                                    <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                                       title="Only moderators will be able to create posts. Regular users can still comment."></i>
+                                                </label>
+                                            </div>
+                                            <small class="text-muted">Enable this to make your community read-only for regular users</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Discussion Languages -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="community-languages" class="form-label">
+                                        <i class="bi bi-translate me-1"></i>
+                                        Discussion Languages
+                                        <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" 
+                                           title="Select the languages that will be used for discussions in this community."></i>
+                                    </label>
+                                    <select class="form-select" id="community-languages" multiple>
+                                        <option value="0" selected>Undetermined</option>
+                                    </select>
+                                    <div class="form-text">Hold Ctrl/Cmd to select multiple languages. Leave empty to allow all languages.</div>
+                                </div>
+                            </div>
+
+                            <!-- Error/Success Messages -->
+                            <div id="form-messages" class="mb-3" style="display: none;">
+                                <div id="error-message" class="alert alert-danger" style="display: none;"></div>
+                                <div id="success-message" class="alert alert-success" style="display: none;"></div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                                <a href="/communities" class="btn btn-outline-secondary btn-lg">
+                                    <i class="bi bi-arrow-left me-2"></i>Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg px-4" id="submit-btn">
+                                    <span id="submit-text">
+                                        <i class="bi bi-plus-circle me-2"></i>Create Community
+                                    </span>
+                                    <span id="submit-spinner" class="spinner-border spinner-border-sm ms-2" style="display: none;"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Our JavaScript modules -->
+    <script type="module" src="js/config.js"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/components/navbar.js"></script>
+    <script type="module" src="js/create-community.js"></script>
+</body>
+</html>

@@ -1,0 +1,4623 @@
+/* Custom CSS Variables for theming */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    
+    --bg-color: #ffffff;
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --border-color: #dee2e6;
+    --muted-text: #6c757d;
+    
+    --upvote-color: #ff4500;
+    --downvote-color: #7193ff;
+    --saved-color: #ffc107;
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #e9ecef;
+    --card-bg: #2d2d2d;
+    --border-color: #495057;
+    --muted-text: #adb5bd;
+}
+
+/* Base styling */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: hidden; /* Prevent document-level scrolling */
+    padding-top: 56px; /* Reduced from 76px to match typical Bootstrap navbar height */
+    height: 100vh;
+}
+
+/* Fixed layout for dynamic scrolling */
+#main-content {
+    height: calc(100vh - 56px); /* Reduced from 76px to match new navbar height */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 0; /* Remove any default padding */
+    margin-top: 0; /* Remove any default margin */
+}
+
+#main-content .row {
+    height: 100%;
+    margin: 0;
+    padding-top: 0; /* Ensure no extra padding at top */
+}
+
+/* Remove any default margins from first elements */
+#main-content .container-fluid,
+#main-content .container {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+/* Ensure cards and content start immediately */
+#main-content .card:first-child,
+#main-content .post-card:first-child {
+    margin-top: 0;
+}
+
+/* Left sidebar - fixed */
+#sidebar {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* Center content area - scrollable */
+#content-area {
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 15px;
+}
+
+/* Right sidebar - fixed */
+#right-sidebar {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* Custom scrollbar for sidebar and content areas */
+#sidebar::-webkit-scrollbar,
+#content-area::-webkit-scrollbar,
+#right-sidebar::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Video container styling */
+.direct-video-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.direct-video-container video {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+.direct-video-container .video-info {
+    padding: 1rem;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+.direct-video-container .video-details h6 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.direct-video-container .video-details small {
+    color: var(--muted-text);
+}
+
+.youtube-video-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.youtube-video-container iframe {
+    border: none;
+}
+
+.youtube-video-container .video-info {
+    padding: 1rem;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Audio container styling */
+.direct-audio-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.direct-audio-container .audio-player-container {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.direct-audio-container audio {
+    width: 100%;
+    max-width: 100%;
+}
+
+.direct-audio-container .audio-info {
+    padding: 1rem;
+    background: var(--card-bg);
+}
+
+.direct-audio-container .audio-details h6 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.direct-audio-container .audio-details small {
+    color: var(--muted-text);
+}
+
+/* Post type indicator styling */
+.post-title .bi-camera-video {
+    color: var(--success-color) !important;
+}
+
+.post-title .bi-music-note {
+    color: var(--info-color) !important;
+}
+
+.post-title .bi-youtube {
+    color: var(--danger-color) !important;
+}
+
+.post-title .bi-image {
+    color: var(--primary-color) !important;
+}
+
+.post-title .bi-box-arrow-up-right {
+    color: var(--muted-text) !important;
+}
+
+/* Meta info post type indicators */
+.post-meta .bi-camera-video {
+    color: var(--success-color);
+}
+
+.post-meta .bi-music-note {
+    color: var(--info-color);
+}
+
+.post-meta .bi-youtube {
+    color: var(--danger-color);
+}
+
+.post-meta .bi-image {
+    color: var(--primary-color);
+}
+
+#sidebar::-webkit-scrollbar-track,
+#content-area::-webkit-scrollbar-track,
+#right-sidebar::-webkit-scrollbar-track {
+    background: var(--border-color);
+}
+
+#sidebar::-webkit-scrollbar-thumb,
+#content-area::-webkit-scrollbar-thumb,
+#right-sidebar::-webkit-scrollbar-thumb {
+    background: var(--muted-text);
+    border-radius: 2px;
+}
+
+#sidebar:hover::-webkit-scrollbar-thumb,
+#content-area:hover::-webkit-scrollbar-thumb,
+#right-sidebar:hover::-webkit-scrollbar-thumb {
+    opacity: 0.4;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover,
+#content-area::-webkit-scrollbar-thumb:hover,
+#right-sidebar::-webkit-scrollbar-thumb:hover {
+    opacity: 0.7 !important;
+}
+
+/* Global custom scrollbar styling for all elements */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--muted-text);
+    border-radius: 3px;
+    opacity: 0.3;
+    transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    opacity: 0.6;
+    background: var(--text-color);
+}
+
+/* Thin scrollbars for specific areas (sidebar and content areas) */
+#sidebar::-webkit-scrollbar,
+#content-area::-webkit-scrollbar,
+#right-sidebar::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+#sidebar::-webkit-scrollbar-thumb,
+#content-area::-webkit-scrollbar-thumb,
+#right-sidebar::-webkit-scrollbar-thumb {
+    background: var(--dark-color);
+    border-radius: 2px;
+    opacity: 0.1;
+}
+
+#sidebar:hover::-webkit-scrollbar-thumb,
+#content-area:hover::-webkit-scrollbar-thumb,
+#right-sidebar:hover::-webkit-scrollbar-thumb {
+    opacity: 0.4;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover,
+#content-area::-webkit-scrollbar-thumb:hover,
+#right-sidebar::-webkit-scrollbar-thumb:hover {
+    opacity: 0.7 !important;
+}
+
+/* Modal scrollbars */
+.modal-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--muted-text);
+    border-radius: 2px;
+    opacity: 0.4;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    opacity: 0.7;
+}
+
+/* Dark theme scrollbar adjustments */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--light-color);
+    opacity: 0.2;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    opacity: 0.5;
+    background: var(--light-color);
+}
+
+[data-theme="dark"] #sidebar::-webkit-scrollbar-thumb,
+[data-theme="dark"] #content-area::-webkit-scrollbar-thumb,
+[data-theme="dark"] #right-sidebar::-webkit-scrollbar-thumb {
+    background: var(--light-color);
+    opacity: 0.1;
+}
+
+[data-theme="dark"] #sidebar:hover::-webkit-scrollbar-thumb,
+[data-theme="dark"] #content-area:hover::-webkit-scrollbar-thumb,
+[data-theme="dark"] #right-sidebar:hover::-webkit-scrollbar-thumb {
+    opacity: 0.3;
+}
+
+[data-theme="dark"] .modal-body::-webkit-scrollbar-thumb {
+    background: var(--light-color);
+    opacity: 0.3;
+}
+
+[data-theme="dark"] .modal-body::-webkit-scrollbar-thumb:hover {
+    opacity: 0.6;
+}
+
+/* Ensure navbar stays fixed */
+#main-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* Enhanced User Dropdown Styling */
+.user-dropdown-btn {
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    min-width: 140px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-dropdown-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.user-dropdown-btn:hover::before {
+    left: 100%;
+}
+
+.user-dropdown-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-dropdown-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-dropdown-btn.show {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-name-text {
+    font-weight: 500;
+    font-size: 0.9rem;
+    line-height: 1.1;
+    color: white !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+}
+
+.user-status-text {
+    font-size: 0.7rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.7) !important;
+    margin-top: 1px;
+}
+
+.dropdown-chevron {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: transform 0.3s ease;
+}
+
+.user-dropdown-btn.show .dropdown-chevron {
+    transform: rotate(180deg);
+}
+
+#user-avatar {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+.user-dropdown-btn:hover #user-avatar {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+#default-avatar {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .user-dropdown-btn {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .user-dropdown-btn:hover {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="dark"] .user-dropdown-btn.show {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .user-dropdown-btn {
+        min-width: 120px;
+        padding: 4px 8px !important;
+    }
+    
+    .user-name-text {
+        font-size: 0.8rem;
+        max-width: 60px;
+    }
+    
+    .user-status-text {
+        font-size: 0.65rem;
+    }
+}
+
+/* Settings Page Styling */
+.settings-page .theme-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.settings-page .theme-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.settings-page .theme-card.selected,
+.settings-page .theme-card:has(input:checked) {
+    border-color: var(--primary-color);
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.settings-page .theme-card input[type="radio"] {
+    display: none;
+}
+
+[data-theme="dark"] .settings-page .theme-card.selected,
+[data-theme="dark"] .settings-page .theme-card:has(input:checked) {
+    background-color: rgba(13, 110, 253, 0.2);
+}
+
+.settings-page #back-btn:hover {
+    transform: translateX(-2px);
+}
+
+.settings-page .nav-tabs .nav-link {
+    border-radius: 8px 8px 0 0;
+    margin-right: 4px;
+}
+
+.settings-page .nav-tabs .nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    /* On smaller screens, revert to normal scrolling */
+    html,
+    body {
+        overflow: visible !important; /* Allow document scrolling on mobile */
+        height: auto !important; /* Reset fixed height */
+    }
+    
+    #main-content {
+        height: auto !important;
+        overflow: visible !important;
+    }
+    
+    #main-content .row {
+        height: auto !important;
+    }
+    
+    #content-area {
+        height: auto !important;
+        overflow-y: visible !important;
+    }
+}
+
+/* Card styling */
+.card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Post card styling */
+.post-card {
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.post-community {
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.post-community:hover {
+    text-decoration: underline;
+}
+
+.post-author {
+    color: var(--muted-text);
+    font-size: 0.875rem;
+}
+
+.post-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.post-title a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.post-title a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.post-title .bi-box-arrow-up-right {
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.post-title:hover .bi-box-arrow-up-right {
+    opacity: 1;
+}
+
+.post-content {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+    word-wrap: break-word; /* Break long words if needed */
+}
+
+/* Embedded images in post content */
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+.post-thumbnail {
+    max-width: 120px;
+    max-height: 80px;
+    object-fit: cover;
+    border-radius: 0.375rem;
+    transition: max-width 0.3s ease, max-height 0.3s ease;
+}
+
+/* Large images mode - Card header layout */
+.large-images-enabled .post-card-container {
+    /* Override card-body styles when we have a container */
+    padding: 0;
+}
+
+.large-images-enabled .post-card-header {
+    position: relative;
+    overflow: hidden;
+    /* Rounded corners only on top */
+    border-radius: calc(var(--bs-border-radius) - 1px) calc(var(--bs-border-radius) - 1px) 0 0;
+    /* Background to match card background */
+    background-color: var(--card-bg);
+    /* No height constraints - let images scale naturally */
+}
+
+.large-images-enabled .post-card-header-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    display: block;
+    transition: max-height 0.3s ease;
+}
+
+/* Responsive image heights */
+@media (min-width: 768px) {
+    .large-images-enabled .post-card-header-image {
+        max-height: 250px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .large-images-enabled .post-card-header-image {
+        max-height: 300px;
+    }
+}
+
+/* Hide small thumbnails when large image headers are shown */
+.large-images-enabled .post-card-container .post-thumbnail {
+    display: none;
+}
+
+/* Ensure external link thumbnails can override the large images hiding when in small mode */
+.large-images-enabled.thumbnail-display-small .external-link-thumbnail {
+    display: block !important;
+    max-width: 120px;
+    max-height: 80px;
+}
+
+/* Ensure image post thumbnails show when they should, regardless of large images setting */
+.image-post-thumbnail {
+    display: block !important;
+}
+
+/* Search functionality styles */
+#navbar-container {
+    margin-bottom: 1rem;
+}
+
+/* Search sidebar layout */
+.search-sidebar {
+    position: sticky;
+    top: 1rem;
+}
+
+.search-sidebar .card {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-sidebar .card-header {
+    background: linear-gradient(135deg, var(--bs-primary), var(--bs-primary-dark, #0056b3));
+    color: white;
+    border-bottom: none;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.search-sidebar .form-label {
+    color: var(--bs-gray-700);
+    margin-bottom: 0.5rem;
+}
+
+.search-sidebar .form-control,
+.search-sidebar .form-select {
+    border-radius: 0.375rem;
+    border: 1px solid var(--bs-gray-300);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.search-sidebar .form-control:focus,
+.search-sidebar .form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.search-sidebar .btn-primary {
+    border-radius: 0.375rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.search-sidebar .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* Search results area */
+.search-results-area {
+    min-height: 400px;
+}
+
+.search-result-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 0.5rem;
+    border: 1px solid var(--bs-gray-200);
+    margin-bottom: 1rem;
+}
+
+.search-result-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-result-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-result-item .badge {
+    font-size: 0.75rem;
+}
+
+.search-result-item .community-link,
+.search-result-item .user-link,
+.search-result-item .post-link {
+    color: var(--bs-primary);
+    text-decoration: none;
+}
+
+.search-result-item .community-link:hover,
+.search-result-item .user-link:hover,
+.search-result-item .post-link:hover {
+    text-decoration: underline;
+}
+
+/* Search form responsive adjustments */
+@media (max-width: 768px) {
+    .navbar .input-group {
+        min-width: 200px !important;
+    }
+    
+    .search-sidebar {
+        position: static;
+        margin-bottom: 1.5rem;
+    }
+    
+    .search-sidebar .card {
+        margin-bottom: 0;
+    }
+    
+    .search-results-area {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .search-sidebar .card-body {
+        padding: 1rem;
+    }
+    
+    .search-sidebar .form-label {
+        font-size: 0.9rem;
+    }
+    
+    .search-sidebar .btn-primary {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Dynamic height adjustment for wide images */
+.large-images-enabled .post-card-header {
+    /* Allow height to flex based on content */
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Special handling for panoramic images */
+@media (min-width: 768px) {
+    .large-images-enabled .post-card-header-image {
+        /* For wide screens, allow more flexibility */
+        max-height: min(250px, 40vw);
+    }
+}
+
+@media (min-width: 1200px) {
+    .large-images-enabled .post-card-header-image {
+        max-height: min(300px, 35vw);
+    }
+}
+
+/* Card body styling in large images mode */
+.large-images-enabled .post-card-container .card-body {
+    /* Restore normal card body padding */
+    padding: 1rem;
+    /* Remove rounded corners on top */
+    border-radius: 0 0 calc(var(--bs-border-radius) - 1px) calc(var(--bs-border-radius) - 1px);
+}
+
+/* Hover effect for large images */
+.large-images-enabled .post-card-header-image:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Ensure smooth transition back */
+.large-images-enabled .post-card-header-image {
+    transition: transform 0.3s ease, height 0.3s ease;
+}
+
+/* Add subtle shadow overlay on hover for better UX */
+.large-images-enabled .post-card-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.3s ease;
+    pointer-events: none;
+}
+
+.large-images-enabled .post-card-header:hover::after {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Improve spacing between card header and body */
+.large-images-enabled .post-card-container .card-body {
+    margin-top: 0;
+    border-top: none;
+}
+
+/* Thumbnail Display Mode Styles - Apply only to external link thumbnails */
+/* The thumbnail dropdown settings are handled by JavaScript logic */
+/* Image posts always follow the Large Post Images toggle regardless of thumbnail dropdown setting */
+
+/* Ensure small thumbnails are visible for external links when set to small mode */
+.thumbnail-display-small .post-thumbnail {
+    display: block !important;
+    max-width: 120px;
+    max-height: 80px;
+}
+
+/* For small mode, never show large image headers for external links */
+.thumbnail-display-small .post-card-container:not(.image-post) .post-card-header {
+    display: none !important;
+}
+
+/* Note: Image posts (.image-post class) should always follow Large Post Images toggle */
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.vote-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.vote-btn {
+    border: none;
+    background: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+    color: var(--muted-text);
+}
+
+.vote-btn:hover {
+    background-color: var(--light-color);
+}
+
+.vote-btn.upvoted {
+    color: var(--upvote-color);
+}
+
+.vote-btn.downvoted {
+    color: var(--downvote-color);
+}
+
+.vote-btn.voted {
+    font-weight: 600;
+}
+
+/* Voted upvote buttons use the same style as hover */
+.vote-btn.upvote-btn.voted,
+.btn[data-action="upvote"].voted,
+.btn[data-action="upvote-comment"].voted {
+    color: white !important;
+    background-color: #22c55e;
+    border-color: #22c55e;
+}
+
+/* Voted downvote buttons use the same style as hover */
+.vote-btn.downvote-btn.voted,
+.btn[data-action="downvote"].voted,
+.btn[data-action="downvote-comment"].voted {
+    color: white !important;
+    background-color: #ef4444;
+    border-color: #ef4444;
+}
+
+/* Dark theme voted states */
+[data-theme="dark"] .vote-btn.upvote-btn.voted,
+[data-theme="dark"] .btn[data-action="upvote"].voted,
+[data-theme="dark"] .btn[data-action="upvote-comment"].voted {
+    color: white !important;
+    background-color: #16a34a;
+    border-color: #16a34a;
+}
+
+[data-theme="dark"] .vote-btn.downvote-btn.voted,
+[data-theme="dark"] .btn[data-action="downvote"].voted,
+[data-theme="dark"] .btn[data-action="downvote-comment"].voted {
+    color: white !important;
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+
+/* Hover state for voted buttons - indicates vote will be removed */
+.vote-btn.upvote-btn.voted:hover,
+.btn[data-action="upvote"].voted:hover,
+.btn[data-action="upvote-comment"].voted:hover {
+    background-color: transparent !important;
+    color: #22c55e !important;
+    border-color: #22c55e !important;
+    opacity: 0.7;
+}
+
+.vote-btn.downvote-btn.voted:hover,
+.btn[data-action="downvote"].voted:hover,
+.btn[data-action="downvote-comment"].voted:hover {
+    background-color: transparent !important;
+    color: #ef4444 !important;
+    border-color: #ef4444 !important;
+    opacity: 0.7;
+}
+
+/* Dark theme hover states for voted buttons */
+
+/* Cross-post preview styling */
+.crosspost-preview {
+    background-color: var(--card-bg);
+    border-color: var(--border-color) !important;
+    color: var(--text-color);
+}
+
+.crosspost-preview h6 {
+    color: var(--text-color);
+}
+
+.crosspost-preview small {
+    color: var(--muted-text);
+}
+
+.crosspost-preview a {
+    color: var(--primary-color);
+}
+
+.crosspost-preview a:hover {
+    color: var(--primary-color);
+    opacity: 0.8;
+}
+
+/* Post management dropdown styling */
+.post-management-dropdown .dropdown-menu {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+}
+
+.post-management-dropdown .dropdown-item {
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.post-management-dropdown .dropdown-item:hover {
+    background-color: var(--light-color);
+    color: var(--text-color);
+    transform: translateX(2px);
+}
+
+.post-management-dropdown .dropdown-item.text-danger {
+    color: var(--danger-color);
+}
+
+.post-management-dropdown .dropdown-item.text-danger:hover {
+    background-color: var(--danger-color);
+    color: white;
+    transform: translateX(2px);
+}
+
+.post-management-dropdown .dropdown-divider {
+    border-color: var(--border-color);
+    margin: 0.25rem 0;
+}
+
+.post-management-dropdown .dropdown-toggle {
+    transition: all 0.2s ease;
+}
+
+.post-management-dropdown .dropdown-toggle:hover {
+    background-color: var(--light-color);
+    border-color: var(--border-color);
+}
+[data-theme="dark"] .vote-btn.upvote-btn.voted:hover,
+[data-theme="dark"] .btn[data-action="upvote"].voted:hover,
+[data-theme="dark"] .btn[data-action="upvote-comment"].voted:hover {
+    background-color: transparent !important;
+    color: #16a34a !important;
+    border-color: #16a34a !important;
+    opacity: 0.7;
+}
+
+[data-theme="dark"] .vote-btn.downvote-btn.voted:hover,
+[data-theme="dark"] .btn[data-action="downvote"].voted:hover,
+[data-theme="dark"] .btn[data-action="downvote-comment"].voted:hover {
+    background-color: transparent !important;
+    color: #dc2626 !important;
+    border-color: #dc2626 !important;
+    opacity: 0.7;
+}
+
+.vote-btn:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.vote-score {
+    font-weight: 600;
+    min-width: 2rem;
+    text-align: center;
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted-text);
+}
+
+.post-meta a {
+    color: var(--muted-text);
+    text-decoration: none;
+}
+
+.post-meta a:hover {
+    color: var(--primary-color);
+}
+
+/* Community styling */
+.community-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border-radius: 0.375rem;
+    margin: 0.125rem 0;
+}
+
+.community-item:last-child {
+    border-bottom: none;
+}
+
+.community-item:hover {
+    background-color: var(--light-color);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .community-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.community-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.community-info h6 {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.community-info small {
+    font-size: 0.8rem;
+}
+
+/* Admin card styling */
+.admin-item {
+    transition: background-color 0.2s ease;
+}
+
+.admin-item:hover {
+    background-color: var(--light-color);
+    border-radius: 0.375rem;
+    padding: 0.25rem;
+    margin: -0.25rem;
+}
+
+[data-theme="dark"] .admin-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.admin-name {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-username {
+    opacity: 0.7;
+}
+
+/* Instance info styling */
+.instance-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+}
+
+.instance-stat:not(:last-child) {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Clickable version link styling */
+.instance-stat a {
+    color: var(--bs-code-color);
+    text-decoration: none;
+    transition: text-decoration 0.2s ease;
+}
+
+.instance-stat a:hover {
+    text-decoration: underline !important;
+}
+
+/* Instance sidebar content styling */
+.instance-sidebar {
+    line-height: 1.4;
+}
+
+.instance-sidebar h1,
+.instance-sidebar h2,
+.instance-sidebar h3,
+.instance-sidebar h4,
+.instance-sidebar h5,
+.instance-sidebar h6 {
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.instance-sidebar h1:first-child,
+.instance-sidebar h2:first-child,
+.instance-sidebar h3:first-child,
+.instance-sidebar h4:first-child,
+.instance-sidebar h5:first-child,
+.instance-sidebar h6:first-child {
+    margin-top: 0;
+}
+
+.instance-sidebar p {
+    margin-bottom: 0.5rem;
+}
+
+.instance-sidebar ul,
+.instance-sidebar ol {
+    margin-bottom: 0.5rem;
+    padding-left: 1.25rem;
+}
+
+.instance-sidebar li {
+    margin-bottom: 0.25rem;
+}
+
+.instance-sidebar a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.instance-sidebar a:hover {
+    text-decoration: underline;
+}
+
+.instance-sidebar code {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.1em 0.3em;
+    border-radius: 0.2rem;
+    font-size: 0.85em;
+}
+
+[data-theme="dark"] .instance-sidebar code {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.instance-sidebar blockquote {
+    border-left: 3px solid var(--primary-color);
+    padding-left: 0.75rem;
+    margin: 0.5rem 0;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Instance banner styling */
+.instance-sidebar img[alt*="banner"] {
+    border-radius: 0.375rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.instance-sidebar img[alt*="banner"]:hover {
+    transform: scale(1.02);
+}
+
+/* General embedded images in instance sidebar */
+.instance-sidebar img:not([alt*="banner"]) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+/* General embedded images in all sidebar content areas */
+.community-sidebar img,
+.user-sidebar img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+/* Code blocks and inline code in user sidebar */
+.user-sidebar code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+}
+
+.user-sidebar pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.user-sidebar pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Blockquotes in user sidebar */
+.user-sidebar blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: var(--muted-text);
+}
+
+/* Code blocks and inline code in community sidebar */
+.community-sidebar code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+}
+
+.community-sidebar pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.community-sidebar pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Blockquotes in community sidebar */
+.community-sidebar blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: var(--muted-text);
+}
+
+/* Loading states */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .post-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .post-actions {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .post-meta {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+}
+
+/* Accessibility improvements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus styles */
+.btn:focus,
+.form-select:focus,
+.nav-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+    overflow: hidden; /* Prevent document-level scrolling */
+    height: 100%;
+}
+
+/* Animation for theme switching */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Post Detail Styles */
+.post-detail {
+    /* Remove max-height to allow natural page scrolling on mobile */
+    /* max-height: 90vh; */
+}
+
+.post-detail-header .post-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-color);
+}
+
+/* Image Post Styles */
+.post-image-container {
+    text-align: center;
+}
+
+.post-image {
+    max-height: 600px;
+    width: auto;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.post-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .post-image {
+    border-color: var(--border-color);
+}
+
+.image-source {
+    font-size: 0.85rem;
+}
+
+.image-source a {
+    text-decoration: none;
+}
+
+.image-source a:hover {
+    text-decoration: underline;
+}
+
+/* External Link Container */
+.external-link-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .external-link-container {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+/* Embedded content styling */
+.embedded-content-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.embedded-content-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--primary-color);
+    border-radius: 8px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.embedded-content-container:hover::before {
+    opacity: 0.05;
+}
+
+.embedded-content-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .embedded-content-container {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .embedded-content-container:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.embedded-title {
+    color: var(--text-color) !important;
+    line-height: 1.3;
+    font-size: 1.1rem;
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+}
+
+.embedded-title:hover {
+    color: var(--primary-color) !important;
+}
+
+.embedded-description {
+    line-height: 1.5;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+.embedded-source {
+    color: var(--muted-text);
+}
+
+.embedded-content-header .btn {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.embedded-content-header .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+}
+
+[data-theme="dark"] .embedded-content-header .btn:hover {
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+}
+
+/* Post body separator and header */
+.post-body-header {
+    opacity: 0.8;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive adjustments for embedded content */
+@media (max-width: 767.98px) {
+    .embedded-content-container .row {
+        flex-direction: column;
+    }
+    
+    .embedded-content-container .col-auto {
+        margin-bottom: 1rem;
+    }
+    
+    .embedded-content-container .col-auto img {
+        width: 100% !important;
+        height: 200px !important;
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+    
+    .embedded-content-header {
+        text-align: center;
+    }
+    
+    .embedded-content-header .btn {
+        margin-top: 0.5rem;
+        margin-left: 0 !important;
+    }
+}
+
+/* Post body styling */
+.post-body {
+    line-height: 1.6;
+    color: var(--text-color);
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+    word-wrap: break-word; /* Break long words if needed */
+}
+
+.post-body p {
+    margin-bottom: 1rem;
+}
+
+.post-body h1, .post-body h2, .post-body h3, 
+.post-body h4, .post-body h5, .post-body h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+}
+
+.post-body code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+}
+
+.post-body pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.post-body pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Headers in post content */
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4,
+.post-body h5,
+.post-body h6 {
+    margin: 1rem 0 0.5rem 0;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.post-body h1:first-child,
+.post-body h2:first-child,
+.post-body h3:first-child,
+.post-body h4:first-child,
+.post-body h5:first-child,
+.post-body h6:first-child {
+    margin-top: 0;
+}
+
+/* Lists in post content */
+.post-body ul,
+.post-body ol {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.post-body li {
+    margin: 0.05rem 0;  /* Ultra-tight spacing between list items */
+    line-height: 1.2;   /* Compact line height for list items */
+}
+
+/* Better spacing for consecutive list items */
+.post-body li + li {
+    margin-top: 0.05rem;  /* Ultra-tight spacing between consecutive items */
+}
+
+/* Remove any paragraph margins inside list items */
+.post-body li p {
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+}
+
+/* Ensure br tags don't create excessive spacing */
+.post-body br {
+    line-height: 1.2;
+}
+
+/* Reduce spacing between list items and surrounding content */
+.post-body ul + p,
+.post-body ol + p,
+.post-body p + ul,
+.post-body p + ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Links in post content */
+.post-body a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.post-body a:hover {
+    text-decoration: underline;
+}
+
+/* Blockquotes in post content */
+.post-body blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: var(--muted-text);
+}
+
+/* Embedded images in post content */
+.post-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+/* Comments Styles */
+.comments-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+.comment {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .comment {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+/* Root (parent) comments styling */
+.comment:not(.nested-comment) {
+    background-color: rgba(0, 0, 0, 0.01);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .comment:not(.nested-comment) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Nested comment styles with colored borders */
+.nested-comment {
+    position: relative;
+    margin-left: 0 !important; /* Override inline styles for proper border alignment */
+    border-left: 3px solid var(--comment-border-color, #007bff);
+    padding-left: 0.75rem; /* Reduced from 1rem for less aggressive indentation */
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Comment depth colors */
+.nested-comment[data-depth="1"] {
+    border-left-color: #007bff;
+}
+
+.nested-comment[data-depth="2"] {
+    border-left-color: #6f42c1;
+}
+
+.nested-comment[data-depth="3"] {
+    border-left-color: #e83e8c;
+}
+
+.nested-comment[data-depth="4"] {
+    border-left-color: #fd7e14;
+}
+
+.nested-comment[data-depth="5"] {
+    border-left-color: #20c997;
+}
+
+.nested-comment[data-depth="6"] {
+    border-left-color: #6c757d;
+}
+
+/* Fallback for deeper nesting */
+.nested-comment[data-depth]:not([data-depth="1"]):not([data-depth="2"]):not([data-depth="3"]):not([data-depth="4"]):not([data-depth="5"]):not([data-depth="6"]) {
+    border-left-color: #6c757d;
+}
+
+.comment-header {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.comment-author {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.comment-content {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+    white-space: pre-wrap; /* Preserve line breaks and spaces */
+    word-wrap: break-word; /* Break long words if needed */
+}
+
+.comment-content p {
+    margin-bottom: 0.5rem;
+}
+
+.comment-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Embedded images in comment content */
+.comment-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+/* Code blocks and inline code in comment content */
+.comment-content code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+}
+
+.comment-content pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.comment-content pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Blockquotes in comment content */
+.comment-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: var(--muted-text);
+}
+
+/* Headers in comment content */
+.comment-content h1,
+.comment-content h2,
+.comment-content h3,
+.comment-content h4,
+.comment-content h5,
+.comment-content h6 {
+    margin: 1rem 0 0.5rem 0;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.comment-content h1:first-child,
+.comment-content h2:first-child,
+.comment-content h3:first-child,
+.comment-content h4:first-child,
+.comment-content h5:first-child,
+.comment-content h6:first-child {
+    margin-top: 0;
+}
+
+/* Lists in comment content */
+.comment-content ul,
+.comment-content ol {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.comment-content li {
+    margin: 0.05rem 0;  /* Ultra-tight spacing between list items */
+    line-height: 1.2;   /* Compact line height for list items */
+}
+
+/* Better spacing for consecutive list items */
+.comment-content li + li {
+    margin-top: 0.05rem;  /* Ultra-tight spacing between consecutive items */
+}
+
+/* Remove any paragraph margins inside list items */
+.comment-content li p {
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+}
+
+/* Reduce spacing between list items and surrounding content */
+.comment-content ul + p,
+.comment-content ol + p,
+.comment-content p + ul,
+.comment-content p + ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Links in comment content */
+.comment-content a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.comment-content a:hover {
+    text-decoration: underline;
+}
+
+.comment-actions .btn-link {
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: none;
+    background: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 0.15s ease-in-out;
+}
+
+.comment-actions .btn-link:hover {
+    color: var(--primary-color) !important;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.comment-score {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.comment-children {
+    margin-top: 0.75rem;
+}
+
+/* Vote ratio bar (YouTube-style like/dislike bar) */
+.vote-ratio-container {
+    width: auto;
+}
+
+.vote-ratio-bar {
+    height: 3px;
+    width: 80px; /* Narrower to span just under upvote/downvote buttons */
+    background-color: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    cursor: help;
+    flex-shrink: 0;
+}
+
+.vote-ratio-upvotes,
+.upvote-bar {
+    background-color: #22c55e;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.vote-ratio-downvotes,
+.downvote-bar {
+    background-color: #ef4444;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.vote-percentage {
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .vote-ratio-upvotes,
+[data-theme="dark"] .upvote-bar {
+    background-color: #16a34a;
+}
+
+[data-theme="dark"] .vote-ratio-downvotes,
+[data-theme="dark"] .downvote-bar {
+    background-color: #dc2626;
+}
+
+/* Hover effect for better visibility */
+.vote-ratio-bar:hover {
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* Depth indicators */
+.comment-depth-indicator {
+    position: absolute;
+    left: -8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--comment-border-color, #007bff);
+    opacity: 0.3;
+}
+
+/* Improve readability with alternating backgrounds for deep nesting */
+.nested-comment[data-depth="2"],
+.nested-comment[data-depth="4"],
+.nested-comment[data-depth="6"] {
+    background-color: rgba(0, 0, 0, 0.01);
+}
+
+[data-theme="dark"] .nested-comment[data-depth="2"],
+[data-theme="dark"] .nested-comment[data-depth="4"],
+[data-theme="dark"] .nested-comment[data-depth="6"] {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Modal Improvements */
+.modal-dialog {
+    max-width: 900px;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Loading States */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+[data-theme="dark"] .loading-overlay {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Community and User Links */
+.community-link, .user-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.community-link:hover, .user-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design for Modal */
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 0.5rem;
+        max-width: none;
+    }
+    
+    .post-detail {
+        /* max-height: 90vh; */
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .nested-comment {
+        margin-left: 0 !important; /* Remove margin-left on mobile */
+        padding-left: 0.5rem; /* Use only padding for indentation */
+        border-left-width: 2px; /* Thinner border on mobile */
+    }
+    
+    .comment-children {
+        padding-left: 0.25rem; /* Minimal nesting */
+        margin-left: 0; /* Remove additional margins */
+    }
+    
+    /* Progressive indentation reduction for deep nesting on mobile */
+    .nested-comment[data-depth="1"] {
+        padding-left: 0.5rem;
+    }
+    
+    .nested-comment[data-depth="2"] {
+        padding-left: 0.4rem;
+    }
+    
+    .nested-comment[data-depth="3"] {
+        padding-left: 0.35rem;
+    }
+    
+    .nested-comment[data-depth="4"],
+    .nested-comment[data-depth="5"],
+    .nested-comment[data-depth="6"] {
+        padding-left: 0.3rem; /* Very minimal for deep threads */
+    }
+    
+    /* Reduce comment content font size slightly for deep threads on mobile */
+    .nested-comment[data-depth="4"] .comment-content,
+    .nested-comment[data-depth="5"] .comment-content,
+    .nested-comment[data-depth="6"] .comment-content {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    /* Make action buttons smaller for deep threads */
+    .nested-comment[data-depth="4"] .comment-actions .btn-link,
+    .nested-comment[data-depth="5"] .comment-actions .btn-link,
+    .nested-comment[data-depth="6"] .comment-actions .btn-link {
+        font-size: 0.75rem;
+        padding: 0.125rem 0.25rem;
+    }
+}
+
+/* Accessibility Improvements */
+.comment:focus-within {
+    background-color: rgba(13, 110, 253, 0.05);
+    border-radius: 0.375rem;
+}
+
+.comment-actions button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+}
+
+/* Animation for Comments Loading */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.comment:nth-child(n+2) {
+    animation-delay: 0.05s;
+}
+
+.comment:nth-child(n+3) {
+    animation-delay: 0.1s;
+}
+
+/* Custom Instance Styles */
+.nav-item .btn {
+    border-radius: 0.25rem;
+}
+
+.nav-item .btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#addInstanceModal .form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+#instanceValidationMessage {
+    margin-top: 1rem;
+}
+
+.instance-stat {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.instance-stat:last-child {
+    margin-bottom: 0;
+}
+
+/* Listing Type Selector Styles */
+#listing-type-selector .btn {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+    border-width: 1px;
+    transition: all 0.2s ease;
+}
+
+#listing-type-selector .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#listing-type-selector .btn-check:checked + .btn {
+    transform: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#listing-type-selector .btn-check:disabled + .btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .d-flex.align-items-center.gap-3 {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 1rem !important;
+    }
+    
+    #listing-type-selector .btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* Vote button colors to match ratio bar */
+.vote-btn.upvote-btn,
+.btn[data-action="upvote"],
+.btn[data-action="upvote-comment"] {
+    color: #22c55e !important;
+    border-color: #22c55e;
+}
+
+.vote-btn.upvote-btn:hover,
+.btn[data-action="upvote"]:hover,
+.btn[data-action="upvote-comment"]:hover {
+    color: white !important;
+    background-color: #22c55e;
+    border-color: #22c55e;
+}
+
+.vote-btn.downvote-btn,
+.btn[data-action="downvote"],
+.btn[data-action="downvote-comment"] {
+    color: #ef4444 !important;
+    border-color: #ef4444;
+}
+
+.vote-btn.downvote-btn:hover,
+.btn[data-action="downvote"]:hover,
+.btn[data-action="downvote-comment"]:hover {
+    color: white !important;
+    background-color: #ef4444;
+    border-color: #ef4444;
+}
+
+/* Dark theme vote button colors */
+[data-theme="dark"] .vote-btn.upvote-btn,
+[data-theme="dark"] .btn[data-action="upvote"],
+[data-theme="dark"] .btn[data-action="upvote-comment"] {
+    color: #16a34a !important;
+    border-color: #16a34a;
+}
+
+[data-theme="dark"] .vote-btn.upvote-btn:hover,
+[data-theme="dark"] .btn[data-action="upvote"]:hover,
+[data-theme="dark"] .btn[data-action="upvote-comment"]:hover {
+    color: white !important;
+    background-color: #16a34a;
+    border-color: #16a34a;
+}
+
+[data-theme="dark"] .vote-btn.downvote-btn,
+[data-theme="dark"] .btn[data-action="downvote"],
+[data-theme="dark"] .btn[data-action="downvote-comment"] {
+    color: #dc2626 !important;
+    border-color: #dc2626;
+}
+
+[data-theme="dark"] .vote-btn.downvote-btn:hover,
+[data-theme="dark"] .btn[data-action="downvote"]:hover,
+[data-theme="dark"] .btn[data-action="downvote-comment"]:hover {
+    color: white !important;
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+
+/* Mobile info button styling */
+.mobile-info-btn {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 200px;
+}
+
+.mobile-info-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(13, 110, 253, 0.35);
+    background: linear-gradient(135deg, #0056b3, var(--primary-color));
+}
+
+.mobile-info-btn:active {
+    transform: translateY(0);
+}
+
+/* Mobile info modal specific styling */
+#mobileInfoModal .modal-dialog {
+    max-width: 95%;
+    margin: 0.5rem auto;
+}
+
+#mobileInfoModal .card {
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#mobileInfoModal .card-header {
+    background-color: var(--light-color);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+}
+
+[data-theme="dark"] #mobileInfoModal .card-header {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .mobile-info-btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+    
+    #mobileInfoModal .modal-dialog {
+        max-width: 98%;
+        margin: 0.25rem auto;
+    }
+    
+    /* Extra mobile optimizations for very small screens */
+    .nested-comment {
+        padding-left: 0.3rem !important; /* Even more minimal on small screens */
+        border-left-width: 1px; /* Very thin border */
+    }
+    
+    .nested-comment[data-depth="2"],
+    .nested-comment[data-depth="3"],
+    .nested-comment[data-depth="4"],
+    .nested-comment[data-depth="5"],
+    .nested-comment[data-depth="6"] {
+        padding-left: 0.25rem !important; /* Flatten deep threads significantly */
+    }
+    
+    .comment-children {
+        padding-left: 0.125rem; /* Minimal child spacing */
+    }
+    
+    /* Smaller headers for deeply nested comments */
+    .nested-comment[data-depth="3"] .comment-header,
+    .nested-comment[data-depth="4"] .comment-header,
+    .nested-comment[data-depth="5"] .comment-header,
+    .nested-comment[data-depth="6"] .comment-header {
+        font-size: 0.8rem;
+    }
+}
+
+/* Firefox scrollbar support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(108, 117, 125, 0.3) transparent;
+}
+
+[data-theme="dark"] * {
+    scrollbar-color: rgba(248, 249, 250, 0.2) transparent;
+}
+
+/* Thinner scrollbars for sidebar and content areas in Firefox */
+#sidebar,
+#content-area,
+#right-sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(33, 37, 41, 0.1) transparent;
+}
+
+[data-theme="dark"] #sidebar,
+[data-theme="dark"] #content-area,
+[data-theme="dark"] #right-sidebar {
+    scrollbar-color: rgba(248, 249, 250, 0.1) transparent;
+}
+
+/* Modal scrollbars in Firefox */
+.modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(108, 117, 125, 0.4) transparent;
+}
+
+[data-theme="dark"] .modal-body {
+    scrollbar-color: rgba(248, 249, 250, 0.3) transparent;
+}
+
+/* Community sidebar styles */
+.community-sidebar {
+    position: sticky;
+    top: 1rem;
+}
+
+.community-sidebar .card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+.community-sidebar .card-header {
+    background-color: var(--card-bg);
+    border-bottom-color: var(--border-color);
+    font-weight: 600;
+}
+
+.community-sidebar .community-icon,
+.community-sidebar .community-icon-placeholder {
+    border: 1px solid var(--border-color);
+}
+
+.community-sidebar .moderators-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.community-sidebar .moderators-list:empty::after {
+    content: "No moderators listed";
+    color: var(--muted-text);
+    font-style: italic;
+    font-size: 0.875rem;
+}
+
+/* Responsive adjustments for community sidebar */
+@media (max-width: 991.98px) {
+    .community-sidebar {
+        position: static;
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #community-sidebar-area {
+        margin-top: 1.5rem !important;
+    }
+}
+
+/* Dark theme adjustments for community sidebar */
+[data-theme="dark"] .community-sidebar .card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .community-sidebar .community-icon,
+[data-theme="dark"] .community-sidebar .community-icon-placeholder {
+    border-color: var(--border-color);
+}
+
+/* Post page specific layout adjustments */
+#post-content-area {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#community-sidebar-area {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Post page container adjustments */
+#post-container {
+    /* Ensure full height and natural content flow */
+    min-height: 100%;
+    height: auto;
+}
+
+/* Post page specific - override fixed height layout */
+body:has(#post-content-area) #main-content {
+    height: calc(100vh - 56px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+body:has(#post-content-area) #main-content .row {
+    height: auto !important;
+}
+
+body:has(#post-content-area) #post-content-area {
+    height: auto !important;
+    overflow-y: visible !important;
+    min-height: calc(100vh - 56px); /* Ensure it takes at least full viewport height */
+}
+
+body:has(#post-content-area) #post-container {
+    height: auto !important;
+    min-height: 100%;
+}
+
+/* Fallback for browsers that don't support :has() */
+.post-page #main-content {
+    height: calc(100vh - 56px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+.post-page #main-content .row {
+    height: auto !important;
+}
+
+.post-page #post-content-area {
+    height: auto !important;
+    overflow-y: visible !important;
+    min-height: calc(100vh - 56px);
+}
+
+.post-page #post-container {
+    height: auto !important;
+    min-height: 100%;
+}
+
+/* Mobile responsive for post page */
+@media (max-width: 991.98px) {
+    #post-content-area {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    #community-sidebar-area {
+        display: block !important;
+        margin-top: 1rem;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* Spoiler/Details styling */
+details {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    background-color: var(--card-bg);
+    overflow: hidden;
+}
+
+details summary {
+    background-color: var(--light-color);
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    user-select: none;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.15s ease-in-out;
+}
+
+details summary:hover {
+    background-color: var(--hover-color);
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details summary::before {
+    content: "▶";
+    margin-right: 0.5rem;
+    transition: transform 0.15s ease-in-out;
+    display: inline-block;
+    font-size: 0.875rem;
+}
+
+details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+details > *:not(summary) {
+    padding: 1rem;
+    border-top: none;
+}
+
+details[open] summary {
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Dark theme adjustments for spoilers */
+[data-theme="dark"] details {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] details summary {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] details summary:hover {
+    background-color: var(--hover-color);
+}
+
+[data-theme="dark"] details[open] summary {
+    border-bottom-color: var(--border-color);
+}
+
+/* Hover effect utility class */
+.hover-effect {
+    transition: all 0.2s ease;
+}
+
+.hover-effect:hover {
+    background-color: var(--light-color);
+    border-radius: 0.375rem;
+}
+
+[data-theme="dark"] .hover-effect:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Community Page Styles - Matching Home Feed Dark Theme */
+.communities-page .community-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem !important; /* Consistent 8px radius */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 0.75rem; /* Reduced from 1rem */
+    overflow: hidden; /* Ensure child elements don't break border radius */
+}
+
+.communities-page .community-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.communities-page .community-list-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem !important; /* Consistent 8px radius */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 0.75rem; /* Reduced from 1rem */
+    overflow: hidden; /* Ensure child elements don't break border radius */
+}
+
+.communities-page .community-list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Featured Communities Section */
+.communities-page #featured-communities {
+    margin-bottom: 1.5rem; /* Reduced from 2rem */
+}
+
+.communities-page #featured-communities .card-footer {
+    background-color: var(--card-bg) !important;
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 0.5rem 0.5rem !important; /* Match card radius */
+}
+
+/* Force all card sections to use dark theme and consistent radius */
+.communities-page .card-header,
+.communities-page .card-body,
+.communities-page .card-footer {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color);
+    border-radius: 0 !important; /* Remove individual border radius */
+}
+
+/* Only apply border radius to first and last sections */
+.communities-page .card-header:first-child {
+    border-radius: 0.5rem 0.5rem 0 0 !important; /* Top corners only */
+}
+
+.communities-page .card-footer:last-child {
+    border-radius: 0 0 0.5rem 0.5rem !important; /* Bottom corners only */
+}
+
+/* Community Icons */
+.communities-page .community-card img,
+.communities-page .community-list-item img {
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+/* Typography - Matching post card styling */
+.communities-page .card-title {
+    color: var(--text-color) !important;
+    font-weight: 600;
+    font-size: 0.95rem !important; /* Reduced from 1.1rem */
+    line-height: 1.2;
+}
+
+.communities-page .text-muted {
+    color: var(--muted-text) !important;
+    font-size: 0.75rem !important; /* Reduced from 0.875rem */
+}
+
+/* Community names styled like post community links */
+.communities-page .community-name,
+.communities-page h5,
+.communities-page h6 {
+    color: var(--text-color) !important;
+}
+
+/* Stats Colors - Matching home feed vote colors */
+.communities-page .text-primary {
+    color: #4a90e2 !important;
+    font-weight: 500;
+}
+
+.communities-page .text-success {
+    color: #22c55e !important;
+    font-weight: 500;
+}
+
+.communities-page .text-warning {
+    color: #f59e0b !important;
+    font-weight: 500;
+}
+
+/* Instance Badges - Using info color like in home feed */
+.communities-page .badge {
+    background-color: var(--info-color) !important;
+    color: var(--dark-color) !important;
+    font-size: 0.65rem !important; /* Reduced from 0.75rem */
+    border-radius: 0.25rem;
+    padding: 0.25em 0.5em !important; /* Reduced padding */
+}
+
+/* Default Community Icons - Using primary color */
+.communities-page .bg-primary {
+    background-color: var(--primary-color) !important;
+    color: white;
+}
+
+/* Section Headers */
+.communities-page h4,
+.communities-page h5 {
+    color: var(--text-color) !important;
+    font-weight: 600;
+}
+
+.communities-page .bi-star-fill {
+    color: var(--warning-color);
+}
+
+.communities-page .bi-list-ul {
+    color: var(--text-color);
+}
+
+/* Card structure improvements - all dark and much more compact */
+.communities-page .card-header {
+    background-color: var(--card-bg) !important;
+    border-bottom: none;
+    padding: 0.5rem 0.75rem 0.25rem 0.75rem !important; /* Much more aggressive reduction */
+}
+
+.communities-page .card-body {
+    background-color: var(--card-bg) !important;
+    padding: 0.25rem 0.75rem !important; /* Much more aggressive reduction */
+}
+
+.communities-page .card-footer {
+    background-color: var(--card-bg) !important;
+    border-top: 1px solid var(--border-color);
+    padding: 0.5rem 0.75rem !important; /* Much more aggressive reduction */
+}
+
+/* Description text styling - much more compact */
+.communities-page .card-text {
+    color: var(--muted-text) !important;
+    font-size: 0.8rem !important; /* Reduced from 0.85rem */
+    line-height: 1.3 !important; /* Slightly more space for better readability */
+    margin-bottom: 0.25rem !important; /* Reduced from 0.5rem */
+    height: 2.6em !important; /* Increased to 2.6em to properly fit 2 lines with line-height 1.3 */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word; /* Better word wrapping */
+}
+
+/* Compact stats section */
+.communities-page .card-footer .row {
+    margin: 0;
+}
+
+.communities-page .card-footer .col-4 {
+    padding: 0 0.125rem !important; /* Even tighter spacing */
+}
+
+/* Stats styling to match home feed - much more compact */
+.communities-page .fw-bold {
+    font-weight: 600;
+    color: var(--text-color) !important;
+    font-size: 0.9rem !important; /* Reduced from 1rem */
+    margin-bottom: 0.1rem !important; /* Reduced from 0.125rem */
+}
+
+.communities-page small {
+    font-size: 0.7rem !important; /* Reduced from 0.75rem */
+    color: var(--muted-text) !important;
+}
+
+/* Community title spacing - much more compact */
+.communities-page .card-title {
+    color: var(--text-color) !important;
+    font-weight: 600;
+    font-size: 0.95rem !important; /* Reduced from 1.05rem */
+    line-height: 1.15 !important; /* Tighter */
+    margin-bottom: 0.125rem !important; /* Reduced from 0.25rem */
+}
+
+/* Community subtitle spacing - much more compact */
+.communities-page .card-header p {
+    margin-bottom: 0.125rem !important; /* Reduced from 0.25rem */
+    font-size: 0.75rem !important; /* Reduced from 0.8rem */
+}
+
+/* Icon container spacing - smaller icons */
+.communities-page .card-header .d-flex {
+    align-items: flex-start;
+}
+
+/* Smaller community icons */
+.communities-page .card-header img,
+.communities-page .card-header .bg-primary {
+    width: 36px !important; /* Reduced from 48px */
+    height: 36px !important; /* Reduced from 48px */
+    font-size: 16px !important; /* Reduced icon text size */
+}
+
+/* Stats container spacing - much tighter */
+.communities-page .d-flex.flex-column.align-items-center {
+    gap: 0.05rem !important; /* Even tighter gap */
+}
+
+/* Much more compact margin between elements */
+.communities-page .me-3 {
+    margin-right: 0.75rem !important; /* Reduced from default */
+}
+
+/* Reduce spacing in header content */
+.communities-page .card-header .d-flex.align-items-start {
+    gap: 0.5rem;
+}
+
+/* Make badge smaller and tighter */
+.communities-page .badge.bg-info {
+    font-size: 0.6rem !important;
+    padding: 0.2em 0.4em !important;
+    line-height: 1.1;
+}
+
+/* Stats icons smaller */
+.communities-page .card-footer i {
+    font-size: 0.65rem !important;
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: calc(200px + 100%) 0; }
+}
+
+.communities-page .loading-skeleton {
+    background: linear-gradient(90deg, var(--card-bg) 25%, var(--border-color) 50%, var(--card-bg) 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 0.5rem;
+}
+
+/* Responsive Improvements */
+@media (max-width: 767.98px) {
+    .communities-page .community-card {
+        margin-bottom: 0.75rem;
+    }
+    
+    .communities-page .community-list-item .row {
+        flex-direction: column;
+    }
+    
+    .communities-page .community-list-item .col-lg-8,
+    .communities-page .community-list-item .col-lg-4 {
+        flex: 1;
+        max-width: 100%;
+    }
+    
+    .communities-page .community-list-item .col-lg-4 {
+        margin-top: 0.75rem; /* Reduced from 1rem */
+    }
+}
+
+/* ==============================
+   Enhanced Notification Styles
+   ============================== */
+
+/* Notification Container */
+#user-notifications-list {
+    background: transparent;
+    border: none;
+}
+
+/* Individual Notification Items */
+.notification-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.notification-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .notification-item:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+/* Unread notification styles */
+.notification-item.unread {
+    border-left: 4px solid var(--primary-color);
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(74, 144, 226, 0.02) 100%);
+}
+
+.notification-item.read {
+    opacity: 0.9;
+}
+
+/* Notification Content Container */
+.notification-content {
+    padding: 1.25rem;
+}
+
+/* Notification Header */
+.notification-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.notification-icon-wrapper {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #3a7bd5 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.notification-icon {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Notification Info */
+.notification-info {
+    flex: 1;
+    min-width: 0; /* Allow text truncation */
+}
+
+.notification-title {
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+    word-break: break-word;
+}
+
+.notification-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.notification-time {
+    color: var(--muted-text);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.notification-badge {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #3a7bd5 100%);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Notification Actions */
+.notification-actions {
+    flex-shrink: 0;
+}
+
+.notification-menu-btn {
+    background: none;
+    border: none;
+    color: var(--muted-text);
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.notification-menu-btn:hover {
+    background: var(--hover-bg);
+    color: var(--text-color);
+}
+
+/* Notification Body */
+.notification-body {
+    margin-bottom: 1rem;
+}
+
+.notification-preview {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+    word-break: break-word;
+}
+
+.notification-expanded-text {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+/* Notification Footer */
+.notification-footer {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Notification Buttons */
+.notification-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.notification-btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.notification-btn-primary:hover {
+    background: #3a7bd5;
+    transform: translateY(-1px);
+}
+
+.notification-btn-secondary {
+    background: var(--secondary-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.notification-btn-secondary:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+/* Expand/Collapse Animation */
+.notification-item[data-expanded="true"] .expand-icon {
+    transform: rotate(180deg);
+}
+
+.expand-icon {
+    transition: transform 0.3s ease;
+}
+
+.notification-full-content {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        max-height: 300px;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .notification-content {
+        padding: 1rem;
+    }
+    
+    .notification-header {
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .notification-icon-wrapper {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .notification-icon {
+        font-size: 1rem;
+    }
+    
+    .notification-title {
+        font-size: 0.95rem;
+    }
+    
+    .notification-footer {
+        gap: 0.5rem;
+    }
+    
+    .notification-btn {
+        flex: 1;
+        justify-content: center;
+        min-width: auto;
+    }
+    
+    .notification-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dark"] .notification-expanded-text {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .notification-item.unread {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(74, 144, 226, 0.05) 100%);
+}
+
+/* Loading and Empty States Enhancement */
+#user-notifications-empty {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+#user-notifications-loading {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+/* Enhanced Card Header for Inbox */
+.inbox-page .card-header {
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-bg) 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem 1.5rem;
+}
+
+.inbox-page .card-header h5 {
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Filter Button Enhancements */
+.inbox-page .btn-group .btn {
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.inbox-page .btn-group .btn:not(.active):hover {
+    transform: translateY(-1px);
+}
+
+/* Mobile Responsive Header for Inbox */
+@media (max-width: 768px) {
+    .inbox-page .card-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1rem;
+    }
+    
+    .inbox-page .card-header h5 {
+        margin-bottom: 0;
+        width: 100%;
+    }
+    
+    .inbox-page .card-header .btn-group {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .inbox-page .btn-group .btn {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+/* Taglines Styles */
+.tagline-content {
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.tagline-content p {
+    margin-bottom: 0.75rem;
+}
+
+.tagline-content p:last-child {
+    margin-bottom: 0;
+}
+
+.tagline-content h1,
+.tagline-content h2,
+.tagline-content h3,
+.tagline-content h4,
+.tagline-content h5,
+.tagline-content h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    color: var(--text-color);
+}
+
+.tagline-content blockquote {
+    border-left: 3px solid var(--primary-color);
+    padding-left: 0.75rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+    background: var(--secondary-bg);
+    border-radius: 0 4px 4px 0;
+    padding: 0.5rem 0.75rem;
+}
+
+.tagline-content code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+}
+
+.tagline-content pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.tagline-content pre code {
+    background: none;
+    padding: 0;
+}
+
+.tagline-content a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.tagline-content a:hover {
+    text-decoration: underline;
+}
+
+.tagline-content ul,
+.tagline-content ol {
+    margin: 0.5rem 0;
+    padding-left: 1.25rem;
+}
+
+.tagline-content li {
+    margin-bottom: 0.25rem;
+}
+
+/* Embedded images in tagline content */
+.tagline-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+/* Taglines card spacing */
+#taglines-card {
+    margin-bottom: 1rem;
+}
+
+#taglines-card .card-header {
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-bg) 100%);
+}
+
+#taglines-card .card-header h6 {
+    color: var(--text-color);
+}
+
+#taglines-card .card-header .bi-chat-quote {
+    color: var(--primary-color);
+}
+
+/* Mobile taglines styles */
+#mobile-taglines-card {
+    margin-bottom: 1rem;
+}
+
+#mobile-taglines-card .card-header {
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-bg) 100%);
+}
+
+/* Dark theme adjustments for taglines */
+[data-theme="dark"] .tagline-content blockquote {
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--primary-color);
+}
+
+[data-theme="dark"] .tagline-content code {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark theme code block backgrounds for better contrast */
+[data-theme="dark"] .post-body code,
+[data-theme="dark"] .post-body pre,
+[data-theme="dark"] .comment-content code,
+[data-theme="dark"] .comment-content pre,
+[data-theme="dark"] .live-preview-content code,
+[data-theme="dark"] .live-preview-content pre,
+[data-theme="dark"] .user-sidebar code,
+[data-theme="dark"] .user-sidebar pre,
+[data-theme="dark"] .community-sidebar code,
+[data-theme="dark"] .community-sidebar pre,
+[data-theme="dark"] .tagline-content code,
+[data-theme="dark"] .tagline-content pre {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme code block backgrounds for better contrast */
+[data-theme="light"] .post-body code,
+[data-theme="light"] .post-body pre,
+[data-theme="light"] .comment-content code,
+[data-theme="light"] .comment-content pre,
+[data-theme="light"] .live-preview-content code,
+[data-theme="light"] .live-preview-content pre,
+[data-theme="light"] .user-sidebar code,
+[data-theme="light"] .user-sidebar pre,
+[data-theme="light"] .community-sidebar code,
+[data-theme="light"] .community-sidebar pre,
+[data-theme="light"] .tagline-content code,
+[data-theme="light"] .tagline-content pre {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Remove background from inline code when inside pre blocks to avoid double backgrounds */
+.post-body pre code,
+.comment-content pre code,
+.live-preview-content pre code,
+.user-sidebar pre code,
+.community-sidebar pre code,
+.tagline-content pre code {
+    background: none !important;
+    padding: 0;
+}
+
+/* Create Post Page Styles */
+.create-post-page .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(74, 144, 226, 0.25);
+}
+
+/* File Input Styling */
+.form-control[type="file"] {
+    padding: 0;
+}
+
+.form-control[type="file"]::-webkit-file-upload-button {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem 0 0 0.375rem;
+    margin-right: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.form-control[type="file"]::-webkit-file-upload-button:hover {
+    background: #3a7bd5;
+}
+
+.form-control[type="file"]::file-selector-button {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem 0 0 0.375rem;
+    margin-right: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.form-control[type="file"]::file-selector-button:hover {
+    background: #3a7bd5;
+}
+
+/* Dark theme adjustments for file input */
+[data-theme="dark"] .form-control[type="file"] {
+    color: var(--text-color);
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .form-control[type="file"]::-webkit-file-upload-button {
+    background: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .form-control[type="file"]::-webkit-file-upload-button:hover {
+    background: #3a7bd5;
+}
+
+[data-theme="dark"] .form-control[type="file"]::file-selector-button {
+    background: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .form-control[type="file"]::file-selector-button:hover {
+    background: #3a7bd5;
+}
+
+/* Image preview styling */
+#image-preview {
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: var(--secondary-bg);
+    text-align: center;
+}
+
+#image-preview img {
+    border: 1px solid var(--border-color);
+}
+
+/* Character counters */
+.form-text {
+    font-size: 0.875rem;
+}
+
+/* Preview modal content styling */
+.post-preview-header h5 {
+    color: var(--text-color);
+}
+
+.post-preview-url a {
+    color: var(--primary-color);
+}
+
+.post-preview-body {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+/* SearchableSelect Component Styles */
+.searchable-select {
+    position: relative;
+    width: 100%;
+}
+
+.searchable-select-toggle {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.searchable-select-toggle:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(74, 144, 226, 0.25);
+    background: var(--input-bg);
+    color: var(--text-color);
+}
+
+.searchable-select-toggle:hover {
+    background: var(--input-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.searchable-select-menu {
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.searchable-select-menu .input-group-text {
+    background: var(--input-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.searchable-select-menu .form-control {
+    background: var(--input-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.searchable-select-menu .form-control:focus {
+    background: var(--input-bg);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: none;
+}
+
+.searchable-select-option {
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    text-align: left;
+    width: 100%;
+    padding: 0.5rem 1rem;
+}
+
+.searchable-select-option:hover,
+.searchable-select-option.highlighted {
+    background: var(--secondary-bg);
+    color: var(--text-color);
+}
+
+.searchable-select-option.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.searchable-select-option:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.searchable-select-option small {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+/* Header styling for grouped options */
+.searchable-select-header {
+    padding: 0.5rem 1rem 0.25rem 1rem;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.searchable-select-header:first-child {
+    margin-top: 0;
+    border-top: none;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .searchable-select-toggle {
+    background: var(--input-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .searchable-select-menu {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .searchable-select-header {
+    border-top-color: var(--border-color);
+}
+
+/* Deleted post styles */
+.deleted-post-message {
+    background-color: var(--light-color);
+    border-color: var(--danger-color) !important;
+}
+
+.deleted-post-indicator {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-color: var(--danger-color) !important;
+    color: var(--danger-color);
+}
+
+.deleted-post-indicator i {
+    color: var(--danger-color);
+}
+
+
+
+/* Feed-specific deleted post styling */
+.post-card .deleted-post-message {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.post-card .deleted-post-message:hover {
+    background-color: rgba(220, 53, 69, 0.15);
+    border-color: var(--danger-color) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-card .deleted-post-indicator {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.post-card .deleted-post-indicator:hover {
+    background-color: rgba(220, 53, 69, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Post detail view deleted indicator */
+.post-detail-content .deleted-post-indicator {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.post-detail-content .deleted-post-indicator:hover {
+    background-color: rgba(220, 53, 69, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Styling for deleted posts in feeds */
+.post-card[data-deleted="true"] .post-actions button {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.post-card[data-deleted="true"] .post-title-link {
+    color: var(--muted-text) !important;
+    text-decoration: line-through;
+    cursor: pointer;
+}
+
+.post-card[data-deleted="true"] .post-title-link:hover {
+    color: var(--text-color) !important;
+    text-decoration: line-through;
+}
+
+/* Dark theme adjustments for deleted posts */
+[data-theme="dark"] .deleted-post-message {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+[data-theme="dark"] .deleted-post-indicator {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Mobile Voyager Suggestion Styling */
+.navbar-collapse .alert {
+    margin-bottom: 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    border: none;
+}
+
+.navbar-collapse .alert-light {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
+    color: var(--text-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme adjustments for better contrast */
+[data-theme="dark"] .navbar-collapse .alert-light {
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.95) 0%, rgba(33, 37, 41, 0.95) 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e9ecef;
+}
+
+/* Ensure dark theme text colors are properly applied */
+[data-theme="dark"] .navbar-collapse .alert .fw-bold {
+    color: #e9ecef !important;
+}
+
+[data-theme="dark"] .navbar-collapse .alert .text-muted {
+    color: #adb5bd !important;
+}
+
+.navbar-collapse .alert .btn-primary {
+    border-width: 1.5px;
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8rem;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.navbar-collapse .alert .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(13, 110, 253, 0.3);
+    background-color: #0b5ed7;
+    border-color: #0b5ed7;
+}
+
+/* Ensure proper spacing in mobile navbar */
+@media (max-width: 991.98px) {
+    #voyager-suggestion {
+        display: none;
+    }
+    
+    .navbar-collapse.show #voyager-suggestion {
+        display: block;
+    }
+    
+    .navbar-collapse .alert {
+        margin: 0.75rem 0;
+        padding: 1rem;
+    }
+    
+    .navbar-collapse .alert .fw-bold {
+        font-size: 0.95rem;
+    }
+    
+    .navbar-collapse .alert .text-muted {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+    
+    /* Mobile navbar button styling - make all buttons consistent */
+    .navbar-collapse .navbar-nav .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        margin-bottom: 0.5rem !important;
+        text-align: center !important;
+    }
+    
+    /* User dropdown button specific styling - match other buttons exactly */
+    .navbar-collapse .user-dropdown-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 0.75rem 1rem !important;
+        border-radius: 8px !important;
+        margin-bottom: 0.5rem !important;
+        text-align: center !important;
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+        min-width: auto !important;
+    }
+    
+    /* Center the user info content */
+    .navbar-collapse .user-dropdown-btn .user-info {
+        flex: 1 !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        margin: 0 !important;
+    }
+    
+    /* Position the dropdown chevron on the right */
+    .navbar-collapse .user-dropdown-btn .dropdown-chevron {
+        position: absolute !important;
+        right: 1rem !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    }
+    
+    /* Ensure the user menu container takes full width */
+    .navbar-collapse .nav-item.dropdown {
+        width: 100% !important;
+        margin-left: 0 !important; /* Override the ms-2 class margin */
+    }
+    
+    /* Override Bootstrap's ms-2 class specifically for mobile */
+    .navbar-collapse .ms-2 {
+        margin-left: 0 !important;
+    }
+    
+    /* Center the avatar and user info properly */
+    .navbar-collapse .user-dropdown-btn .bi-person-circle,
+    .navbar-collapse .user-dropdown-btn #user-avatar {
+        margin-right: 0.5rem !important;
+    }
+    
+    /* Override text constraints for better centering */
+    .navbar-collapse .user-dropdown-btn .user-name-text {
+        max-width: none !important;
+        white-space: normal !important;
+        text-align: center !important;
+    }
+    
+    .navbar-collapse .user-dropdown-btn .user-status-text {
+        text-align: center !important;
+    }
+}
+
+/* Mobile search bar adjustments */
+.navbar-collapse .search-form {
+    margin-bottom: 1rem !important; /* Add space between search and create button */
+    width: 100% !important; /* Full width to match other buttons */
+    margin-right: 0 !important; /* Override the me-3 class right margin */
+}
+
+.navbar-collapse .search-form .input-group {
+    width: 100% !important; /* Ensure input group takes full width */
+    min-width: auto !important; /* Override the min-width: 300px from desktop */
+}
+
+.navbar-collapse .search-form .form-control {
+    border-radius: 8px !important; /* Match button border radius */
+}
+
+.navbar-collapse .search-form .btn {
+    border-radius: 0 8px 8px 0 !important; /* Right side rounded to match input */
+}
+
+/* Override Bootstrap's me-3 class specifically for mobile search */
+.navbar-collapse .me-3 {
+    margin-right: 0 !important;
+}
+
+/* Desktop search bar spacing */
+@media (min-width: 992px) {
+    #search-form {
+        margin-right: 1rem !important; /* Add right margin for desktop spacing */
+    }
+}
+
+/* Comment Form Styling */
+.comment-form-section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Comment form when part of comments section */
+.comments-section .comment-form-section {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    margin-top: 0.5rem;
+}
+
+.comment-form-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.comment-form-header h6 {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.comment-form-container {
+    padding-top: 1rem;
+}
+
+.comment-form textarea {
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+}
+
+.comment-form textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.comment-form-actions {
+    flex-wrap: wrap;
+}
+
+.comment-form-actions .btn {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+}
+
+.comment-preview {
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+}
+
+.comment-preview .card-header {
+    background-color: var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.comment-preview .card-body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Add Comment button styling */
+[data-action="show-comment-form"] {
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+}
+
+[data-action="show-comment-form"]:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Comment form close button */
+[data-action="close-comment-form"] {
+    transition: all 0.2s ease;
+}
+
+[data-action="close-comment-form"]:hover {
+    background-color: var(--light-color);
+    border-color: var(--border-color);
+}
+
+/* Comment form submit button states */
+[data-action="submit-comment"]:disabled {
+    opacity: 0.6;
+}
+
+/* Reply Form Styling */
+.reply-form {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.reply-form:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reply-form-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.reply-form-header small {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.reply-textarea {
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.reply-textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.reply-form-actions .btn {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.reply-preview {
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+}
+
+.reply-preview .card-header {
+    background-color: var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.5rem 0.75rem;
+}
+
+.reply-preview .card-body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 0.5rem 0.75rem;
+}
+
+/* Reply form close button */
+[data-action="close-reply-form"] {
+    transition: all 0.2s ease;
+}
+
+[data-action="close-reply-form"]:hover {
+    background-color: var(--light-color);
+    border-color: var(--border-color);
+}
+
+/* Reply form submit button states */
+[data-action="submit-reply"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Dark theme overrides for reply forms - using more specific selectors */
+[data-theme="dark"] .reply-form,
+[data-theme="dark"] .comment .reply-form {
+    background-color: #2d2d2d !important;
+    border-color: #495057 !important;
+    color: #e9ecef !important;
+}
+
+[data-theme="dark"] .reply-form:hover,
+[data-theme="dark"] .comment .reply-form:hover {
+    border-color: #0d6efd !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .reply-form-header,
+[data-theme="dark"] .comment .reply-form-header {
+    border-bottom-color: #495057 !important;
+}
+
+[data-theme="dark"] .reply-form-header small,
+[data-theme="dark"] .comment .reply-form-header small {
+    color: #e9ecef !important;
+}
+
+[data-theme="dark"] .reply-textarea,
+[data-theme="dark"] .comment .reply-textarea {
+    background-color: #2d2d2d !important;
+    border-color: #495057 !important;
+    color: #e9ecef !important;
+}
+
+[data-theme="dark"] .reply-textarea:focus,
+[data-theme="dark"] .comment .reply-textarea:focus {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+    background-color: #2d2d2d !important;
+}
+
+[data-theme="dark"] .reply-textarea::placeholder,
+[data-theme="dark"] .comment .reply-textarea::placeholder {
+    color: #adb5bd !important;
+}
+
+[data-theme="dark"] .reply-preview,
+[data-theme="dark"] .comment .reply-preview {
+    background-color: #2d2d2d !important;
+    border-color: #495057 !important;
+}
+
+[data-theme="dark"] .reply-preview .card-header,
+[data-theme="dark"] .comment .reply-preview .card-header {
+    background-color: #495057 !important;
+    border-bottom-color: #495057 !important;
+    color: #e9ecef !important;
+}
+
+[data-theme="dark"] .reply-preview .card-body,
+[data-theme="dark"] .comment .reply-preview .card-body {
+    background-color: #1a1a1a !important;
+    color: #e9ecef !important;
+}
+
+/* Dark theme button overrides for reply forms */
+[data-theme="dark"] .reply-form .btn-outline-secondary,
+[data-theme="dark"] .comment .reply-form .btn-outline-secondary {
+    border-color: #495057 !important;
+    color: #e9ecef !important;
+}
+
+[data-theme="dark"] .reply-form .btn-outline-secondary:hover,
+[data-theme="dark"] .comment .reply-form .btn-outline-secondary:hover {
+    background-color: #495057 !important;
+    border-color: #495057 !important;
+    color: #2d2d2d !important;
+}
+
+[data-theme="dark"] .reply-form .btn-primary,
+[data-theme="dark"] .comment .reply-form .btn-primary {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
+
+[data-theme="dark"] .reply-form .btn-primary:hover,
+[data-theme="dark"] .comment .reply-form .btn-primary:hover {
+    background-color: #0b5ed7 !important;
+    border-color: #0a58ca !important;
+}
+
+[data-theme="dark"] .reply-form .btn-close,
+[data-theme="dark"] .comment .reply-form .btn-close {
+    filter: invert(1) !important;
+}
+
+/* Dark theme focus and transition improvements */
+[data-theme="dark"] .reply-form,
+[data-theme="dark"] .comment .reply-form {
+    transition: all 0.3s ease !important;
+}
+
+[data-theme="dark"] .reply-form:focus-within,
+[data-theme="dark"] .comment .reply-form:focus-within {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+}
+
+[data-theme="dark"] .reply-textarea:focus,
+[data-theme="dark"] .comment .reply-textarea:focus {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+    background-color: #2d2d2d !important;
+}
+
+/* Comments section header styling */
+.comments-section .d-flex.justify-content-between {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+/* Deleted Comment Styling */
+.deleted-comment-indicator {
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+    opacity: 0.8;
+    font-style: italic;
+    color: var(--text-color) !important;
+}
+
+.deleted-comment-indicator .text-muted {
+    color: var(--muted-text) !important;
+}
+
+/* Comment Options Dropdown Styling */
+.comment-options-dropdown .dropdown-toggle {
+    padding: 0.25rem 0.5rem;
+    border: none;
+    background: transparent;
+}
+
+.comment-options-dropdown .dropdown-toggle:hover {
+    background-color: var(--light-color);
+    border-radius: 4px;
+}
+
+.comment-options-dropdown .dropdown-menu {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.comment-options-dropdown .dropdown-item {
+    color: var(--text-color);
+}
+
+.comment-options-dropdown .dropdown-item:hover {
+    background-color: var(--light-color);
+}
+
+.comment-options-dropdown .dropdown-item.text-warning {
+    color: var(--warning-color) !important;
+}
+
+.comment-options-dropdown .dropdown-item.text-danger {
+    color: var(--danger-color) !important;
+}
+
+.comment-options-dropdown .dropdown-item.text-danger:hover {
+    background-color: var(--danger-color) !important;
+    color: white !important;
+}
+
+.comment-options-dropdown .dropdown-item.text-warning:hover {
+    background-color: var(--warning-color) !important;
+    color: white !important;
+}
+
+.deleted-comment-indicator .bi-trash {
+    color: var(--danger-color);
+}
+
+/* Comment form responsive adjustments */
+@media (max-width: 768px) {
+    .comment-form-section {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .comment-form-actions {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+    
+    .comment-form-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .comment-form .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .comment-form .btn-primary {
+        width: 100%;
+    }
+    
+    /* Reply form responsive adjustments */
+    .reply-form {
+        padding: 0.75rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .reply-form-actions {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+    
+    .reply-form-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .reply-form .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .reply-form .btn-primary {
+        width: 100%;
+    }
+    
+    /* Mobile adjustments for comments header */
+    .comments-section .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start !important;
+    }
+    
+    .comments-section .d-flex.align-items-center.gap-3 {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* Live Preview Styles */
+.live-preview-content {
+    min-height: 300px;
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    background-color: var(--card-bg);
+    transition: all 0.3s ease;
+}
+
+.live-preview-content:empty::before {
+    content: "Start typing to see preview...";
+    color: var(--muted-text);
+    font-style: italic;
+}
+
+/* Live preview content styling */
+.live-preview-content h1,
+.live-preview-content h2,
+.live-preview-content h3,
+.live-preview-content h4,
+.live-preview-content h5,
+.live-preview-content h6 {
+    color: var(--text-color);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.live-preview-content h1:first-child,
+.live-preview-content h2:first-child,
+.live-preview-content h3:first-child,
+.live-preview-content h4:first-child,
+.live-preview-content h5:first-child,
+.live-preview-content h6:first-child {
+    margin-top: 0;
+}
+
+.live-preview-content p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.live-preview-content ul,
+.live-preview-content ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.live-preview-content li {
+    margin-bottom: 0.25rem;
+}
+
+.live-preview-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: var(--muted-text);
+}
+
+.live-preview-content code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+}
+
+.live-preview-content pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.live-preview-content pre code {
+    background: none;
+    padding: 0;
+}
+
+.live-preview-content a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.live-preview-content a:hover {
+    text-decoration: underline;
+}
+
+.live-preview-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 0.5rem 0;
+}
+
+/* Live preview tables now use the comprehensive table styling above */
+
+/* Responsive adjustments for live preview */
+@media (max-width: 991.98px) {
+    .live-preview-content {
+        min-height: 200px;
+        max-height: 400px;
+    }
+}
+
+/* Smooth transitions for preview updates */
+.live-preview-content * {
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* ===== COMPREHENSIVE TABLE STYLING FOR ALL CONTENT AREAS ===== */
+
+/* Base table styles for all markdown content */
+.post-body table,
+.comment-content table,
+.instance-sidebar table,
+.community-sidebar table,
+.user-sidebar table,
+.tagline-content table,
+.post-content table,
+.live-preview-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Table header styling */
+.post-body th,
+.comment-content th,
+.instance-sidebar th,
+.community-sidebar th,
+.user-sidebar th,
+.tagline-content th,
+.post-content th,
+.live-preview-content th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem;
+    text-align: left;
+    border: none;
+    position: relative;
+}
+
+/* Table cell styling */
+.post-body td,
+.comment-content td,
+.instance-sidebar td,
+.user-sidebar td,
+.tagline-content td,
+.post-content td,
+.live-preview-content td {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    vertical-align: top;
+}
+
+/* Table row hover effects */
+.post-body tr:hover td,
+.comment-content tr:hover td,
+.instance-sidebar tr:hover td,
+.community-sidebar tr:hover td,
+.user-sidebar tr:hover td,
+.tagline-content tr:hover td,
+.post-content tr:hover td,
+.live-preview-content tr:hover td {
+    background-color: var(--bg-color);
+    transition: background-color 0.2s ease;
+}
+
+/* Zebra striping for better readability */
+.post-body tr:nth-child(even) td,
+.comment-content tr:nth-child(even) td,
+.instance-sidebar tr:nth-child(even) td,
+.community-sidebar tr:nth-child(even) td,
+.user-sidebar tr:nth-child(even) td,
+.tagline-content tr:nth-child(even) td,
+.post-content tr:nth-child(even) td,
+.live-preview-content tr:nth-child(even) td {
+    background-color: var(--secondary-bg);
+}
+
+/* Dark theme specific table adjustments */
+[data-theme="dark"] .post-body table,
+[data-theme="dark"] .comment-content table,
+[data-theme="dark"] .instance-sidebar table,
+[data-theme="dark"] .community-sidebar table,
+[data-theme="dark"] .user-sidebar table,
+[data-theme="dark"] .tagline-content table,
+[data-theme="dark"] .post-content table,
+[data-theme="dark"] .live-preview-content table {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .post-body th,
+[data-theme="dark"] .comment-content th,
+[data-theme="dark"] .instance-sidebar th,
+[data-theme="dark"] .community-sidebar th,
+[data-theme="dark"] .user-sidebar th,
+[data-theme="dark"] .tagline-content th,
+[data-theme="dark"] .post-content th,
+[data-theme="dark"] .live-preview-content th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .post-body td,
+[data-theme="dark"] .comment-content td,
+[data-theme="dark"] .instance-sidebar td,
+[data-theme="dark"] .community-sidebar td,
+[data-theme="dark"] .user-sidebar td,
+[data-theme="dark"] .tagline-content td,
+[data-theme="dark"] .post-content td,
+[data-theme="dark"] .live-preview-content td {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .post-body tr:nth-child(even) td,
+[data-theme="dark"] .comment-content tr:nth-child(even) td,
+[data-theme="dark"] .instance-sidebar tr:nth-child(even) td,
+[data-theme="dark"] .community-sidebar tr:nth-child(even) td,
+[data-theme="dark"] .user-sidebar tr:nth-child(even) td,
+[data-theme="dark"] .tagline-content tr:nth-child(even) td,
+[data-theme="dark"] .post-content tr:nth-child(even) td,
+[data-theme="dark"] .live-preview-content tr:nth-child(even) td {
+    background-color: var(--secondary-bg);
+}
+
+[data-theme="dark"] .post-body tr:hover td,
+[data-theme="dark"] .comment-content tr:hover td,
+[data-theme="dark"] .instance-sidebar tr:hover td,
+[data-theme="dark"] .community-sidebar tr:hover td,
+[data-theme="dark"] .user-sidebar tr:hover td,
+[data-theme="dark"] .tagline-content tr:hover td,
+[data-theme="dark"] .post-content tr:hover td,
+[data-theme="dark"] .live-preview-content tr:hover td {
+    background-color: var(--bg-color);
+}
+
+/* Responsive table handling */
+@media (max-width: 768px) {
+    .post-body table,
+    .comment-content table,
+    .instance-sidebar table,
+    .community-sidebar table,
+    .user-sidebar table,
+    .tagline-content table,
+    .post-content table,
+    .live-preview-content table {
+        font-size: 0.875rem;
+    }
+    
+    .post-body th,
+    .comment-content th,
+    .instance-sidebar th,
+    .community-sidebar th,
+    .user-sidebar th,
+    .tagline-content th,
+    .post-content th,
+    .live-preview-content th,
+    .post-body td,
+    .comment-content td,
+    .instance-sidebar td,
+    .community-sidebar td,
+    .user-sidebar td,
+    .tagline-content td,
+    .post-content td,
+    .live-preview-content td {
+        padding: 0.5rem;
+    }
+}
+
+/* Responsive search bar sizing */
+#search-input-group {
+    width: 250px; /* Default width for desktop */
+}
+
+/* Medium screens - reduce width slightly */
+@media (max-width: 1200px) and (min-width: 992px) {
+    #search-input-group {
+        width: 230px;
+    }
+}
+
+/* Small screens - allow flexible width */
+@media (max-width: 991px) {
+    #search-input-group {
+        width: auto;
+        min-width: 200px;
+        max-width: 300px;
+    }
+}
+
+/* Mobile screens - full width with constraints */
+@media (max-width: 576px) {
+    #search-input-group {
+        width: 100%;
+        min-width: 150px;
+        max-width: none;
+    }
+}
+

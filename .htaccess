@@ -1,0 +1,69 @@
+RewriteEngine On
+
+# Handle communities page: /communities -> /communities.html
+RewriteRule ^communities/?$ communities.html [L,QSA]
+
+# Handle post URLs: /post/123 -> /post.html?id=123
+RewriteRule ^post/([0-9]+)/?$ post.html?id=$1 [L,QSA]
+
+# Optional: Redirect /post.html?id=123 to clean URL /post/123
+RewriteCond %{THE_REQUEST} \s/+post\.html\?id=([0-9]+) [NC]
+RewriteRule ^ /post/%1? [R=301,L]
+
+# Handle user URLs: /u/username -> /user.html?username=username
+# This handles both local users (username) and remote users (username@instance.com)
+RewriteRule ^u/([^/?]+)/?$ user.html?username=$1 [L,QSA]
+
+# Optional: Redirect /user.html?username=username to clean URL /u/username
+RewriteCond %{THE_REQUEST} \s/+user\.html\?username=([^&\s]+) [NC]
+RewriteRule ^ /u/%1? [R=301,L]
+
+# Handle community URLs: /c/community_name -> /community.html?name=community_name
+RewriteRule ^c/([^/?]+)/?$ community.html?name=$1 [L,QSA]
+
+# Optional: Redirect /community.html?name=community_name to clean URL /c/community_name
+RewriteCond %{THE_REQUEST} \s/+community\.html\?name=([^&\s]+) [NC]
+RewriteRule ^ /c/%1? [R=301,L]
+
+# Handle search URLs: /search -> /search.html
+RewriteRule ^search/?$ search.html [L,QSA]
+
+# Handle create post URLs: /create-post -> /create_post.html
+RewriteRule ^create-post/?$ create_post.html [L,QSA]
+
+# Handle create community URLs: /create-community -> /create-community.html
+RewriteRule ^create-community/?$ create-community.html [L,QSA]
+
+# Handle inbox URLs: /inbox -> /inbox.html
+RewriteRule ^inbox/?$ inbox.html [L,QSA]
+
+# Handle settings URLs: /settings -> /settings.html
+RewriteRule ^settings/?$ settings.html [L,QSA]
+
+# Ensure index.html is served for root
+DirectoryIndex index.html
+
+# Enable compression for better performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule> 

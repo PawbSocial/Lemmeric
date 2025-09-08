@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemmeric - Post</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/Lemmeric Logo - No BG.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet">
+    <link href="/assets/css/themes.css" rel="stylesheet">
+</head>
+<body class="post-page">
+    <!-- Navigation will be loaded by navbar component -->
+
+    <!-- Main Content -->
+    <main class="container-fluid mt-3" id="main-content">
+        <div class="row">
+            <!-- Post Content Area -->
+            <section class="col-12 col-lg-9" id="post-content-area">
+                <div id="post-container">
+                    <div class="d-flex justify-content-center p-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading post...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Community Sidebar -->
+            <aside class="col-lg-3 d-none d-lg-block" id="community-sidebar-area">
+                <div id="community-sidebar-container">
+                    <!-- Community sidebar content will be inserted here -->
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Modal for Adding Custom Instance -->
+    <div class="modal fade" id="addInstanceModal" tabindex="-1" aria-labelledby="addInstanceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addInstanceModalLabel">Add Custom Instance</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addInstanceForm">
+                        <div class="mb-3">
+                            <label for="instanceUrl" class="form-label">Instance URL</label>
+                            <input type="url" class="form-control" id="instanceUrl" placeholder="https://example.lemmy.instance" required>
+                            <div class="form-text">Enter the full URL of the Lemmy instance (e.g., https://lemmy.example.com)</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="instanceName" class="form-label">Display Name (Optional)</label>
+                            <input type="text" class="form-control" id="instanceName" placeholder="My Instance">
+                            <div class="form-text">A friendly name for this instance. If left empty, the domain will be used.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="instanceDescription" class="form-label">Description (Optional)</label>
+                            <textarea class="form-control" id="instanceDescription" rows="2" placeholder="A brief description of this instance"></textarea>
+                        </div>
+                        <div id="instanceValidationMessage" class="alert" style="display: none;"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="testInstanceBtn">Test Connection</button>
+                    <button type="button" class="btn btn-success" id="addInstanceSubmitBtn" disabled>Add Instance</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Post -->
+    <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="editPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPostModalLabel">
+                        <i class="bi bi-pencil me-2"></i>Edit Post
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPostForm">
+                        <!-- Post Title -->
+                        <div class="mb-3">
+                            <label for="edit-post-title" class="form-label">
+                                <i class="bi bi-type me-1"></i>Title *
+                            </label>
+                            <input type="text" class="form-control" id="edit-post-title" 
+                                   placeholder="Enter a descriptive title for your post" 
+                                   maxlength="200" required>
+                            <div class="form-text">
+                                <span id="edit-title-count">0</span>/200 characters
+                            </div>
+                            <div class="invalid-feedback">
+                                Please provide a title for your post.
+                            </div>
+                        </div>
+
+                        <!-- URL Field -->
+                        <div class="mb-3">
+                            <label for="edit-post-url" class="form-label">
+                                <i class="bi bi-link-45deg me-1"></i>URL (Optional)
+                            </label>
+                            <input type="url" class="form-control" id="edit-post-url" 
+                                   placeholder="https://example.com">
+                            <div class="form-text">Link URL for your post</div>
+                        </div>
+
+                        <!-- NSFW Checkbox -->
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="edit-post-nsfw">
+                                <label class="form-check-label" for="edit-post-nsfw">
+                                    <i class="bi bi-exclamation-triangle text-warning me-1"></i>
+                                    Mark as NSFW (Not Safe For Work)
+                                </label>
+                            </div>
+                            <div class="form-text">
+                                Check this if your post contains mature or sensitive content
+                            </div>
+                        </div>
+
+                        <!-- Post Body -->
+                        <div class="mb-3">
+                            <label for="edit-post-body" class="form-label">
+                                <i class="bi bi-card-text me-1"></i>Body Text (Optional)
+                            </label>
+                            <textarea class="form-control" id="edit-post-body" rows="8" 
+                                      placeholder="Write the content of your post here. Markdown formatting is supported."></textarea>
+                            <div class="form-text">
+                                You can use Markdown formatting. 
+                                <a href="/markdown-help" target="_blank" class="text-decoration-none">
+                                    <i class="bi bi-question-circle"></i> Formatting help
+                                </a>
+                            </div>
+                            <div class="form-text mt-1">
+                                <span id="edit-body-count">0</span> characters
+                            </div>
+                        </div>
+
+                        <!-- Language Selection -->
+                        <div class="mb-3">
+                            <label for="edit-post-language" class="form-label">
+                                <i class="bi bi-translate me-1"></i>Language
+                            </label>
+                            <select class="form-select" id="edit-post-language">
+                                <option value="">Loading languages...</option>
+                            </select>
+                            <div class="form-text">
+                                Select the primary language of your post content
+                            </div>
+                        </div>
+
+                        <!-- Preview Section -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label class="form-label">
+                                    <i class="bi bi-eye me-1"></i>Preview
+                                </label>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id="edit-preview-toggle">
+                                    <i class="bi bi-eye me-1"></i>Show Preview
+                                </button>
+                            </div>
+                            <div id="edit-preview-content" class="border rounded p-3 bg-light" style="display: none;">
+                                <!-- Preview content will be generated here -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-secondary" id="edit-preview-btn">
+                        <i class="bi bi-eye me-1"></i>Preview
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="edit-post-submit" form="editPostForm">
+                        <i class="bi bi-check-circle me-1"></i>Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Comment -->
+    <div class="modal fade" id="editCommentModal" tabindex="-1" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCommentModalLabel">
+                        <i class="bi bi-pencil me-2"></i>Edit Comment
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCommentForm">
+                        <!-- Comment Content -->
+                        <div class="mb-3">
+                            <label for="edit-comment-content" class="form-label">
+                                <i class="bi bi-chat-text me-1"></i>Comment Content *
+                            </label>
+                            <textarea class="form-control" id="edit-comment-content" rows="8" 
+                                      placeholder="Write your comment here. Markdown formatting is supported." required></textarea>
+                            <div class="form-text">
+                                You can use Markdown formatting. 
+                                <a href="/markdown-help" target="_blank" class="text-decoration-none">
+                                    <i class="bi bi-question-circle"></i> Formatting help
+                                </a>
+                            </div>
+                            <div class="form-text mt-1">
+                                <span id="edit-comment-count">0</span> characters
+                            </div>
+                        </div>
+
+                        <!-- Language Selection -->
+                        <div class="mb-3">
+                            <label for="edit-comment-language" class="form-label">
+                                <i class="bi bi-translate me-1"></i>Language
+                            </label>
+                            <select class="form-select" id="edit-comment-language">
+                                <option value="">Loading languages...</option>
+                            </select>
+                            <div class="form-text">
+                                Select the primary language of your comment content
+                            </div>
+                        </div>
+
+                        <!-- Preview Section -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label class="form-label">
+                                    <i class="bi bi-eye me-1"></i>Preview
+                                </label>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id="edit-comment-preview-toggle">
+                                    <i class="bi bi-eye me-1"></i>Show Preview
+                                </button>
+                            </div>
+                            <div id="edit-comment-preview-content" class="border rounded p-3 bg-light" style="display: none;">
+                                <!-- Preview content will be generated here -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-secondary" id="edit-comment-preview-btn">
+                        <i class="bi bi-eye me-1"></i>Preview
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="edit-comment-submit" form="editCommentForm">
+                        <i class="bi bi-check-circle me-1"></i>Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Markdown-it Core Library (must be loaded first) -->
+    <script src="/js/markdown-it.js"></script>
+    
+    <!-- Markdown-it Plugins -->
+    <script src="/js/markdown-it-plugins/markdown-it-sub.min.js"></script>
+    <script src="/js/markdown-it-plugins/markdown-it-sup.min.js"></script>
+    <script src="/js/markdown-it-plugins/markdown-it-footnote.min.js"></script>
+    <script src="/js/markdown-it-plugins/markdown-it-container.min.js"></script>
+    <script src="/js/markdown-it-plugins/markdown-it-html5-embed.min.js"></script>
+    
+    <!-- Our JavaScript modules -->
+    <script type="module" src="/js/config.js"></script>
+    <script type="module" src="/js/api.js"></script>
+    <script type="module" src="/js/utils.js"></script>
+    <script type="module" src="/js/components/navbar.js"></script>
+    <script type="module" src="/js/components/post-detail.js"></script>
+    <script type="module" src="/js/components/community-sidebar.js"></script>
+    <script type="module" src="/js/router.js"></script>
+    <script type="module" src="/js/post-page.js"></script>
+</body>
+</html> 
