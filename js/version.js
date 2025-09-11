@@ -16,11 +16,10 @@
 export const LEMMERIC_VERSION = '0.1.0';
 
 // Build date (automatically updated during deployment)
-export const BUILD_DATE = '2025-09-01';
+export const BUILD_DATE = '2025-09-010';
 
 // Repository URL (update this when you set up your GitHub repo)
-// Example: 'https://github.com/yourusername/lemmeric-lemmy-ui'
-export const REPOSITORY_URL = 'https://github.com/yourusername/lemmeric-lemmy-ui';
+export const REPOSITORY_URL = 'https://github.com/JoshuaKimsey/Lemmeric';
 
 // Version info object for easy access
 export const VERSION_INFO = {
