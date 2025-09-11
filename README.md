@@ -381,6 +381,7 @@ This project is licensed under the **BSD 3-Clause License**. See the [LICENSE](L
 ## Acknowledgments
 
 - Thank you to the Pawb.Social admin team for helping to provide feedback during the development of this new front-end for Lemmy.🐾
+- To [Cursor](https://cursor.com/en) for making such an incredible application, because this project would not have been created without it.
 
 ## Support
 
