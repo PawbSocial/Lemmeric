@@ -1,17 +1,38 @@
 /**
  * Post component for Lemmeric
- * Handles rendering and interactions for individual posts
+ * 
+ * This module provides components for rendering and managing individual posts.
+ * It handles post display, interactions, voting, and various post types including
+ * text posts, image posts, and link posts with proper formatting and styling.
+ * 
+ * @fileoverview Post rendering and interaction components
  */
 
+// Core utilities and API
 import { DOM, TextUtils, URLUtils, AnimationUtils, PerformanceUtils } from '../utils.js';
 import { APIUtils } from '../api.js';
 
+/**
+ * Post component class
+ * 
+ * Manages individual post rendering and interactions
+ */
 export class PostComponent {
+    /**
+     * Initialize the post component
+     * @param {Object} postData - Raw post data from API
+     * @param {HTMLElement} container - Container element for the post
+     */
     constructor(postData, container) {
+        // Core component data
         this.post = APIUtils.formatPost(postData);
         this.container = container;
         this.element = null;
     }
+
+    // ========================================
+    // RENDERING METHODS
+    // ========================================
 
     /**
      * Render the post component
@@ -372,6 +393,10 @@ export class PostComponent {
         // Default to author deletion (most common case)
         return 'Post deleted by author';
     }
+
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
 
     /**
      * Get the current thumbnail display mode
@@ -734,6 +759,10 @@ export class PostComponent {
 
         return metaInfo;
     }
+
+    // ========================================
+    // EVENT HANDLING METHODS
+    // ========================================
 
     /**
      * Attach event listeners to the post element

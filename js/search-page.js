@@ -1,15 +1,32 @@
 /**
  * Search Page Component
- * Handles search functionality and results display
+ * 
+ * This module handles the search page functionality including:
+ * - Search query processing and execution
+ * - Search results display and filtering
+ * - Search history and suggestions
+ * - Advanced search options and filters
+ * 
+ * @fileoverview Search page controller and functionality
  */
 
+// Core configuration and utilities
 import { LemmyAPI } from './api.js';
 import { getCurrentInstance } from './config.js';
 import { DOM } from './utils.js';
 import { router } from './router.js';
 
+/**
+ * Search page application class
+ * 
+ * Manages search functionality and results display
+ */
 class SearchPage {
+    /**
+     * Initialize the search page application
+     */
     constructor() {
+        // Core application state
         this.api = null;
         this.currentPage = 1;
         this.currentSearchParams = null;
@@ -17,12 +34,20 @@ class SearchPage {
         this.isLoading = false;
         this.hasMoreResults = false;
         
+        // Cache DOM elements for performance
         this.elements = {};
+        
+        // Initialize the application
         this.init();
     }
 
+    // ========================================
+    // INITIALIZATION METHODS
+    // ========================================
+
     /**
      * Initialize the search page
+     * @async
      */
     async init() {
         try {
@@ -66,8 +91,12 @@ class SearchPage {
         };
     }
 
+    // ========================================
+    // EVENT HANDLING METHODS
+    // ========================================
+
     /**
-     * Setup event listeners
+     * Setup event listeners for the search page
      */
     setupEventListeners() {
         // Search form submission
@@ -138,8 +167,13 @@ class SearchPage {
         }
     }
 
+    // ========================================
+    // SEARCH METHODS
+    // ========================================
+
     /**
      * Perform search with current parameters
+     * @async
      */
     async performSearch() {
         const query = this.elements.searchQuery.value.trim();
@@ -256,6 +290,10 @@ class SearchPage {
         this.renderSearchResults();
         this.updateLoadMoreButton();
     }
+
+    // ========================================
+    // UI RENDERING METHODS
+    // ========================================
 
     /**
      * Render search results
@@ -594,8 +632,13 @@ class SearchPage {
         if (this.elements.searchNoResults) this.elements.searchNoResults.style.display = 'block';
     }
 
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
+
     /**
      * Show error state
+     * @param {string} message - Error message to display
      */
     showError(message) {
         this.hideAllStates();
@@ -656,7 +699,13 @@ class SearchPage {
     }
 }
 
-// Initialize search page when DOM is loaded
+// ========================================
+// APPLICATION INITIALIZATION
+// ========================================
+
+/**
+ * Initialize the search page application when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
     window.lemmericSearchPage = new SearchPage();
 });

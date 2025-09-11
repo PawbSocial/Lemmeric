@@ -1,6 +1,10 @@
 /**
  * Configuration file for Lemmeric
- * Contains API endpoints, default settings, and instance configurations
+ * 
+ * This file contains all configuration settings, API endpoints, and instance
+ * configurations for the Lemmeric application.
+ * 
+ * @fileoverview Central configuration management for Lemmeric
  * 
  * INSTANCE DEPLOYMENT INSTRUCTIONS:
  * 
@@ -22,7 +26,15 @@
  * - Supports custom instance additions
  */
 
+// ========================================
+// MAIN CONFIGURATION OBJECT
+// ========================================
+
 export const CONFIG = {
+    // ========================================
+    // INSTANCE DEPLOYMENT SETTINGS
+    // ========================================
+    
     // Instance deployment mode
     // Set to true to enable single-instance mode for instance owners
     // This will remove instance selector, use instance branding, and lock to default instance
@@ -32,11 +44,19 @@ export const CONFIG = {
     // This should be the full URL of your instance (e.g., 'https://your-instance.com')
     SINGLE_INSTANCE_URL: 'https://pawb.social',
     
+    // ========================================
+    // DEFAULT SETTINGS
+    // ========================================
+    
     // Default instance settings
     DEFAULT_INSTANCE: 'lemmy.world',
     DEFAULT_SORT: 'Active',
     DEFAULT_TYPE: 'Local',
     DEFAULT_PAGE_SIZE: 20,
+    
+    // ========================================
+    // INSTANCE CONFIGURATIONS
+    // ========================================
     
     // API endpoints for different instances
     INSTANCES: {
@@ -84,6 +104,10 @@ export const CONFIG = {
         }
     },
     
+    // ========================================
+    // UI CONFIGURATION
+    // ========================================
+    
     // Sort options
     SORT_OPTIONS: [
         { value: 'Active', label: 'Active', icon: 'bi-lightning-fill' },
@@ -111,6 +135,10 @@ export const CONFIG = {
         DARK: 'dark'
     },
     
+    // ========================================
+    // STORAGE CONFIGURATION
+    // ========================================
+    
     // Local storage keys
     STORAGE_KEYS: {
         THEME: 'lemmeric_theme',
@@ -122,6 +150,10 @@ export const CONFIG = {
         AUTH_TOKEN: 'lemmeric_auth_token',
         USER_DATA: 'lemmeric_user_data'
     },
+    
+    // ========================================
+    // API CONFIGURATION
+    // ========================================
     
     // API request settings
     API: {
@@ -136,6 +168,10 @@ export const CONFIG = {
         }
     },
     
+    // ========================================
+    // CONTENT CONFIGURATION
+    // ========================================
+    
     // Content settings
     CONTENT: {
         MAX_TITLE_LENGTH: 200,
@@ -145,6 +181,10 @@ export const CONFIG = {
         NSFW_BLUR: true
     },
     
+    // ========================================
+    // FEATURE CONFIGURATION
+    // ========================================
+    
     // Features toggles
     FEATURES: {
         INFINITE_SCROLL: true,
@@ -152,6 +192,10 @@ export const CONFIG = {
         KEYBOARD_SHORTCUTS: true,
         ACCESSIBILITY_MODE: false
     },
+    
+    // ========================================
+    // ERROR MESSAGES
+    // ========================================
     
     // Error messages
     ERRORS: {
@@ -161,6 +205,10 @@ export const CONFIG = {
         RATE_LIMITED: 'Too many requests. Please wait a moment.',
         UNKNOWN: 'An unknown error occurred.'
     },
+    
+    // ========================================
+    // URL PATTERNS AND SHORTCUTS
+    // ========================================
     
     // URL patterns
     URL_PATTERNS: {
@@ -187,6 +235,10 @@ export const CONFIG = {
 ////////////////////////////////////////////////////////////
 // DO NOT EDIT BELOW THIS LINE - EDITABLE CONFIGURATION ENDS HERE
 ////////////////////////////////////////////////////////////
+
+// ========================================
+// INSTANCE MANAGEMENT FUNCTIONS
+// ========================================
 
 /**
  * Get the current instance configuration
@@ -232,6 +284,10 @@ export function getInstanceConfig(instanceName = null) {
 export function isSingleInstanceMode() {
     return CONFIG.SINGLE_INSTANCE_MODE === true;
 }
+
+// ========================================
+// BRANDING AND FAVICON FUNCTIONS
+// ========================================
 
 /**
  * Get instance branding information (name and icon)
@@ -317,6 +373,10 @@ export async function updateFaviconFromBranding() {
     }
 }
 
+// ========================================
+// INSTANCE STATE FUNCTIONS
+// ========================================
+
 /**
  * Get the current instance from storage or default
  * @returns {string} Instance name
@@ -348,6 +408,10 @@ export function setCurrentInstance(instanceName) {
     }
     return false;
 }
+
+// ========================================
+// THEME MANAGEMENT FUNCTIONS
+// ========================================
 
 /**
  * Get the current theme
@@ -524,6 +588,10 @@ export function setCurrentListingType(listingType) {
     return false;
 }
 
+// ========================================
+// CUSTOM INSTANCE MANAGEMENT FUNCTIONS
+// ========================================
+
 /**
  * Get custom instances from local storage
  * @returns {Object} Custom instances object
@@ -617,6 +685,10 @@ export function validateInstanceUrl(url) {
     }
 }
 
+// ========================================
+// AUTHENTICATION FUNCTIONS
+// ========================================
+
 /**
  * Get the current authentication token for an instance
  * @param {string} instanceName - Name of the instance
@@ -695,6 +767,10 @@ export function removeUserData(instanceName = null) {
 export function isAuthenticated(instanceName = null) {
     return getAuthToken(instanceName) !== null;
 }
+
+// ========================================
+// MIGRATION AND INITIALIZATION FUNCTIONS
+// ========================================
 
 // Migration function to handle old localStorage keys
 function migrateOldLocalStorageKeys() {

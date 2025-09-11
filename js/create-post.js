@@ -13,7 +13,6 @@ import { SearchableSelect } from './components/searchable-select.js';
 // Add UIUtils for toast notifications if DOM doesn't have showToast
 const UIUtils = {
     showToast: (message, type = 'info') => {
-        console.log(`Toast [${type}]: ${message}`);
         if (DOM?.showToast) {
             DOM.showToast(message, type);
         } else {
@@ -55,7 +54,6 @@ class CreatePostManager {
                 return;
             }
             
-            console.log('Create post page initialized successfully');
         } catch (error) {
             console.error('Failed to initialize create post page:', error);
             UIUtils.showToast('Failed to initialize page', 'error');
@@ -802,9 +800,7 @@ class CreatePostManager {
 
     async uploadImage(file) {
         try {
-            console.log('Uploading image for post...');
             const imageResponse = await this.api.uploadImage(file, 'post');
-            console.log('Image upload response:', imageResponse);
             return imageResponse.url;
         } catch (error) {
             console.error('Image upload failed:', error);

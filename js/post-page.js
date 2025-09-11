@@ -1,24 +1,52 @@
 /**
  * Post Page controller for Lemmeric
- * Handles the dedicated post page functionality
+ * 
+ * This module handles the dedicated post page functionality including:
+ * - Post detail display and interaction
+ * - Comment threading and display
+ * - Community sidebar integration
+ * - Post voting and interaction features
+ * 
+ * @fileoverview Post page controller and functionality
  */
 
-import { PostDetailComponent } from './components/post-detail.js';
-import { CommunitySidebarComponent } from './components/community-sidebar.js';
-import { APIUtils, LemmyAPI } from './api.js';
+// Core configuration and utilities
 import { getCurrentInstance, setCurrentInstance, getAllInstances, addCustomInstance } from './config.js';
+import { APIUtils, LemmyAPI } from './api.js';
 import { DOM } from './utils.js';
 
+// Components
+import { PostDetailComponent } from './components/post-detail.js';
+import { CommunitySidebarComponent } from './components/community-sidebar.js';
+
+/**
+ * Post page application class
+ * 
+ * Manages post detail display and interaction functionality
+ */
 class PostPage {
+    /**
+     * Initialize the post page application
+     */
     constructor() {
+        // Core application state
         this.api = null;
         this.currentPostId = null;
+        
+        // Cache DOM elements for performance
         this.elements = {};
+        
+        // Initialize the application
         this.init();
     }
 
+    // ========================================
+    // INITIALIZATION METHODS
+    // ========================================
+
     /**
      * Initialize the post page
+     * @async
      */
     async init() {
         try {
@@ -254,8 +282,12 @@ class PostPage {
         `;
     }
 
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
+
     /**
-     * Show error message
+     * Show error message to user
      * @param {string} message - Error message to display
      */
     showError(message) {
@@ -535,9 +567,16 @@ class PostPage {
     }
 }
 
-// Initialize when DOM is loaded
+// ========================================
+// APPLICATION INITIALIZATION
+// ========================================
+
+/**
+ * Initialize the post page application when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
     window.lemmericPostPage = new PostPage();
 });
 
+// Export for potential external use
 export default PostPage;

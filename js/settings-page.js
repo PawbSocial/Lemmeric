@@ -52,7 +52,6 @@ class LemmericSettingsApp {
      */
     async init() {
         try {
-            console.log('Initializing Settings Page App...');
             
             // Cache DOM elements
             this.cacheElements();

@@ -1,10 +1,19 @@
 /**
  * Utility functions for Lemmeric
- * Contains helper functions for DOM manipulation, sanitization, and common tasks
+ * 
+ * This file contains a comprehensive collection of utility functions organized
+ * into logical modules for DOM manipulation, URL handling, text processing,
+ * storage management, performance optimization, accessibility, and more.
+ * 
+ * @fileoverview Central utility functions for Lemmeric application
  */
 
+// ========================================
+// DOM MANIPULATION UTILITIES
+// ========================================
+
 /**
- * DOM utility functions
+ * DOM utility functions for creating, manipulating, and managing DOM elements
  */
 export const DOM = {
     /**
@@ -157,8 +166,12 @@ export const DOM = {
     }
 };
 
+// ========================================
+// URL AND LINK UTILITIES
+// ========================================
+
 /**
- * URL and link utility functions
+ * URL and link utility functions for parsing, validation, and manipulation
  */
 export const URLUtils = {
     /**
@@ -574,8 +587,12 @@ export const URLUtils = {
     }
 };
 
+// ========================================
+// TEXT AND CONTENT UTILITIES
+// ========================================
+
 /**
- * Text and content utility functions
+ * Text and content utility functions for processing and manipulation
  */
 export const TextUtils = {
     /**
@@ -601,8 +618,12 @@ export const TextUtils = {
     }
 };
 
+// ========================================
+// STORAGE UTILITIES
+// ========================================
+
 /**
- * Storage utility functions
+ * Storage utility functions for localStorage management
  */
 export const StorageUtils = {
     /**
@@ -658,8 +679,12 @@ export const StorageUtils = {
     }
 };
 
+// ========================================
+// PERFORMANCE UTILITIES
+// ========================================
+
 /**
- * Performance and optimization utilities
+ * Performance and optimization utilities for throttling, debouncing, and lazy loading
  */
 export const PerformanceUtils = {
     /**
@@ -714,55 +739,17 @@ export const PerformanceUtils = {
     }
 };
 
-/**
- * Accessibility utilities
- */
-export const A11yUtils = {
-    /**
-     * Set focus to an element
-     * @param {HTMLElement} element - Element to focus
-     */
-    focus(element) {
-        if (element && typeof element.focus === 'function') {
-            element.focus();
-        }
-    },
+// ========================================
+// ACCESSIBILITY UTILITIES
+// ========================================
 
-    /**
-     * Announce text to screen readers
-     * @param {string} text - Text to announce
-     */
-    announce(text) {
-        const announcement = DOM.createElement('div', {
-            'aria-live': 'polite',
-            'aria-atomic': 'true',
-            className: 'sr-only'
-        }, text);
-        
-        document.body.appendChild(announcement);
-        
-        setTimeout(() => {
-            document.body.removeChild(announcement);
-        }, 1000);
-    },
 
-    /**
-     * Create skip link
-     * @param {string} targetId - Target element ID
-     * @param {string} text - Link text
-     * @returns {HTMLElement} Skip link element
-     */
-    createSkipLink(targetId, text = 'Skip to main content') {
-        return DOM.createElement('a', {
-            href: `#${targetId}`,
-            className: 'skip-link sr-only-focusable btn btn-primary position-absolute',
-            style: 'top: 10px; left: 10px; z-index: 9999;'
-        }, text);
-    }
-};
+// ========================================
+// ANIMATION UTILITIES
+// ========================================
 
 /**
- * Animation utilities
+ * Animation utilities for smooth transitions and effects
  */
 export const AnimationUtils = {
     /**
@@ -820,46 +807,13 @@ export const AnimationUtils = {
     }
 };
 
-/**
- * Validation utilities
- */
-export const ValidationUtils = {
-    /**
-     * Validate email address
-     * @param {string} email - Email to validate
-     * @returns {boolean} True if valid
-     */
-    isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    },
 
-    /**
-     * Validate URL
-     * @param {string} url - URL to validate
-     * @returns {boolean} True if valid
-     */
-    isValidURL(url) {
-        try {
-            new URL(url);
-            return true;
-        } catch {
-            return false;
-        }
-    },
-
-    /**
-     * Check if string is empty or whitespace
-     * @param {string} str - String to check
-     * @returns {boolean} True if empty
-     */
-    isEmpty(str) {
-        return !str || str.trim().length === 0;
-    }
-};
+// ========================================
+// ERROR HANDLING UTILITIES
+// ========================================
 
 /**
- * Error formatting utilities
+ * Error formatting and handling utilities
  */
 export const ErrorUtils = {
     /**
@@ -884,8 +838,12 @@ export const ErrorUtils = {
     }
 };
 
+// ========================================
+// NOTIFICATION UTILITIES
+// ========================================
+
 /**
- * Toast notification utilities
+ * Toast notification utilities for user feedback
  */
 export const ToastUtils = {
     /**
@@ -898,15 +856,21 @@ export const ToastUtils = {
     }
 };
 
+// ========================================
+// DEFAULT EXPORT
+// ========================================
+
+/**
+ * Default export containing all utility modules
+ * Provides easy access to all utility functions
+ */
 export default {
     DOM,
     URLUtils,
     TextUtils,
     StorageUtils,
     PerformanceUtils,
-    A11yUtils,
     AnimationUtils,
-    ValidationUtils,
     ErrorUtils,
     ToastUtils
 }; 

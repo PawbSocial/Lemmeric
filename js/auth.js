@@ -1,6 +1,11 @@
 /**
  * Authentication service for Lemmeric
- * Handles login, logout, and user session management
+ * 
+ * This module handles user authentication, session management, and user data
+ * persistence across different Lemmy instances. It provides a centralized
+ * way to manage login, logout, and user state throughout the application.
+ * 
+ * @fileoverview Authentication and user session management
  */
 
 import { 
@@ -15,8 +20,13 @@ import {
 } from './config.js';
 import { LemmyAPI } from './api.js';
 
+// ========================================
+// AUTHENTICATION MANAGER CLASS
+// ========================================
+
 /**
  * Authentication manager class
+ * Handles user authentication and session management
  */
 export class AuthManager {
     constructor() {
@@ -26,6 +36,10 @@ export class AuthManager {
         this.lastAuthCheck = null;
     }
 
+    // ========================================
+    // INITIALIZATION METHODS
+    // ========================================
+
     /**
      * Initialize with current instance
      */
@@ -33,6 +47,10 @@ export class AuthManager {
         this.api = new LemmyAPI();
         this.loadCurrentUser();
     }
+
+    // ========================================
+    // EVENT HANDLING METHODS
+    // ========================================
 
     /**
      * Add event listener for authentication changes
@@ -64,6 +82,10 @@ export class AuthManager {
             }
         });
     }
+
+    // ========================================
+    // AUTHENTICATION METHODS
+    // ========================================
 
     /**
      * Load current user data from storage and validate token
@@ -267,6 +289,10 @@ export class AuthManager {
         return this.currentUser;
     }
 
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
+
     /**
      * Check if user is currently authenticated
      * @returns {boolean} True if authenticated
@@ -349,6 +375,10 @@ export class AuthManager {
         }
     }
 }
+
+// ========================================
+// SINGLETON INSTANCE
+// ========================================
 
 // Create and export singleton instance
 export const authManager = new AuthManager();

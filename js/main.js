@@ -1,40 +1,100 @@
 /**
  * Main application file for Lemmeric
- * Initializes the app and handles navigation, data loading, and state management
+ * 
+ * This is the core application class that handles:
+ * - Application initialization and configuration
+ * - Navigation and routing
+ * - Data loading and state management
+ * - UI updates and user interactions
+ * - Authentication state management
+ * 
+ * @fileoverview Main application entry point and core functionality
  */
 
-import { CONFIG, getCurrentInstance, setCurrentInstance, getCurrentSort, setCurrentSort, getCurrentTheme, setCurrentTheme, getAllInstances, addCustomInstance, validateInstanceUrl, getCurrentListingType, setCurrentListingType, getInstanceConfig } from './config.js';
+// Core configuration and utilities
+import { 
+    CONFIG, 
+    getCurrentInstance, 
+    setCurrentInstance, 
+    getCurrentSort, 
+    setCurrentSort, 
+    getCurrentTheme, 
+    setCurrentTheme, 
+    getAllInstances, 
+    addCustomInstance, 
+    validateInstanceUrl, 
+    getCurrentListingType, 
+    setCurrentListingType, 
+    getInstanceConfig 
+} from './config.js';
 import { LemmyAPI, APIUtils } from './api.js';
 import { DOM, PerformanceUtils } from './utils.js';
-import { PostListManager } from './components/post.js';
-import { PostFeed } from './components/post-feed.js';
 import { router } from './router.js';
-import { processSidebarContent, processTaglineContent } from './markdown-it-setup.js';
 import { authManager } from './auth.js';
 import { VERSION_INFO } from './version.js';
 
+// Components
+import { PostListManager } from './components/post.js';
+import { PostFeed } from './components/post-feed.js';
+
+// Markdown processing
+import { processSidebarContent, processTaglineContent } from './markdown-it-setup.js';
+
+/**
+ * Main Lemmeric application class
+ * 
+ * Manages the entire application lifecycle including initialization,
+ * navigation, data loading, and user interactions.
+ */
 class LemmericApp {
+    /**
+     * Initialize the Lemmeric application
+     */
     constructor() {
+        // Core application state
         this.api = null;
         this.postFeed = null;
         this.currentPage = 1;
         this.isLoading = false;
         this.hasMorePosts = true;
         
-        // DOM elements (navbar elements are now handled by navbar component)
-        this.elements = {
+        // Cache DOM elements for performance
+        this.elements = this.cacheDOMElements();
+        
+        // Application state management
+        this.state = {
+            currentInstance: getCurrentInstance(),
+            currentSort: getCurrentSort(),
+            currentTheme: getCurrentTheme(),
+            currentListingType: getCurrentListingType()
+        };
+        
+        // Initialize the application
+        this.init();
+    }
+
+    /**
+     * Cache frequently used DOM elements
+     * @returns {Object} Object containing cached DOM elements
+     */
+    cacheDOMElements() {
+        return {
+            // Main content elements
             sortSelector: document.getElementById('sort-selector'),
             listingTypeSelector: document.getElementById('listing-type-selector'),
             postsContainer: document.getElementById('posts-container'),
+            contentTitle: document.getElementById('content-title'),
+            pagination: document.getElementById('pagination'),
+            
+            // Sidebar elements
             sidebarInstanceInfo: document.getElementById('instance-info'),
             sidebarTrendingCommunities: document.getElementById('trending-communities'),
-            sidebarCommunitiesHeader: document.querySelector('#trending-communities').parentElement.querySelector('.card-header h6'),
+            sidebarCommunitiesHeader: document.querySelector('#trending-communities')?.parentElement?.querySelector('.card-header h6'),
             sidebarInstanceAdmins: document.getElementById('instance-admins'),
             sidebarStats: document.getElementById('site-stats'),
             sidebarTaglines: document.getElementById('taglines-content'),
             sidebarTaglinesCard: document.getElementById('taglines-card'),
-            pagination: document.getElementById('pagination'),
-            contentTitle: document.getElementById('content-title'),
+            
             // Mobile modal elements
             mobileInstanceInfo: document.getElementById('mobile-instance-info'),
             mobileInstanceAdmins: document.getElementById('mobile-instance-admins'),
@@ -43,24 +103,18 @@ class LemmericApp {
             mobileTaglines: document.getElementById('mobile-taglines-content'),
             mobileTaglinesCard: document.getElementById('mobile-taglines-card')
         };
-        
-        // State
-        this.state = {
-            currentInstance: getCurrentInstance(),
-            currentSort: getCurrentSort(),
-            currentTheme: getCurrentTheme(),
-            currentListingType: getCurrentListingType()
-        };
-        
-        this.init();
     }
 
     /**
      * Initialize the application
+     * @async
      */
     async init() {
         try {
-            this.cacheElements();
+            // Validate required DOM elements
+            this.validateRequiredElements();
+            
+            // Setup core functionality
             this.setupEventListeners();
             this.setupAPI();
             this.setupRouter();
@@ -77,10 +131,10 @@ class LemmericApp {
     }
 
     /**
-     * Cache frequently used DOM elements
+     * Validate required DOM elements
+     * @throws {Error} If required elements are missing
      */
-    cacheElements() {
-        // Validate required elements (instanceSelector now handled by navbar component)
+    validateRequiredElements() {
         const requiredElements = ['sortSelector', 'listingTypeSelector', 'postsContainer'];
         for (const elementName of requiredElements) {
             if (!this.elements[elementName]) {
@@ -89,10 +143,24 @@ class LemmericApp {
         }
     }
 
+    // ========================================
+    // EVENT HANDLING METHODS
+    // ========================================
+
     /**
-     * Setup event listeners
+     * Setup all event listeners for the application
      */
     setupEventListeners() {
+        this.setupFormEventListeners();
+        this.setupGlobalEventListeners();
+        this.setupInfiniteScrolling();
+        this.setupKeyboardShortcuts();
+    }
+
+    /**
+     * Setup form-related event listeners
+     */
+    setupFormEventListeners() {
         // Sort selector
         this.elements.sortSelector.addEventListener('change', (e) => {
             this.handleSortChange(e.target.value);
@@ -102,24 +170,23 @@ class LemmericApp {
         this.elements.listingTypeSelector.addEventListener('change', (e) => {
             this.handleListingTypeChange(e.target.value);
         });
+    }
 
-        // Listen for instance changes from navbar component
+    /**
+     * Setup global event listeners
+     */
+    setupGlobalEventListeners() {
+        // Instance changes from navbar component
         window.addEventListener('instanceChanged', (e) => {
             this.handleInstanceChange(e.detail.instance);
         });
 
-        // Listen for authentication changes
+        // Authentication state changes
         authManager.addListener((event, data) => {
             this.handleAuthChange(event, data);
         });
 
-        // Infinite scrolling
-        this.setupInfiniteScrolling();
-
-        // Keyboard shortcuts
-        this.setupKeyboardShortcuts();
-
-        // Window events
+        // Network status changes
         window.addEventListener('online', () => {
             DOM.showToast('Connection restored', 'success');
         });
@@ -130,7 +197,7 @@ class LemmericApp {
     }
 
     /**
-     * Setup infinite scrolling
+     * Setup infinite scrolling functionality
      */
     setupInfiniteScrolling() {
         if (!CONFIG.FEATURES.INFINITE_SCROLL) return;
@@ -145,12 +212,13 @@ class LemmericApp {
             const scrollTop = contentArea.scrollTop;
             const clientHeight = contentArea.clientHeight;
 
+            // Load more posts when near bottom
             if (scrollTop + clientHeight >= scrollHeight - 1000) {
                 this.loadMorePosts();
             }
         }, 100);
 
-        // Add scroll listener to content area instead of window
+        // Add scroll listener to content area
         const contentArea = document.getElementById('content-area');
         if (contentArea) {
             contentArea.addEventListener('scroll', scrollHandler);
@@ -208,8 +276,12 @@ class LemmericApp {
         });
     }
 
+    // ========================================
+    // API AND ROUTER SETUP
+    // ========================================
+
     /**
-     * Setup API instance
+     * Setup API instance for the current instance
      */
     setupAPI() {
         this.api = new LemmyAPI(this.state.currentInstance);
@@ -456,8 +528,12 @@ class LemmericApp {
         this.isLoading = false;
     }
 
+    // ========================================
+    // UI MANAGEMENT METHODS
+    // ========================================
+
     /**
-     * Initialize UI elements
+     * Initialize UI elements and components
      */
     initializeUI() {
         // Set initial values
@@ -526,8 +602,13 @@ class LemmericApp {
         }
     }
 
+    // ========================================
+    // DATA LOADING METHODS
+    // ========================================
+
     /**
-     * Load initial data
+     * Load initial application data
+     * @async
      */
     async loadInitialData() {
         // Auto-switch to Subscribed feed if user is authenticated and currently on All (only on initial load)
@@ -992,8 +1073,14 @@ class LemmericApp {
         }
     }
 
+    // ========================================
+    // STATE MANAGEMENT METHODS
+    // ========================================
+
     /**
      * Handle instance change
+     * @param {string} instanceName - Name of the new instance
+     * @async
      */
     async handleInstanceChange(instanceName) {
         if (instanceName === this.state.currentInstance) return;
@@ -1196,14 +1283,17 @@ class LemmericApp {
         DOM.showToast('Instances page coming soon!', 'info');
     }
 
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
+
     /**
-     * Show error message
+     * Show error message to user
+     * @param {string} message - Error message to display
      */
     showError(message) {
         DOM.showToast(message, 'error');
     }
-
-    // Instance modal handling moved to navbar component
 
     /**
      * Load current page data (called by navbar component)
@@ -1216,7 +1306,8 @@ class LemmericApp {
     }
 
     /**
-     * Cleanup and destroy the app
+     * Cleanup and destroy the application
+     * Removes event listeners and cleans up resources
      */
     destroy() {
         if (this.postFeed) {
@@ -1226,12 +1317,19 @@ class LemmericApp {
         // Remove event listeners
         window.removeEventListener('scroll', this.scrollHandler);
         
+        // Clear references
         this.elements = {};
         this.api = null;
     }
 }
 
-// Initialize the app when DOM is loaded
+// ========================================
+// APPLICATION INITIALIZATION
+// ========================================
+
+/**
+ * Initialize the application when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
     window.lemmericApp = new LemmericApp();
 });

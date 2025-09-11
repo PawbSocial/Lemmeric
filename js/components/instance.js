@@ -308,7 +308,6 @@ export class InstanceListManager {
                     instance.updateStats(stats);
                 }
             } catch (error) {
-                console.error(`Failed to load stats for ${instanceName}:`, error);
             }
         });
 

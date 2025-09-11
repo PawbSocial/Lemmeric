@@ -1,19 +1,41 @@
 /**
  * Community Sidebar Component for Lemmeric
- * Displays community information in a sidebar format, similar to Instance Info card
+ * 
+ * This module provides a reusable component for displaying community information
+ * in a sidebar format. It shows community details, moderators, statistics, and
+ * management tools for community administrators.
+ * 
+ * @fileoverview Community sidebar component with information and moderation tools
  */
 
+// Core utilities and processing
 import { DOM } from '../utils.js';
 import { APIUtils } from '../api.js';
 import { processSidebarContent } from '../markdown-it-setup.js';
 
+/**
+ * Community sidebar component class
+ * 
+ * Manages community information display and moderation tools
+ */
 export class CommunitySidebarComponent {
+    /**
+     * Initialize the community sidebar component
+     * @param {Object} communityData - Community data object
+     * @param {Array} moderators - Array of community moderators
+     * @param {Object} currentUser - Current user data (optional)
+     */
     constructor(communityData, moderators = [], currentUser = null) {
+        // Core component data
         this.community = communityData;
         this.moderators = moderators;
         this.currentUser = currentUser;
         this.element = null;
     }
+
+    // ========================================
+    // RENDERING METHODS
+    // ========================================
 
     /**
      * Render the community sidebar
@@ -430,6 +452,10 @@ export class CommunitySidebarComponent {
             'Edit'
         ]);
     }
+
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
 
     /**
      * Check if current user is a moderator of this community

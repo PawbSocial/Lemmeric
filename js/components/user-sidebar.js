@@ -579,7 +579,6 @@ export class UserSidebarComponent {
             const currentUser = authManager.getCurrentUser();
             const hasToken = authManager.isAuthenticated();
             
-            console.log('Auth check:', { currentUser: !!currentUser, hasToken, authManager: !!authManager });
             
             if (!currentUser && !hasToken) {
                 throw new Error('You must be logged in to send messages');

@@ -1,28 +1,56 @@
 /**
  * Communities page application file for Lemmeric
- * Handles community browsing with featured community cards and full community listing
+ * 
+ * This module handles the communities page functionality including:
+ * - Community browsing and discovery
+ * - Featured community cards display
+ * - Full community listing with filtering and search
+ * - Community statistics and trending communities
+ * 
+ * @fileoverview Communities page controller and functionality
  */
 
-import { CONFIG, getCurrentInstance, setCurrentInstance, getCurrentTheme, setCurrentTheme, getAllInstances, addCustomInstance, validateInstanceUrl } from './config.js';
+// Core configuration and utilities
+import { 
+    CONFIG, 
+    getCurrentInstance, 
+    setCurrentInstance, 
+    getCurrentTheme, 
+    setCurrentTheme, 
+    getAllInstances, 
+    addCustomInstance, 
+    validateInstanceUrl 
+} from './config.js';
 import { LemmyAPI, APIUtils } from './api.js';
 import { DOM, PerformanceUtils } from './utils.js';
 import { router } from './router.js';
 
+/**
+ * Communities page application class
+ * 
+ * Manages community browsing, filtering, and display functionality
+ */
 class LemmericCommunitiesApp {
+    /**
+     * Initialize the communities page application
+     */
     constructor() {
+        // Core application state
         this.api = null;
         this.currentPage = 1;
         this.isLoading = false;
         this.hasMoreCommunities = true;
         this.allCommunities = [];
         this.filteredCommunities = [];
+        
+        // Filter state
         this.currentFilters = {
             search: '',
             type: 'Local',  // Default to Local communities for instances
             sort: 'TopMonth'  // Default to TopMonth to match trending communities behavior
         };
         
-        // DOM elements (navbar elements now handled by navbar component)
+        // Cache DOM elements for performance
         this.elements = {
             contentTitle: document.getElementById('content-title'),
             communitiesSubtitle: document.getElementById('communities-subtitle'),
@@ -57,8 +85,13 @@ class LemmericCommunitiesApp {
         this.init();
     }
 
+    // ========================================
+    // INITIALIZATION METHODS
+    // ========================================
+
     /**
      * Initialize the application
+     * @async
      */
     async init() {
         try {
@@ -95,8 +128,12 @@ class LemmericCommunitiesApp {
         }
     }
 
+    // ========================================
+    // EVENT HANDLING METHODS
+    // ========================================
+
     /**
-     * Setup event listeners
+     * Setup event listeners for the communities page
      */
     setupEventListeners() {
         // Listen for instance changes from navbar component
@@ -247,8 +284,13 @@ class LemmericCommunitiesApp {
 
     // populateInstanceSelector moved to navbar component
 
+    // ========================================
+    // DATA LOADING METHODS
+    // ========================================
+
     /**
      * Load initial data for the page
+     * @async
      */
     async loadInitialData() {
         // Reset pagination state
@@ -363,6 +405,10 @@ class LemmericCommunitiesApp {
             return true;
         });
     }
+
+    // ========================================
+    // UI RENDERING METHODS
+    // ========================================
 
     /**
      * Render featured communities (top 12 as cards)
@@ -890,8 +936,13 @@ class LemmericCommunitiesApp {
         }
     }
 
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
+
     /**
-     * Show error message
+     * Show error message to user
+     * @param {string} message - Error message to display
      */
     showError(message) {
         DOM.showToast(message, 'error');
@@ -916,9 +967,16 @@ class LemmericCommunitiesApp {
     }
 }
 
-// Initialize the app when DOM is loaded
+// ========================================
+// APPLICATION INITIALIZATION
+// ========================================
+
+/**
+ * Initialize the communities page application when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
     window.lemmericCommunitiesApp = new LemmericCommunitiesApp();
 });
 
+// Export for potential external use
 export { LemmericCommunitiesApp }; 

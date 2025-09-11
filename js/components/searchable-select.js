@@ -8,7 +8,6 @@ export class SearchableSelect {
         this.container = document.getElementById(containerId);
         
         if (!this.container) {
-            console.error('SearchableSelect container not found:', containerId);
             throw new Error(`SearchableSelect container not found: ${containerId}`);
         }
         
@@ -212,7 +211,6 @@ export class SearchableSelect {
                     this.setLoading(false);
                 })
                 .catch(error => {
-                    console.error('Search error:', error);
                     this.setLoading(false);
                 });
         }, this.options.searchDelay);
@@ -294,7 +292,6 @@ export class SearchableSelect {
             const newHTML = this.renderOptions();
             optionsContainer.innerHTML = newHTML;
         } else {
-            console.error('Options container not found!');
         }
         
         // Update search input value to match state
@@ -331,7 +328,6 @@ export class SearchableSelect {
             try {
                 new bootstrap.Dropdown(toggleButton);
             } catch (error) {
-                console.warn('Bootstrap dropdown initialization failed:', error);
             }
         }
     }

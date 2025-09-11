@@ -44,7 +44,6 @@ class LemmericUserApp {
      */
     async init() {
         try {
-            console.log('Initializing User Page App...');
             
             // Get user name from URL
             this.userName = this.getUserNameFromURL();
@@ -54,16 +53,13 @@ class LemmericUserApp {
                 // Don't immediately show error - wait for DOM elements to be cached
                 this.initError = 'Invalid user URL - no username parameter found';
             } else {
-                console.log('Loading user:', this.userName);
             }
 
             // Load state from localStorage
             this.loadStateFromStorage();
             
             // Cache DOM elements
-            console.log('Caching DOM elements...');
             this.cacheElements();
-            console.log('DOM elements cached successfully');
             
             // If we had an initialization error, show it now
             if (this.initError) {
@@ -72,7 +68,6 @@ class LemmericUserApp {
             }
             
             // Setup event listeners
-            console.log('Setting up event listeners...');
             this.setupEventListeners();
             
             // Setup infinite scrolling
@@ -82,18 +77,15 @@ class LemmericUserApp {
             this.setupRouter();
             
             // Initialize API
-            console.log('Setting up API...');
             this.setupAPI();
 
             // Initialize UI
-            console.log('Initializing UI...');
             this.initializeUI();
             
             // Initialize edit modal
             this.initializeEditModal();
             
             // Load initial data
-            console.log('Loading initial data...');
             await this.loadInitialData();
             
         } catch (error) {
@@ -114,9 +106,6 @@ class LemmericUserApp {
      */
     getUserNameFromURL() {
         // Debug logging
-        console.log('Current URL:', window.location.href);
-        console.log('Search params:', window.location.search);
-        console.log('Pathname:', window.location.pathname);
         
         // First, try to get username from URL parameters (for rewritten URLs)
         const urlParams = new URLSearchParams(window.location.search);
@@ -127,13 +116,10 @@ class LemmericUserApp {
             const pathMatch = window.location.pathname.match(/^\/u\/([^\/]+)$/);
             if (pathMatch) {
                 username = pathMatch[1];
-                console.log('Extracted username from path:', username);
             }
         } else {
-            console.log('Extracted username from params:', username);
         }
         
-        console.log('Final extracted username:', username);
         return username;
     }
 
@@ -255,7 +241,6 @@ class LemmericUserApp {
                 if (this.currentTab === 'posts') {
                     // Ensure we're always passing the correct page parameter
                     const page = params.page || 1;
-                    console.log('PostFeed fetchFunction called with page:', page, 'sort:', this.state.currentSort);
                     return await this.api.getUserPosts(
                         this.userName,
                         this.state.currentSort,
@@ -324,7 +309,6 @@ class LemmericUserApp {
      */
     async loadUserInfo() {
         try {
-            console.log('Loading user info for:', this.userName);
             
             // Get user details and site information in parallel
             const [userResponse, siteResponse] = await Promise.all([
@@ -489,7 +473,6 @@ class LemmericUserApp {
         if (tab === 'posts') {
             // Ensure PostFeed is properly reset when switching to posts tab
             this.postFeed.clear();
-            console.log('Switched to posts tab, PostFeed cleared');
         } else {
             DOM.clearChildren(this.elements.commentsContainer);
         }
@@ -507,7 +490,6 @@ class LemmericUserApp {
             if (reset) {
                 // Force PostFeed to reset to page 1
                 this.postFeed.clear();
-                console.log('PostFeed cleared, loading posts from page 1');
             }
             return await this.postFeed.loadPosts(reset);
         } else {
@@ -523,7 +505,6 @@ class LemmericUserApp {
                     this.showLoadingInContainer();
                 }
 
-                console.log(`Loading user comments for:`, this.userName, 'page:', this.currentPage);
 
                 const response = await this.api.getUserComments(
                     this.userName,

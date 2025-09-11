@@ -84,7 +84,6 @@ export class PostDetailComponent {
                 const actorUrl = new URL(this.post.community.actor_id);
                 communityUrl = `/c/${this.post.community.name}@${actorUrl.hostname}`;
             } catch (e) {
-                console.warn('Failed to parse community actor_id:', this.post.community.actor_id);
                 // Fallback to local format
             }
         }
@@ -1097,7 +1096,6 @@ export class PostDetailComponent {
             
             // If we still don't have a community ID, skip moderator fetching
             if (!this.communityId) {
-                console.warn('No community ID found, skipping moderator fetch');
                 this.communityModerators = [];
                 // Don't try to access commentsResponse here since it's not defined yet
                 this.comments = [];
@@ -1113,7 +1111,6 @@ export class PostDetailComponent {
                     maxDepth: 8
                 }),
                 this.api.getSite().catch(err => {
-                    console.warn('Failed to fetch site info:', err);
                     return { admins: [] };
                 })
             ]);
@@ -1130,7 +1127,6 @@ export class PostDetailComponent {
                     });
                 }
             } catch (error) {
-                console.error('Failed to fetch community details:', error);
             }
 
             this.comments = commentsResponse.comments || [];
@@ -1148,7 +1144,6 @@ export class PostDetailComponent {
             this.renderComments();
 
         } catch (error) {
-            console.error('Failed to load comments:', error);
             const container = document.getElementById('comments-container');
             if (container) {
                 DOM.showError(container, 'Failed to load comments');
@@ -1306,7 +1301,6 @@ export class PostDetailComponent {
                 creatorInstanceInfo.host = url.hostname;
                 creatorInstanceInfo.isLocal = creator.local !== false;
             } catch (e) {
-                console.warn('Failed to parse creator actor_id:', creator.actor_id);
             }
         }
 
@@ -1533,7 +1527,6 @@ export class PostDetailComponent {
                 break;
             case 'reply-comment':
                 this.handleCommentReply(commentId).catch(error => {
-                    console.error('Error handling comment reply:', error);
                 });
                 break;
             case 'edit-comment':
@@ -1626,7 +1619,6 @@ export class PostDetailComponent {
             // Find the comment in our data structure
             const comment = this.findCommentById(commentId);
             if (!comment) {
-                console.error('Comment not found:', commentId);
                 return;
             }
 
@@ -1673,7 +1665,6 @@ export class PostDetailComponent {
             }
 
         } catch (error) {
-            console.error('Error voting on comment:', error);
             DOM.showToast('Failed to vote. Please try again.', 'error');
         } finally {
             // Re-enable vote buttons
@@ -1716,7 +1707,6 @@ export class PostDetailComponent {
             for (const comment of comments) {
                 // Add null/undefined checks
                 if (!comment || !comment.id) {
-                    console.warn('Invalid comment found in tree:', comment);
                     continue;
                 }
                 
@@ -1925,7 +1915,6 @@ export class PostDetailComponent {
         // Find the comment element
         const commentElement = document.querySelector(`[data-comment-id="${commentId}"]`);
         if (!commentElement) {
-            console.error('Comment element not found for ID:', commentId);
             return;
         }
 
@@ -1944,7 +1933,6 @@ export class PostDetailComponent {
         if (commentActions) {
             commentActions.parentNode.insertBefore(replyForm, commentActions.nextSibling);
         } else {
-            console.error('Comment actions element not found');
         }
 
         // Focus on the reply textarea
@@ -1952,7 +1940,6 @@ export class PostDetailComponent {
         if (replyTextarea) {
             replyTextarea.focus();
         } else {
-            console.error('Reply textarea not found');
         }
     }
 
@@ -2100,7 +2087,6 @@ export class PostDetailComponent {
                 this.handleReplySubmit(commentId);
             });
         } else {
-            console.error('Form with class reply-form-content not found');
         }
 
         // Also add a click event listener to the submit button as backup
@@ -2114,7 +2100,6 @@ export class PostDetailComponent {
                     try {
                         form.dispatchEvent(new Event('submit', { bubbles: true }));
                     } catch (error) {
-                        console.error('Error dispatching submit event:', error);
                     }
                 }
             });
@@ -2124,7 +2109,6 @@ export class PostDetailComponent {
         const formForValidation = replyForm.querySelector('.reply-form-content');
         if (formForValidation) {
             formForValidation.addEventListener('invalid', (event) => {
-                console.log('Form validation failed:', event);
             });
         }
 
@@ -2135,7 +2119,6 @@ export class PostDetailComponent {
                 this.handleReplyInputChange(commentId);
             });
         } else {
-            console.error('Textarea with class reply-textarea not found');
         }
     }
 
@@ -2172,7 +2155,6 @@ export class PostDetailComponent {
         
         const replyForm = document.querySelector(`[data-comment-id="${commentId}"] .reply-form`);
         if (!replyForm) {
-            console.error('Reply form not found for comment:', commentId);
             return;
         }
 
@@ -2180,7 +2162,6 @@ export class PostDetailComponent {
         const submitBtn = replyForm.querySelector('[data-action="submit-reply"]');
         
         if (!textarea || !submitBtn) {
-            console.error('Textarea or submit button not found');
             return;
         }
 
@@ -2226,7 +2207,6 @@ export class PostDetailComponent {
             }
 
         } catch (error) {
-            console.error('Failed to post reply:', error);
             DOM.showToast('Failed to post reply. Please try again.', 'error');
             
             // Re-enable submit button
@@ -2454,7 +2434,6 @@ export class PostDetailComponent {
                 throw new Error('Invalid response from server');
             }
         } catch (error) {
-            console.error('Error deleting comment:', error);
             
             // Provide more specific error messages based on error type
             let errorMessage = 'Failed to delete comment. Please try again.';
@@ -2505,7 +2484,6 @@ export class PostDetailComponent {
      */
     handleCommentSortChange(event) {
         const selectedSort = event.target.value;
-        console.log(`Comment sort changed to: ${selectedSort}`);
         this.currentCommentSort = selectedSort; // Store current sort order
         this.loadComments(selectedSort);
     }
@@ -2537,7 +2515,6 @@ export class PostDetailComponent {
                 displayName = `${comment.author.displayName || comment.author.name}@${instanceHost}`;
                 authorUrl = `/u/${comment.author.name}@${instanceHost}`;
             } catch (e) {
-                console.warn('Failed to parse comment author actor_id:', comment.author.actor_id);
                 // Fallback to local format if parsing fails
             }
         }
@@ -2616,7 +2593,6 @@ export class PostDetailComponent {
                 displayName = `${this.post.author.displayName || this.post.author.name}@${instanceHost}`;
                 authorUrl = `/u/${this.post.author.name}@${instanceHost}`;
             } catch (e) {
-                console.warn('Failed to parse post author actor_id:', this.post.author.actor_id);
                 // Fallback to local format if parsing fails
             }
         }
@@ -2697,7 +2673,6 @@ export class PostDetailComponent {
                         const url = new URL(crosspost.community.actor_id);
                         instanceDomain = url.hostname;
                     } catch (e) {
-                        console.warn('Failed to parse crosspost community actor_id:', crosspost.community.actor_id);
                         instanceDomain = 'unknown.instance';
                     }
                 }
@@ -3051,7 +3026,6 @@ export class PostDetailComponent {
             }
 
         } catch (error) {
-            console.error('Failed to post comment:', error);
             DOM.showToast('Failed to post comment. Please try again.', 'error');
             
             // Re-enable submit button
@@ -3359,7 +3333,6 @@ export class PostDetailComponent {
                 DOM.showToast('Link copied to clipboard!', 'success');
             }
         } catch (error) {
-            console.error('Share failed:', error);
             DOM.showToast('Unable to share post', 'error');
         }
     }
@@ -3369,7 +3342,6 @@ export class PostDetailComponent {
      */
     async handleSave() {
         // TODO: Implement post saving functionality
-        console.log('Saving post');
     }
 
     /**
@@ -3600,7 +3572,6 @@ export class PostDetailComponent {
             });
 
         } catch (error) {
-            console.error('Failed to initialize community selection:', error);
             DOM.showToast('Failed to load communities', 'error');
         }
     }
@@ -3762,7 +3733,6 @@ export class PostDetailComponent {
             const searchResults = response.communities || [];
             return this.formatCommunityOptions(searchResults);
         } catch (error) {
-            console.error('Community search failed:', error);
             return [];
         }
     }
@@ -3880,7 +3850,6 @@ export class PostDetailComponent {
             }
 
         } catch (error) {
-            console.error('Failed to create cross-post:', error);
             DOM.showToast('Failed to create cross-post. Please try again.', 'error');
             
             // Re-enable submit button
@@ -4156,7 +4125,6 @@ export class PostDetailComponent {
                 }
             }
         } catch (error) {
-            console.error('Failed to load languages:', error);
         }
     }
 
@@ -4223,7 +4191,6 @@ export class PostDetailComponent {
                         const { processPostContent } = await import('../markdown-it-setup.js');
         previewHTML += `<div class="post-body">${processPostContent(body)}</div>`;
             } catch (error) {
-                console.error('Failed to load markdown processor:', error);
                 // Fallback to plain text
                 previewHTML += `<div class="post-body"><pre>${body}</pre></div>`;
             }
@@ -4302,7 +4269,6 @@ export class PostDetailComponent {
             }
 
         } catch (error) {
-            console.error('Failed to edit post:', error);
             
             let errorMessage = 'Failed to edit post. Please try again.';
             if (error.message && error.message.includes('rate')) {
@@ -4442,7 +4408,6 @@ export class PostDetailComponent {
                 }
 
             } catch (error) {
-                console.error(`Failed to ${action} post:`, error);
                 
                 let errorMessage = `Failed to ${action} post. Please try again.`;
                 if (error.message && error.message.includes('rate')) {
@@ -4510,7 +4475,6 @@ export class PostDetailComponent {
             }
 
         } catch (error) {
-            console.error('Error voting on post:', error);
             DOM.showToast('Failed to vote. Please try again.', 'error');
         } finally {
             // Re-enable vote buttons
@@ -4738,7 +4702,6 @@ export class PostDetailComponent {
                 }
             }
         } catch (error) {
-            console.error('Failed to load languages:', error);
         }
     }
 
@@ -4793,7 +4756,6 @@ export class PostDetailComponent {
                         const { processCommentContent } = await import('../markdown-it-setup.js');
         previewHTML += `<div class="comment-content">${processCommentContent(content)}</div>`;
             } catch (error) {
-                console.error('Failed to load markdown processor:', error);
                 // Fallback to plain text
                 previewHTML += `<div class="comment-content"><pre>${content}</pre></div>`;
             }
@@ -4865,7 +4827,6 @@ export class PostDetailComponent {
             }
 
         } catch (error) {
-            console.error('Failed to edit comment:', error);
             
             let errorMessage = 'Failed to edit comment. Please try again.';
             if (error.message && error.message.includes('rate')) {
@@ -4922,7 +4883,6 @@ export class PostDetailComponent {
                             const { processCommentContent } = await import('../markdown-it-setup.js');
         contentElement.innerHTML = processCommentContent(comment.content);
                 } catch (error) {
-                    console.error('Failed to process markdown:', error);
                     contentElement.innerHTML = `<pre>${comment.content}</pre>`;
                 }
             }

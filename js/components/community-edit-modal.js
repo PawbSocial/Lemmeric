@@ -5,7 +5,7 @@
 
 import { LemmyAPI } from '../api.js';
 import { CONFIG, isAuthenticated } from '../config.js';
-import { DOM, ToastUtils, ErrorUtils } from '../utils.js';
+import { DOM, ErrorUtils } from '../utils.js';
 import { authManager } from '../auth.js';
 
 export class CommunityEditModal {
@@ -287,7 +287,6 @@ export class CommunityEditModal {
             try {
                 const iconResponse = await this.api.uploadImage(this.iconFile, 'icon');
                 iconUrl = iconResponse.url || iconResponse.files?.[0]?.file;
-                console.log('Icon uploaded successfully:', iconUrl);
             } catch (error) {
                 console.warn('Icon upload failed, keeping existing icon:', error);
                 imageUploadWarning = true;
@@ -298,7 +297,6 @@ export class CommunityEditModal {
             try {
                 const bannerResponse = await this.api.uploadImage(this.bannerFile, 'banner');
                 bannerUrl = bannerResponse.url || bannerResponse.files?.[0]?.file;
-                console.log('Banner uploaded successfully:', bannerUrl);
             } catch (error) {
                 console.warn('Banner upload failed, keeping existing banner:', error);
                 imageUploadWarning = true;
@@ -312,7 +310,6 @@ export class CommunityEditModal {
         this.setLoading(true);
         
         try {
-            console.log('Editing community with data:', formData);
             const response = await this.api.editCommunity(formData);
             
             if (response && response.community_view) {

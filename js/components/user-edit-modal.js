@@ -5,7 +5,7 @@
 
 import { LemmyAPI } from '../api.js';
 import { CONFIG, isAuthenticated } from '../config.js';
-import { DOM, ToastUtils, ErrorUtils } from '../utils.js';
+import { DOM, ErrorUtils } from '../utils.js';
 import { authManager } from '../auth.js';
 
 export class UserEditModal {
@@ -289,7 +289,6 @@ export class UserEditModal {
             try {
                 const avatarResponse = await this.api.uploadImage(this.avatarFile, 'avatar');
                 avatarUrl = avatarResponse.url || avatarResponse.files?.[0]?.file;
-                console.log('Avatar uploaded successfully:', avatarUrl);
             } catch (error) {
                 console.warn('Avatar upload failed, keeping existing avatar:', error);
                 imageUploadWarning = true;
@@ -300,7 +299,6 @@ export class UserEditModal {
             try {
                 const bannerResponse = await this.api.uploadImage(this.bannerFile, 'banner');
                 bannerUrl = bannerResponse.url || bannerResponse.files?.[0]?.file;
-                console.log('Banner uploaded successfully:', bannerUrl);
             } catch (error) {
                 console.warn('Banner upload failed, keeping existing banner:', error);
                 imageUploadWarning = true;
@@ -314,7 +312,6 @@ export class UserEditModal {
         this.setLoading(true);
         
         try {
-            console.log('Saving user settings with data:', formData);
             const response = await this.api.saveUserSettings(formData);
             
             if (response) {

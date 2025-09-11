@@ -1,28 +1,48 @@
 /**
  * API service for interacting with Lemmy instances
- * Handles all HTTP requests with proper error handling and rate limiting
+ * 
+ * This module provides a comprehensive API client for interacting with Lemmy
+ * instances, including rate limiting, caching, error handling, and all the
+ * necessary endpoints for posts, communities, users, and authentication.
+ * 
+ * @fileoverview Lemmy API client with rate limiting and caching
  */
 
 import { CONFIG, getInstanceConfig, getAuthToken } from './config.js';
 
+// ========================================
+// GLOBAL STORAGE AND CACHE
+// ========================================
+
 /**
- * Rate limiting storage
+ * Rate limiting storage for tracking API requests per instance
+ * @type {Map<string, Object>}
  */
 const rateLimitStore = new Map();
 
 /**
- * Request cache for reducing duplicate requests
+ * Request cache for reducing duplicate API requests
+ * @type {Map<string, Object>}
  */
 const requestCache = new Map();
 
+// ========================================
+// MAIN API CLASS
+// ========================================
+
 /**
- * Base API class for making requests to Lemmy instances
+ * Main API class for making requests to Lemmy instances
+ * Handles authentication, rate limiting, caching, and error handling
  */
 export class LemmyAPI {
     constructor(instanceName = null) {
         this.instanceConfig = getInstanceConfig(instanceName);
         this.baseURL = this.instanceConfig.api;
     }
+
+    // ========================================
+    // RATE LIMITING AND CACHING
+    // ========================================
 
     /**
      * Check if we're being rate limited
@@ -45,6 +65,10 @@ export class LemmyAPI {
         rateLimitStore.set(key, window);
         return false;
     }
+
+    // ========================================
+    // CORE REQUEST METHODS
+    // ========================================
 
     /**
      * Make a request with retry logic and error handling
@@ -196,6 +220,10 @@ export class LemmyAPI {
             throw error;
         }
     }
+
+    // ========================================
+    // POST METHODS
+    // ========================================
 
     /**
      * Get posts from the instance
@@ -496,6 +524,10 @@ export class LemmyAPI {
         return this.makeRequest(`/comment/list?${queryParams}`);
     }
 
+    // ========================================
+    // COMMUNITY METHODS
+    // ========================================
+
     /**
      * Get communities from the instance
      * @param {Object} params - Query parameters
@@ -610,6 +642,10 @@ export class LemmyAPI {
             return { moderators: [] };
         }
     }
+
+    // ========================================
+    // SITE AND INSTANCE METHODS
+    // ========================================
 
     /**
      * Get site information
@@ -801,6 +837,10 @@ export class LemmyAPI {
             return false;
         }
     }
+
+    // ========================================
+    // AUTHENTICATION METHODS
+    // ========================================
 
     /**
      * Login to the instance
@@ -1323,8 +1363,12 @@ export class LemmyAPI {
     }
 }
 
+// ========================================
+// API UTILITY FUNCTIONS
+// ========================================
+
 /**
- * Utility functions for working with API data
+ * Utility functions for formatting and processing API data
  */
 export const APIUtils = {
     /**

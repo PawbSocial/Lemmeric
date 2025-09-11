@@ -1,4 +1,6 @@
-# Lemmeric - Vanilla Lemmy UI
+# Lemmeric - A Modern Lemmy UI
+
+![Lemmeric Banner](assets/images/Lemmeric%20Banner.png)
 
 A modern, vanilla JavaScript implementation of a Lemmy client that provides a clean, fast interface for browsing Lemmy instances without any frameworks or build tools.
 
@@ -89,7 +91,6 @@ lemmeric-lemmy-ui/
 │   ├── utils.js           # Utility functions
 │   ├── main.js            # Main application logic
 │   ├── router.js          # URL routing
-│   ├── view-manager.js    # View management
 │   ├── post-page.js       # Post page controller
 │   ├── community-page.js  # Community page controller
 │   ├── communities-page.js # Communities listing controller

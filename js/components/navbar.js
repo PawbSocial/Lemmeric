@@ -1,9 +1,17 @@
 /**
  * Navbar Component
- * Handles all navbar functionality including navigation, theme toggle, and instance selection
+ * 
+ * This module handles all navbar functionality including:
+ * - Navigation and routing
+ * - Theme toggle and management
+ * - Instance selection and switching
+ * - Authentication state display
+ * - Mobile responsive behavior
+ * 
+ * @fileoverview Main navigation component for Lemmeric
  */
 
-// Import config functions from config.js
+// Core configuration and utilities
 import { 
     getAllInstances, 
     getCurrentInstance, 
@@ -17,8 +25,18 @@ import {
 } from '../config.js';
 import { authManager } from '../auth.js';
 
+/**
+ * Navbar component class
+ * 
+ * Manages all navigation functionality including theme, instance selection, and authentication
+ */
 class Navbar {
+    /**
+     * Initialize the navbar component
+     * @param {boolean} skipHTMLLoad - Whether to skip loading HTML content
+     */
     constructor(skipHTMLLoad = false) {
+        // Core component state
         this.elements = {};
         this.currentPage = null;
         this.authStatus = { isAuthenticated: false, user: null };
@@ -30,8 +48,13 @@ class Navbar {
         }
     }
 
+    // ========================================
+    // INITIALIZATION METHODS
+    // ========================================
+
     /**
      * Initialize the navbar
+     * @async
      */
     async init() {
         try {
@@ -209,8 +232,12 @@ class Navbar {
         }
     }
 
+    // ========================================
+    // EVENT HANDLING METHODS
+    // ========================================
+
     /**
-     * Setup event listeners
+     * Setup event listeners for the navbar
      */
     setupEventListeners() {
         // Navigation links
@@ -458,6 +485,10 @@ class Navbar {
     }
 
 
+
+    // ========================================
+    // THEME MANAGEMENT METHODS
+    // ========================================
 
     /**
      * Load and apply saved theme
@@ -1220,13 +1251,19 @@ class Navbar {
     }
 }
 
+// ========================================
+// APPLICATION INITIALIZATION
+// ========================================
+
 // Export for ES module use
 export { Navbar };
 
 // Global initialization
 window.Navbar = Navbar;
 
-// Auto-initialize navbar when DOM is loaded
+/**
+ * Initialize the navbar component when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
     window.navbar = new Navbar();
 });

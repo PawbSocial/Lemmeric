@@ -5,7 +5,7 @@
 
 import { LemmyAPI } from './api.js';
 import { CONFIG, getInstanceConfig, isAuthenticated, getAuthToken, getUserData } from './config.js';
-import { ToastUtils, ErrorUtils } from './utils.js';
+import { ErrorUtils } from './utils.js';
 import { authManager } from './auth.js';
 
 class CreateCommunityPage {

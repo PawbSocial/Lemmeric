@@ -46,7 +46,6 @@ class LemmericInboxApp {
      */
     async init() {
         try {
-            console.log('Initializing Inbox Page App...');
             
             // Load navbar
             await this.loadNavbar();
@@ -430,7 +429,6 @@ class LemmericInboxApp {
             }
 
             const api = authManager.api;
-            console.log('Loading private messages...');
             
             // Fetch private messages from API
             const messagesResponse = await api.getPrivateMessages({
@@ -439,7 +437,6 @@ class LemmericInboxApp {
                 limit: 50
             });
             
-            console.log('Private messages response:', messagesResponse);
             
             // Process private messages
             this.inbox.messages = messagesResponse.private_messages.map(messageView => {
@@ -484,7 +481,6 @@ class LemmericInboxApp {
             // Sort by timestamp (newest first)
             this.inbox.messages.sort((a, b) => b.timestamp - a.timestamp);
             
-            console.log(`Loaded ${this.inbox.messages.length} private messages`);
 
             this.renderMessages();
             this.updateBadges();
@@ -1190,13 +1186,11 @@ class LemmericInboxApp {
 
                 // Reload messages from server with a longer delay to ensure server processing
                 setTimeout(async () => {
-                    console.log('Reloading messages from server...');
                     await this.loadMessages();
                     // Re-select the conversation to show updated data
                     this.selectConversation(userId);
                 }, 3000); // Increased to 3 seconds
 
-                console.log('Message sent successfully and displayed');
             }
 
         } catch (error) {

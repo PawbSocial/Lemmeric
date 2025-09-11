@@ -1,13 +1,31 @@
 /**
  * PostFeed Component for Lemmeric
- * A reusable component for displaying post feeds across different pages
+ * 
+ * This module provides a reusable component for displaying post feeds across different pages.
+ * It handles data fetching, pagination, infinite scrolling, and post rendering with a
+ * consistent interface for all post feed implementations.
+ * 
+ * @fileoverview Reusable post feed component with pagination and infinite scroll
  */
 
+// Core utilities and configuration
 import { DOM } from '../utils.js';
-import { PostListManager } from './post.js';
 import { CONFIG } from '../config.js';
 
+// Components
+import { PostListManager } from './post.js';
+
+/**
+ * PostFeed component class
+ * 
+ * Manages post feed display with pagination, infinite scroll, and data fetching
+ */
 export class PostFeed {
+    /**
+     * Initialize the PostFeed component
+     * @param {HTMLElement} container - Container element for the feed
+     * @param {Object} options - Configuration options
+     */
     constructor(container, options = {}) {
         // Required container element
         this.container = container;
@@ -99,10 +117,15 @@ export class PostFeed {
         console.log('PostFeed: Infinite scroll setup complete');
     }
     
+    // ========================================
+    // DATA LOADING METHODS
+    // ========================================
+
     /**
-     * Load posts
+     * Load posts for the feed
      * @param {boolean} reset - Whether to reset the feed (start from page 1)
      * @param {Object} params - Additional parameters to pass to fetch function
+     * @async
      */
     async loadPosts(reset = true, params = {}) {
         if (this.state.isLoading) return;
@@ -309,8 +332,12 @@ export class PostFeed {
         this.postListManager.markAsViewed(postId);
     }
     
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
+
     /**
-     * Clear all posts
+     * Clear all posts from the feed
      */
     clear() {
         this.state.posts = [];

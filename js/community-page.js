@@ -1,20 +1,50 @@
 /**
  * Community page application file for Lemmeric
- * Handles community view with posts feed and community sidebar
+ * 
+ * This module handles the community page functionality including:
+ * - Community-specific post feeds
+ * - Community sidebar with information and moderation tools
+ * - Community editing and management
+ * - Community subscription and interaction features
+ * 
+ * @fileoverview Community page controller and functionality
  */
 
-import { CONFIG, getCurrentInstance, setCurrentInstance, getCurrentSort, setCurrentSort, getCurrentTheme, setCurrentTheme, getAllInstances, addCustomInstance, validateInstanceUrl } from './config.js';
+// Core configuration and utilities
+import { 
+    CONFIG, 
+    getCurrentInstance, 
+    setCurrentInstance, 
+    getCurrentSort, 
+    setCurrentSort, 
+    getCurrentTheme, 
+    setCurrentTheme, 
+    getAllInstances, 
+    addCustomInstance, 
+    validateInstanceUrl 
+} from './config.js';
 import { LemmyAPI, APIUtils } from './api.js';
 import { DOM, PerformanceUtils } from './utils.js';
+import { router } from './router.js';
+import { authManager } from './auth.js';
+
+// Components
 import { PostListManager } from './components/post.js';
 import { PostFeed } from './components/post-feed.js';
 import { CommunitySidebarComponent } from './components/community-sidebar.js';
 import { CommunityEditModal } from './components/community-edit-modal.js';
-import { router } from './router.js';
-import { authManager } from './auth.js';
 
+/**
+ * Community page application class
+ * 
+ * Manages community-specific functionality including posts, sidebar, and moderation
+ */
 class LemmericCommunityApp {
+    /**
+     * Initialize the community page application
+     */
     constructor() {
+        // Core application state
         this.api = null;
         this.postFeed = null;
         this.communityName = null;
@@ -26,7 +56,7 @@ class LemmericCommunityApp {
         this.currentUser = null;
         this.moderators = [];
         
-        // DOM elements (navbar elements now handled by navbar component)
+        // Cache DOM elements for performance
         this.elements = {
             sortSelector: document.getElementById('sort-selector'),
             postsContainer: document.getElementById('posts-container'),
@@ -46,8 +76,13 @@ class LemmericCommunityApp {
         this.init();
     }
 
+    // ========================================
+    // INITIALIZATION METHODS
+    // ========================================
+
     /**
      * Initialize the application
+     * @async
      */
     async init() {
         try {
@@ -112,8 +147,12 @@ class LemmericCommunityApp {
         }
     }
 
+    // ========================================
+    // EVENT HANDLING METHODS
+    // ========================================
+
     /**
-     * Setup event listeners
+     * Setup event listeners for the community page
      */
     setupEventListeners() {
         // Listen for instance changes from navbar component
@@ -264,8 +303,13 @@ class LemmericCommunityApp {
         this.elements.sortSelector.value = this.state.currentSort;
     }
 
+    // ========================================
+    // DATA LOADING METHODS
+    // ========================================
+
     /**
      * Load initial data for the community
+     * @async
      */
     async loadInitialData() {
         try {
@@ -528,8 +572,13 @@ class LemmericCommunityApp {
         `;
     }
 
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
+
     /**
-     * Show error message
+     * Show error message to user
+     * @param {string} message - Error message to display
      */
     showError(message) {
         this.elements.postsContainer.innerHTML = `
@@ -558,7 +607,16 @@ class LemmericCommunityApp {
     // Navigation and instance management methods moved to navbar component
 }
 
-// Initialize the community app when DOM is loaded
+// ========================================
+// APPLICATION INITIALIZATION
+// ========================================
+
+/**
+ * Initialize the community page application when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
     window.lemmericCommunityApp = new LemmericCommunityApp();
-}); 
+});
+
+// Export for potential external use
+export { LemmericCommunityApp }; 

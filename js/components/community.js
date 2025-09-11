@@ -140,7 +140,6 @@ export class CommunityComponent {
      * Handle view community action
      */
     handleViewCommunity() {
-        console.log('View community:', this.community.name);
         DOM.showToast('Community pages coming soon!', 'info');
     }
 

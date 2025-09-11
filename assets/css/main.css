@@ -1,5 +1,34 @@
+/* ========================================
+   LEMMERIC - MAIN STYLESHEET
+   ========================================
+   
+   This file contains all the main styles for the Lemmeric Lemmy UI.
+   It's organized into logical sections for better maintainability.
+   
+   Table of Contents:
+   1. CSS Variables and Theming
+   2. Base Layout and Structure
+   3. Navigation and Header
+   4. Content Areas and Sidebars
+   5. Cards and Components
+   6. Post Display and Content
+   7. Media and Embeds
+   8. Forms and Inputs
+   9. Buttons and Interactive Elements
+   10. Modals and Overlays
+   11. Scrollbars and Scrolling
+   12. Responsive Design
+   13. Utility Classes
+   14. Dark Theme Overrides
+   ======================================== */
+
+/* ========================================
+   1. CSS VARIABLES AND THEMING
+   ======================================== */
+
 /* Custom CSS Variables for theming */
 :root {
+    /* Bootstrap color overrides */
     --primary-color: #0d6efd;
     --secondary-color: #6c757d;
     --success-color: #198754;
@@ -9,15 +38,22 @@
     --light-color: #f8f9fa;
     --dark-color: #212529;
     
+    /* Application-specific colors */
     --bg-color: #ffffff;
     --text-color: #212529;
     --card-bg: #ffffff;
     --border-color: #dee2e6;
     --muted-text: #6c757d;
     
+    /* Lemmy-specific colors */
     --upvote-color: #ff4500;
     --downvote-color: #7193ff;
     --saved-color: #ffc107;
+    
+    /* Layout dimensions */
+    --navbar-height: 56px;
+    --sidebar-width: 25%;
+    --content-padding: 15px;
 }
 
 /* Dark theme variables */
@@ -29,19 +65,23 @@
     --muted-text: #adb5bd;
 }
 
-/* Base styling */
+/* ========================================
+   2. BASE LAYOUT AND STRUCTURE
+   ======================================== */
+
+/* Base body styling */
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow: hidden; /* Prevent document-level scrolling */
-    padding-top: 56px; /* Reduced from 76px to match typical Bootstrap navbar height */
+    padding-top: var(--navbar-height);
     height: 100vh;
 }
 
 /* Fixed layout for dynamic scrolling */
 #main-content {
-    height: calc(100vh - 56px); /* Reduced from 76px to match new navbar height */
+    height: calc(100vh - var(--navbar-height));
     overflow-y: auto;
     overflow-x: hidden;
     padding-top: 0; /* Remove any default padding */
@@ -67,27 +107,31 @@ body {
     margin-top: 0;
 }
 
+/* ========================================
+   4. CONTENT AREAS AND SIDEBARS
+   ======================================== */
+
 /* Left sidebar - fixed */
 #sidebar {
     height: 100%;
     overflow-y: auto;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: var(--content-padding);
+    padding-left: var(--content-padding);
 }
 
 /* Center content area - scrollable */
 #content-area {
     height: 100%;
     overflow-y: auto;
-    padding: 0 15px;
+    padding: 0 var(--content-padding);
 }
 
 /* Right sidebar - fixed */
 #right-sidebar {
     height: 100%;
     overflow-y: auto;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: var(--content-padding);
+    padding-left: var(--content-padding);
 }
 
 /* Custom scrollbar for sidebar and content areas */
@@ -239,6 +283,10 @@ body {
     opacity: 0.7 !important;
 }
 
+/* ========================================
+   11. SCROLLBARS AND SCROLLING
+   ======================================== */
+
 /* Global custom scrollbar styling for all elements */
 ::-webkit-scrollbar {
     width: 6px;
@@ -304,6 +352,10 @@ body {
     opacity: 0.7;
 }
 
+/* ========================================
+   14. DARK THEME OVERRIDES
+   ======================================== */
+
 /* Dark theme scrollbar adjustments */
 [data-theme="dark"] ::-webkit-scrollbar-thumb {
     background: var(--light-color);
@@ -337,13 +389,18 @@ body {
     opacity: 0.6;
 }
 
+/* ========================================
+   3. NAVIGATION AND HEADER
+   ======================================== */
+
 /* Ensure navbar stays fixed */
 #main-navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 1030;
+    height: var(--navbar-height);
 }
 
 /* Enhanced User Dropdown Styling */
@@ -513,7 +570,10 @@ body {
     border-color: var(--primary-color);
 }
 
-/* Responsive adjustments */
+/* ========================================
+   12. RESPONSIVE DESIGN
+   ======================================== */
+
 @media (max-width: 991.98px) {
     /* On smaller screens, revert to normal scrolling */
     html,
@@ -536,6 +596,10 @@ body {
         overflow-y: visible !important;
     }
 }
+
+/* ========================================
+   5. CARDS AND COMPONENTS
+   ======================================== */
 
 /* Card styling */
 .card {
@@ -1416,6 +1480,8 @@ html {
 .post-detail {
     /* Remove max-height to allow natural page scrolling on mobile */
     /* max-height: 90vh; */
+    /* Placeholder for future styling */
+    position: relative;
 }
 
 .post-detail-header .post-title {
@@ -1531,6 +1597,7 @@ html {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
 }
@@ -2078,6 +2145,8 @@ html {
     
     .post-detail {
         /* max-height: 90vh; */
+        /* Placeholder for future styling */
+        position: relative;
     }
     
     .modal-body {
@@ -2791,6 +2860,7 @@ details[open] summary {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: break-word; /* Better word wrapping */
 }
@@ -3632,11 +3702,6 @@ details[open] summary {
     border-top-color: var(--border-color);
 }
 
-/* Deleted post styles */
-.deleted-post-message {
-    background-color: var(--light-color);
-    border-color: var(--danger-color) !important;
-}
 
 .deleted-post-indicator {
     background-color: rgba(220, 53, 69, 0.1);
@@ -3650,20 +3715,6 @@ details[open] summary {
 
 
 
-/* Feed-specific deleted post styling */
-.post-card .deleted-post-message {
-    margin: 0.5rem 0;
-    padding: 0.75rem;
-    font-size: 0.875rem;
-    transition: all 0.2s ease;
-}
-
-.post-card .deleted-post-message:hover {
-    background-color: rgba(220, 53, 69, 0.15);
-    border-color: var(--danger-color) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 .post-card .deleted-post-indicator {
     margin: 0.5rem 0;
@@ -3711,10 +3762,6 @@ details[open] summary {
     text-decoration: line-through;
 }
 
-/* Dark theme adjustments for deleted posts */
-[data-theme="dark"] .deleted-post-message {
-    background-color: rgba(220, 53, 69, 0.1);
-}
 
 [data-theme="dark"] .deleted-post-indicator {
     background-color: rgba(220, 53, 69, 0.1);

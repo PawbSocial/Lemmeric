@@ -61,7 +61,6 @@ lemmeric/
 │   ├── auth.js            # Authentication handling
 │   ├── utils.js           # Utility functions
 │   ├── router.js          # URL routing
-│   ├── view-manager.js    # View management
 │   ├── post-page.js       # Post page controller
 │   ├── community-page.js  # Community page controller
 │   ├── communities-page.js # Communities listing controller

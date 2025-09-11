@@ -1,9 +1,36 @@
-/* Theme configurations for Lemmeric */
+/* ========================================
+   LEMMERIC - THEME CONFIGURATIONS
+   ========================================
+   
+   This file contains theme-specific configurations and overrides
+   for the Lemmeric Lemmy UI. It handles light and dark theme
+   variations with proper Bootstrap integration.
+   
+   Table of Contents:
+   1. Theme Variables
+   2. Light Theme (Default)
+   3. Dark Theme
+   4. Theme Transitions
+   ======================================== */
+
+/* ========================================
+   1. THEME VARIABLES
+   ======================================== */
 
 /* Light theme (default) */
 :root {
     --theme-name: "light";
 }
+
+/* ========================================
+   2. LIGHT THEME (DEFAULT)
+   ======================================== */
+
+/* Light theme uses the default CSS variables from main.css */
+
+/* ========================================
+   3. DARK THEME
+   ======================================== */
 
 /* Dark theme */
 [data-theme="dark"] {
@@ -14,6 +41,10 @@
     --bs-body-color: var(--text-color);
     --bs-border-color: var(--border-color);
 }
+
+/* ========================================
+   4. THEME TRANSITIONS
+   ======================================== */
 
 /* Dark theme specific overrides */
 [data-theme="dark"] .navbar-dark {
