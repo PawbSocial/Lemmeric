@@ -46,18 +46,36 @@ A modern, vanilla JavaScript implementation of a Lemmy client that provides a cl
 
 ### Prerequisites
 - A modern web browser with ES6 module support
-- A web server (for development, you can use Cursor's Live Server plugin)
+- Python 3 (for the development server)
+- **Important**: This app requires a web server to run - you cannot simply open `index.html` in your browser due to CORS restrictions with ES6 modules
 
 ### Installation
 1. Clone or download this repository
-2. Open `index.html` in your web browser via a web server
-3. That's it! No build process needed
+2. **You must use a web server** - the app won't work by opening `index.html` directly in your browser
 
-### Using with Cursor Live Server
-1. Open the project folder in Cursor
-2. Right-click on `index.html`
-3. Select "Open with Live Server"
-4. The app will open in your default browser
+### Running the Development Server (Recommended)
+The easiest way to run Lemmeric is using the included Python development server:
+
+1. Open a terminal/command prompt in the project directory
+2. Run the development server:
+   ```bash
+   python3 dev-server.py
+   ```
+   Or on Windows:
+   ```bash
+   python dev-server.py
+   ```
+3. Open your browser and go to `http://localhost:8000`
+4. The server will automatically handle URL routing (e.g., `/post/123` → `post.html?id=123`)
+
+### Alternative: Using Other Web Servers
+If you prefer not to use the Python server, you can use any web server that supports URL rewriting:
+
+- **Apache**: Use the included `.htaccess` file
+- **Nginx**: Use the `nginx.conf.example` configuration
+- See [Deployment](DEPLOYMENT.md) for more details on how to run this properly
+
+**Note**: Cursor's Live Server plugin may not work properly due to the URL routing requirements and CORS restrictions with ES6 modules.
 
 ## Project Structure
 
@@ -129,6 +147,7 @@ The app comes pre-configured with several popular Lemmy instances:
 - beehaw.org
 - lemmy.ca
 - sh.itjust.works
+- pawb.social
 
 ### Adding New Instances
 Edit `js/config.js` and add entries to the `INSTANCES` object:
