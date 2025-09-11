@@ -3815,6 +3815,22 @@ details[open] summary {
 
 /* Ensure proper spacing in mobile navbar */
 @media (max-width: 991.98px) {
+    /* Mobile navbar collapse background - matches navbar bg-primary */
+    .navbar-collapse {
+        background-color: var(--bs-primary) !important;
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    /* Dark theme mobile navbar background - matches navbar bg-primary override */
+    [data-theme="dark"] .navbar-collapse {
+        background-color: #0d5aa7 !important;
+    }
+    
     #voyager-suggestion {
         display: none;
     }
