@@ -42,7 +42,7 @@ export const CONFIG = {
     
     // Single instance configuration (used when SINGLE_INSTANCE_MODE is true)
     // This should be the full URL of your instance (e.g., 'https://your-instance.com')
-    SINGLE_INSTANCE_URL: 'https://pawb.social',
+    SINGLE_INSTANCE_URL: 'https://lemmy.world',
     
     // ========================================
     // DEFAULT SETTINGS
