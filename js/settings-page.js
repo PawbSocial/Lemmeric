@@ -100,6 +100,14 @@ class LemmericSettingsApp {
             defaultSort: document.getElementById('default-sort'),
             defaultListing: document.getElementById('default-listing'),
             
+            // Custom instance elements
+            customInstanceForm: document.getElementById('custom-instance-form'),
+            customInstanceDomain: document.getElementById('custom-instance-domain'),
+            addCustomInstanceBtn: document.getElementById('add-custom-instance-btn'),
+            cancelCustomInstanceBtn: document.getElementById('cancel-custom-instance-btn'),
+            customInstancesList: document.getElementById('custom-instances-list'),
+            customInstancesContainer: document.getElementById('custom-instances-container'),
+            
             // Appearance settings
             themeCards: document.querySelectorAll('.theme-card'),
             themeLightRadio: document.getElementById('theme-light'),
@@ -193,6 +201,33 @@ class LemmericSettingsApp {
                 this.applyThumbnailDisplaySetting(this.elements.thumbnailDisplay.value);
             });
         }
+
+        // Custom instance functionality
+        if (this.elements.defaultInstance) {
+            this.elements.defaultInstance.addEventListener('change', () => {
+                this.handleInstanceSelectorChange();
+            });
+        }
+
+        if (this.elements.addCustomInstanceBtn) {
+            this.elements.addCustomInstanceBtn.addEventListener('click', () => {
+                this.addCustomInstance();
+            });
+        }
+
+        if (this.elements.cancelCustomInstanceBtn) {
+            this.elements.cancelCustomInstanceBtn.addEventListener('click', () => {
+                this.cancelCustomInstance();
+            });
+        }
+
+        if (this.elements.customInstanceDomain) {
+            this.elements.customInstanceDomain.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.addCustomInstance();
+                }
+            });
+        }
     }
 
     /**
@@ -248,14 +283,251 @@ class LemmericSettingsApp {
                 selector.appendChild(option);
             });
 
+            // Add "Custom" option
+            const customOption = document.createElement('option');
+            customOption.value = 'custom';
+            customOption.textContent = 'Add Custom Instance...';
+            customOption.dataset.custom = 'true';
+            selector.appendChild(customOption);
+
             // Set current instance
             const currentInstance = getCurrentInstance();
             if (selector.querySelector(`option[value="${currentInstance}"]`)) {
                 selector.value = currentInstance;
             }
 
+            // Load custom instances list
+            await this.loadCustomInstancesList();
+
         } catch (error) {
             console.error('Error populating instance selector:', error);
+        }
+    }
+
+    /**
+     * Handle instance selector change
+     */
+    handleInstanceSelectorChange() {
+        const selectedValue = this.elements.defaultInstance.value;
+        
+        if (selectedValue === 'custom') {
+            this.showCustomInstanceForm();
+        } else {
+            this.hideCustomInstanceForm();
+        }
+    }
+
+    /**
+     * Show custom instance form
+     */
+    showCustomInstanceForm() {
+        if (this.elements.customInstanceForm) {
+            this.elements.customInstanceForm.style.display = 'block';
+            this.elements.customInstanceDomain.focus();
+        }
+    }
+
+    /**
+     * Hide custom instance form
+     */
+    hideCustomInstanceForm() {
+        if (this.elements.customInstanceForm) {
+            this.elements.customInstanceForm.style.display = 'none';
+            this.elements.customInstanceDomain.value = '';
+        }
+    }
+
+    /**
+     * Add custom instance
+     */
+    async addCustomInstance() {
+        const domain = this.elements.customInstanceDomain.value.trim();
+        
+        if (!domain) {
+            this.showToast('Please enter a domain', 'error');
+            return;
+        }
+
+        // Validate domain format
+        const domainRegex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!domainRegex.test(domain)) {
+            this.showToast('Please enter a valid domain (e.g., your-instance.com)', 'error');
+            return;
+        }
+
+        try {
+            // Check if instance already exists
+            const allInstances = getAllInstances();
+            if (allInstances[domain]) {
+                this.showToast('This instance is already added', 'error');
+                return;
+            }
+
+            // Test if the instance is accessible
+            const testUrl = `https://${domain}/api/v3/site`;
+            const response = await fetch(testUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const siteData = await response.json();
+            
+            // Create instance configuration
+            const instanceConfig = {
+                name: siteData.site_view?.site?.name || domain,
+                url: `https://${domain}`,
+                api: `https://${domain}/api/v3`,
+                description: siteData.site_view?.site?.description || '',
+                icon: siteData.site_view?.site?.icon || '',
+                banner: siteData.site_view?.site?.banner || '',
+                isCustom: true
+            };
+
+            // Add the custom instance
+            const { addCustomInstance } = await import('./config.js');
+            const success = addCustomInstance(domain, instanceConfig);
+
+            if (success) {
+                this.showToast(`Successfully added ${instanceConfig.name}`, 'success');
+                this.hideCustomInstanceForm();
+                this.populateInstanceSelector();
+                this.loadCustomInstancesList();
+                
+                // Select the newly added instance
+                this.elements.defaultInstance.value = domain;
+            } else {
+                this.showToast('Failed to add custom instance', 'error');
+            }
+
+        } catch (error) {
+            console.error('Error adding custom instance:', error);
+            this.showToast(`Failed to connect to ${domain}. Please check the domain and try again.`, 'error');
+        }
+    }
+
+    /**
+     * Cancel custom instance addition
+     */
+    cancelCustomInstance() {
+        this.hideCustomInstanceForm();
+        // Reset to previous selection
+        const currentInstance = getCurrentInstance();
+        this.elements.defaultInstance.value = currentInstance;
+    }
+
+    /**
+     * Load custom instances list
+     */
+    async loadCustomInstancesList() {
+        if (!this.elements.customInstancesList || !this.elements.customInstancesContainer) {
+            return;
+        }
+
+        const customInstances = await this.getCustomInstances();
+        const customInstanceKeys = Object.keys(customInstances);
+
+        if (customInstanceKeys.length === 0) {
+            this.elements.customInstancesList.style.display = 'none';
+            return;
+        }
+
+        this.elements.customInstancesList.style.display = 'block';
+        this.elements.customInstancesContainer.innerHTML = '';
+
+        customInstanceKeys.forEach(key => {
+            const instance = customInstances[key];
+            const instanceElement = this.createCustomInstanceElement(key, instance);
+            this.elements.customInstancesContainer.appendChild(instanceElement);
+        });
+    }
+
+    /**
+     * Create custom instance element
+     */
+    createCustomInstanceElement(key, instance) {
+        const div = document.createElement('div');
+        div.className = 'd-flex justify-content-between align-items-center p-2 border rounded mb-2';
+        
+        div.innerHTML = `
+            <div class="d-flex align-items-center">
+                ${instance.icon ? 
+                    `<img src="${instance.icon}" alt="${instance.name}" class="rounded me-2" style="width: 24px; height: 24px;">` :
+                    `<i class="bi bi-globe me-2"></i>`
+                }
+                <div>
+                    <div class="fw-bold">${instance.name}</div>
+                    <small class="text-muted">${instance.url}</small>
+                </div>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-outline-primary btn-sm" onclick="lemmericSettingsApp.selectCustomInstance('${key}')">
+                    <i class="bi bi-check"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" onclick="lemmericSettingsApp.removeCustomInstance('${key}')">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        `;
+        
+        return div;
+    }
+
+    /**
+     * Get custom instances
+     */
+    async getCustomInstances() {
+        try {
+            const { getCustomInstances } = await import('./config.js');
+            return getCustomInstances();
+        } catch (error) {
+            console.error('Error getting custom instances:', error);
+            return {};
+        }
+    }
+
+    /**
+     * Select custom instance
+     */
+    selectCustomInstance(key) {
+        this.elements.defaultInstance.value = key;
+        this.hideCustomInstanceForm();
+    }
+
+    /**
+     * Remove custom instance
+     */
+    async removeCustomInstance(key) {
+        if (!confirm(`Are you sure you want to remove this custom instance?`)) {
+            return;
+        }
+
+        try {
+            const { removeCustomInstance } = await import('./config.js');
+            const success = removeCustomInstance(key);
+
+            if (success) {
+                this.showToast('Custom instance removed', 'success');
+                this.populateInstanceSelector();
+                this.loadCustomInstancesList();
+                
+                // If the removed instance was selected, reset to default
+                if (this.elements.defaultInstance.value === key) {
+                    const { getCurrentInstance } = await import('./config.js');
+                    const currentInstance = getCurrentInstance();
+                    this.elements.defaultInstance.value = currentInstance;
+                }
+            } else {
+                this.showToast('Failed to remove custom instance', 'error');
+            }
+        } catch (error) {
+            console.error('Error removing custom instance:', error);
+            this.showToast('Failed to remove custom instance', 'error');
         }
     }
 

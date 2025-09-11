@@ -818,6 +818,30 @@ function migrateOldLocalStorageKeys() {
                 console.warn('Failed to migrate custom instances:', error);
             }
         }
+
+        // Migrate existing custom instances to add missing api property
+        const existingCustomInstances = localStorage.getItem(CONFIG.STORAGE_KEYS.CUSTOM_INSTANCES);
+        if (existingCustomInstances) {
+            try {
+                const customInstances = JSON.parse(existingCustomInstances);
+                let needsUpdate = false;
+                
+                Object.keys(customInstances).forEach(key => {
+                    const instance = customInstances[key];
+                    if (instance.isCustom && instance.url && !instance.api) {
+                        instance.api = `${instance.url}/api/v3`;
+                        needsUpdate = true;
+                    }
+                });
+                
+                if (needsUpdate) {
+                    localStorage.setItem(CONFIG.STORAGE_KEYS.CUSTOM_INSTANCES, JSON.stringify(customInstances));
+                    console.log('Migrated custom instances to add missing api property');
+                }
+            } catch (error) {
+                console.warn('Failed to migrate custom instances api property:', error);
+            }
+        }
     } catch (error) {
         console.error('Error during localStorage migration:', error);
     }

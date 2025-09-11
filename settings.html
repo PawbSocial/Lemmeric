@@ -91,6 +91,46 @@
                                                 <!-- Will be populated by JavaScript -->
                                             </select>
                                             <div class="form-text">Choose your preferred Lemmy instance</div>
+                                            
+                                            <!-- Custom Instance Input Form -->
+                                            <div id="custom-instance-form" class="mt-3" style="display: none;">
+                                                <div class="card border-primary">
+                                                    <div class="card-header bg-primary text-white">
+                                                        <h6 class="mb-0">
+                                                            <i class="bi bi-plus-circle me-1"></i>Add Custom Instance
+                                                        </h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="mb-3">
+                                                            <label for="custom-instance-domain" class="form-label">Instance Domain</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">https://</span>
+                                                                <input type="text" class="form-control" id="custom-instance-domain" 
+                                                                       placeholder="your-instance.com" 
+                                                                       pattern="[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                                                                       title="Enter a valid domain (e.g., your-instance.com)">
+                                                            </div>
+                                                            <div class="form-text">Enter the domain of your Lemmy instance (without https://)</div>
+                                                        </div>
+                                                        <div class="d-flex gap-2">
+                                                            <button type="button" class="btn btn-primary btn-sm" id="add-custom-instance-btn">
+                                                                <i class="bi bi-plus me-1"></i>Add Instance
+                                                            </button>
+                                                            <button type="button" class="btn btn-secondary btn-sm" id="cancel-custom-instance-btn">
+                                                                <i class="bi bi-x me-1"></i>Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Custom Instances List -->
+                                            <div id="custom-instances-list" class="mt-3" style="display: none;">
+                                                <h6 class="text-muted mb-2">Custom Instances</h6>
+                                                <div id="custom-instances-container">
+                                                    <!-- Custom instances will be populated here -->
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <!-- Default Sort -->
