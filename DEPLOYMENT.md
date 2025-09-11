@@ -146,43 +146,49 @@ RewriteRule ^ /u/%1? [R=301,L]
 Add this to your server block in `nginx.conf`:
 
 ```nginx
-location / {
-    try_files $uri $uri/ @fallback;
-}
-
 # Handle post URLs: /post/123 -> /post.html?id=123
 location ~ ^/post/([0-9]+)/?$ {
-    try_files /post.html?id=$1 =404;
+    rewrite ^/post/([0-9]+)/?$ /post.html?id=$1 last;
 }
 
 # Handle community URLs: /c/community-name -> /community.html?name=community-name
-location ~ ^/c/([^/]+)/?$ {
-    try_files /community.html?name=$1 =404;
+location ~ ^/c/([^/?]+)/?$ {
+    rewrite ^/c/([^/?]+)/?$ /community.html?name=$1 last;
 }
 
-# Handle remote community URLs: /c/community-name@instance.com -> /community.html?name=community-name&instance=instance.com
-location ~ ^/c/([^/]+)@([^/]+)/?$ {
-    try_files /community.html?name=$1&instance=$2 =404;
-}
-
-# Handle user URLs: /u/username -> /user.html?name=username
-location ~ ^/u/([^/]+)/?$ {
-    try_files /user.html?name=$1 =404;
-}
-
-# Handle remote user URLs: /u/username@instance.com -> /user.html?name=username&instance=instance.com
-location ~ ^/u/([^/]+)@([^/]+)/?$ {
-    try_files /user.html?name=$1&instance=$2 =404;
+# Handle user URLs: /u/username -> /user.html?username=username
+location ~ ^/u/([^/?]+)/?$ {
+    rewrite ^/u/([^/?]+)/?$ /user.html?username=$1 last;
 }
 
 # Handle other pages
-location ~ ^/(communities|search|create-post|create-community|inbox|settings)/?$ {
-    try_files /$1.html =404;
+location = /communities {
+    rewrite ^/communities/?$ /communities.html last;
 }
 
-# Fallback for other routes
-location @fallback {
-    try_files /index.html =404;
+location = /search {
+    rewrite ^/search/?$ /search.html last;
+}
+
+location = /create-post {
+    rewrite ^/create-post/?$ /create_post.html last;
+}
+
+location = /create-community {
+    rewrite ^/create-community/?$ /create-community.html last;
+}
+
+location = /inbox {
+    rewrite ^/inbox/?$ /inbox.html last;
+}
+
+location = /settings {
+    rewrite ^/settings/?$ /settings.html last;
+}
+
+# Main location block
+location / {
+    try_files $uri $uri/ =404;
 }
 ```
 

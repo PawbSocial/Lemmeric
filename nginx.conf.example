@@ -1,58 +1,49 @@
 # Example Nginx configuration for Lemmeric
 # Add this to your server block
 
-location / {
-    try_files $uri $uri/ @fallback;
-}
-
-# Handle communities page: /communities -> /communities.html
-location = /communities {
-    try_files /communities.html =404;
-}
-
 # Handle post URLs: /post/123 -> /post.html?id=123
 location ~ ^/post/([0-9]+)/?$ {
-    try_files /post.html?id=$1 =404;
-}
-
-# Handle user URLs: /u/username -> /user.html?username=username
-location ~ ^/u/([^/?]+)/?$ {
-    try_files /user.html?username=$1 =404;
+    rewrite ^/post/([0-9]+)/?$ /post.html?id=$1 last;
 }
 
 # Handle community URLs: /c/community_name -> /community.html?name=community_name
 location ~ ^/c/([^/?]+)/?$ {
-    try_files /community.html?name=$1 =404;
+    rewrite ^/c/([^/?]+)/?$ /community.html?name=$1 last;
 }
 
-# Handle search URLs: /search -> /search.html
+# Handle user URLs: /u/username -> /user.html?username=username
+location ~ ^/u/([^/?]+)/?$ {
+    rewrite ^/u/([^/?]+)/?$ /user.html?username=$1 last;
+}
+
+# Handle other pages
+location = /communities {
+    rewrite ^/communities/?$ /communities.html last;
+}
+
 location = /search {
-    try_files /search.html =404;
+    rewrite ^/search/?$ /search.html last;
 }
 
-# Handle create post URLs: /create-post -> /create_post.html
 location = /create-post {
-    try_files /create_post.html =404;
+    rewrite ^/create-post/?$ /create_post.html last;
 }
 
-# Handle create community URLs: /create-community -> /create-community.html
 location = /create-community {
-    try_files /create-community.html =404;
+    rewrite ^/create-community/?$ /create-community.html last;
 }
 
-# Handle inbox URLs: /inbox -> /inbox.html
 location = /inbox {
-    try_files /inbox.html =404;
+    rewrite ^/inbox/?$ /inbox.html last;
 }
 
-# Handle settings URLs: /settings -> /settings.html
 location = /settings {
-    try_files /settings.html =404;
+    rewrite ^/settings/?$ /settings.html last;
 }
 
-# Fallback for other routes
-location @fallback {
-    try_files /index.html =404;
+# Main location block
+location / {
+    try_files $uri $uri/ =404;
 }
 
 # Cache static assets
