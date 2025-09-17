@@ -563,6 +563,9 @@ class Navbar {
     showSignInModal() {
         const modal = document.getElementById('signInModal');
         if (modal) {
+            // Hide 2FA field when showing modal
+            this.hide2FAField();
+            
             const bsModal = new bootstrap.Modal(modal);
             bsModal.show();
         }
@@ -622,6 +625,46 @@ class Navbar {
         if (signInSubmit) {
             signInSubmit.addEventListener('click', (e) => {
                 e.preventDefault();
+                this.handleSignIn();
+            });
+        }
+
+        // TOTP input handling
+        const totpInput = document.getElementById('totp-code');
+        if (totpInput) {
+            // Auto-submit when 6 digits are entered
+            totpInput.addEventListener('input', (e) => {
+                const value = e.target.value;
+                // Only allow numeric input
+                if (!/^\d*$/.test(value)) {
+                    e.target.value = value.replace(/\D/g, '');
+                    return;
+                }
+                
+                // Limit to 6 digits
+                if (value.length > 6) {
+                    e.target.value = value.substring(0, 6);
+                    return;
+                }
+                
+                // Auto-submit when 6 digits are entered
+                if (e.target.value.length === 6) {
+                    this.handleSignIn();
+                }
+            });
+
+            // Handle paste events
+            totpInput.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const text = e.clipboardData.getData('text').trim();
+                
+                // Only allow numeric input
+                if (!/^\d{6}$/.test(text)) {
+                    this.showToast('Please enter a valid 6-digit code', 'error');
+                    return;
+                }
+                
+                totpInput.value = text;
                 this.handleSignIn();
             });
         }
@@ -967,12 +1010,23 @@ class Navbar {
      * Handle sign in form submission
      */
     async handleSignIn() {
+        // Prevent multiple simultaneous calls
+        if (this.isSigningIn) {
+            console.log('Sign in already in progress, ignoring duplicate call');
+            return;
+        }
+        
+        this.isSigningIn = true;
+        console.log('Starting sign in process');
+        
         const username = document.getElementById('username')?.value.trim();
         const password = document.getElementById('password')?.value;
+        const totpCode = document.getElementById('totp-code')?.value.trim();
         const rememberMe = document.getElementById('remember-me')?.checked || false;
         
         // Validate input
         if (!username || !password) {
+            this.isSigningIn = false;
             this.showToast('Please enter both username and password', 'error');
             return;
         }
@@ -987,13 +1041,16 @@ class Navbar {
         
         try {
             // Attempt login
-            const result = await authManager.login(username, password, rememberMe);
+            const result = await authManager.login(username, password, rememberMe, totpCode);
             
             if (result.success) {
-                // Clear form
-                document.getElementById('username').value = '';
-                document.getElementById('password').value = '';
-                document.getElementById('remember-me').checked = false;
+                // Clear form and hide 2FA field
+                this.clearSignInForm();
+                this.hide2FAField();
+            } else if (result.requires2FA) {
+                // Show 2FA field and update UI
+                this.show2FAField();
+                this.showToast('Please enter your two-factor authentication code', 'info');
             } else {
                 this.showToast(result.error || 'Login failed', 'error');
             }
@@ -1001,12 +1058,62 @@ class Navbar {
             console.error('Login error:', error);
             this.showToast('Login failed. Please try again.', 'error');
         } finally {
+            // Reset the signing in flag
+            this.isSigningIn = false;
+            
             // Restore button state
             if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
             }
         }
+    }
+
+    /**
+     * Show the 2FA input field
+     */
+    show2FAField() {
+        const totpContainer = document.getElementById('totp-container');
+        const totpInput = document.getElementById('totp-code');
+        
+        if (totpContainer) {
+            totpContainer.style.display = 'block';
+        }
+        
+        // Focus on TOTP input and clear it
+        if (totpInput) {
+            totpInput.value = '';
+            totpInput.focus();
+        }
+    }
+
+    /**
+     * Hide the 2FA input field
+     */
+    hide2FAField() {
+        const totpContainer = document.getElementById('totp-container');
+        const totpInput = document.getElementById('totp-code');
+        
+        if (totpContainer) {
+            totpContainer.style.display = 'none';
+        }
+        
+        if (totpInput) {
+            totpInput.value = '';
+        }
+    }
+
+    /**
+     * Clear the sign-in form
+     */
+    clearSignInForm() {
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const rememberMe = document.getElementById('remember-me');
+        
+        if (username) username.value = '';
+        if (password) password.value = '';
+        if (rememberMe) rememberMe.checked = false;
     }
 
     /**
@@ -1117,6 +1224,10 @@ class Navbar {
                 bsModal.hide();
             }
         }
+        
+        // Clear form and hide 2FA field when modal is closed
+        this.clearSignInForm();
+        this.hide2FAField();
     }
 
     /**

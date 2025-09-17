@@ -191,6 +191,21 @@ export class LemmyAPI {
                     throw new Error(CONFIG.ERRORS.INSTANCE_DOWN);
                 } else {
                     const errorText = await response.text();
+                    
+                    // For login endpoints, try to parse the error response to preserve specific error info
+                    if (isAuthEndpoint && response.status === 400) {
+                        try {
+                            const errorData = JSON.parse(errorText);
+                            console.log('Preserving error response data for auth endpoint:', errorData);
+                            const error = new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
+                            error.responseData = errorData; // Attach parsed response data
+                            throw error;
+                        } catch (parseError) {
+                            // If parsing fails, fall back to original error
+                            throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
+                        }
+                    }
+                    
                     throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
                 }
             }
@@ -210,6 +225,11 @@ export class LemmyAPI {
         } catch (error) {
             if (error.name === 'AbortError' || error.name === 'TimeoutError') {
                 throw new Error(CONFIG.ERRORS.NETWORK);
+            }
+            
+            // Don't retry on 400 errors for login endpoints (2FA, invalid credentials, etc.)
+            if (error.message && error.message.includes('HTTP 400') && isAuthEndpoint) {
+                throw error;
             }
             
             if (retryCount < CONFIG.API.MAX_RETRIES) {
@@ -848,11 +868,16 @@ export class LemmyAPI {
      * @param {string} password - Password
      * @returns {Promise} Login response with JWT
      */
-    async login(username, password) {
+    async login(username, password, totpToken = null) {
         const loginData = {
             username_or_email: username,
             password: password
         };
+
+        // Add TOTP token if provided
+        if (totpToken) {
+            loginData.totp_2fa_token = totpToken;
+        }
 
         return this.makeRequest('/user/login', {
             method: 'POST',

@@ -142,16 +142,19 @@ export class AuthManager {
      * @param {string} username - Username or email
      * @param {string} password - Password
      * @param {boolean} rememberMe - Whether to persist login
+     * @param {string} totpToken - Optional TOTP 2FA token
      * @returns {Promise<Object>} Login result
      */
-    async login(username, password, rememberMe = false) {
+    async login(username, password, rememberMe = false, totpToken = null) {
+        console.log('AuthManager.login called with:', { username, totpToken: totpToken ? 'provided' : 'not provided' });
+        
         try {
             if (!this.api) {
                 throw new Error('Authentication service not initialized');
             }
 
             // Perform login request
-            const loginResponse = await this.api.login(username, password);
+            const loginResponse = await this.api.login(username, password, totpToken);
             
             if (!loginResponse.jwt) {
                 throw new Error('Login failed: No token received');
@@ -174,59 +177,73 @@ export class AuthManager {
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Get user information (single attempt to avoid rate limiting)
-            try {
-                const userInfo = await this.api.getCurrentUser();
-                
-                if (!userInfo?.my_user) {
-                    // Instead of retrying immediately, we'll let the normal auth checks handle it
-                    throw new Error('User data not yet available - try refreshing the page');
-                }
-
-                // Format and store user data (from /site endpoint structure)
-                const person = userInfo.my_user.local_user_view.person;
-                const localUser = userInfo.my_user.local_user_view.local_user;
-                const counts = userInfo.my_user.local_user_view.counts;
-                
-                const userData = {
-                    id: person.id,
-                    name: person.name,
-                    displayName: person.display_name,
-                    email: localUser.email,
-                    avatar: person.avatar,
-                    banner: person.banner,
-                    bio: person.bio,
-                    admin: person.admin,
-                    banned: person.banned,
-                    published: person.published,
-                    updated: person.updated,
-                    show_nsfw: localUser.show_nsfw,
-                    show_scores: localUser.show_scores,
-                    show_avatars: localUser.show_avatars,
-                    send_notifications_to_email: localUser.send_notifications_to_email,
-                    counts: counts,
-                    rememberMe: rememberMe,
-                    loginTime: new Date().toISOString()
-                };
-
-                setUserData(userData);
-                this.currentUser = userData;
-
-                // Notify listeners
-                this.notifyListeners('login', userData);
-
-                return {
-                    success: true,
-                    user: userData,
-                    message: 'Login successful'
-                };
-            } catch (error) {
-                console.error('Failed to retrieve user data:', error);
-                throw error;
+            const userInfo = await this.api.getCurrentUser();
+            
+            if (!userInfo?.my_user) {
+                // Instead of retrying immediately, we'll let the normal auth checks handle it
+                throw new Error('User data not yet available - try refreshing the page');
             }
+
+            // Format and store user data (from /site endpoint structure)
+            const person = userInfo.my_user.local_user_view.person;
+            const localUser = userInfo.my_user.local_user_view.local_user;
+            const counts = userInfo.my_user.local_user_view.counts;
+            
+            const userData = {
+                id: person.id,
+                name: person.name,
+                displayName: person.display_name,
+                email: localUser.email,
+                avatar: person.avatar,
+                banner: person.banner,
+                bio: person.bio,
+                admin: person.admin,
+                banned: person.banned,
+                published: person.published,
+                updated: person.updated,
+                show_nsfw: localUser.show_nsfw,
+                show_scores: localUser.show_scores,
+                show_avatars: localUser.show_avatars,
+                send_notifications_to_email: localUser.send_notifications_to_email,
+                counts: counts,
+                rememberMe: rememberMe,
+                loginTime: new Date().toISOString()
+            };
+
+            setUserData(userData);
+            this.currentUser = userData;
+
+            // Notify listeners
+            this.notifyListeners('login', userData);
+
+            return {
+                success: true,
+                user: userData,
+                message: 'Login successful'
+            };
         } catch (error) {
             console.error('Login error:', error);
             
-            // Clean up any partial login state
+            // Check if 2FA is required BEFORE cleaning up state
+            if (error.responseData && error.responseData.error === 'missing_totp_token') {
+                console.log('2FA required - detected from response data');
+                return {
+                    success: false,
+                    requires2FA: true,
+                    error: 'Two-factor authentication required'
+                };
+            }
+            
+            // Fallback check for 2FA requirement in error message
+            if (error.message && error.message.includes('missing_totp_token')) {
+                return {
+                    success: false,
+                    requires2FA: true,
+                    error: 'Two-factor authentication required'
+                };
+            }
+            
+            // Clean up any partial login state only if not 2FA
             this.logout(false);
             
             // Provide more specific error messages

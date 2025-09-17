@@ -153,6 +153,21 @@
                                 </button>
                             </div>
                         </div>
+                        <!-- 2FA TOTP Input (hidden by default) -->
+                        <div class="mb-3" id="totp-container" style="display: none;">
+                            <label for="totp-code" class="form-label">
+                                <i class="bi bi-shield-check me-1"></i>Two-Factor Authentication Code
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-key"></i>
+                                </span>
+                                <input type="text" class="form-control" id="totp-code" placeholder="Enter 6-digit code" maxlength="6" inputmode="numeric" pattern="[0-9]{6}">
+                            </div>
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>Enter the 6-digit code from your authenticator app
+                            </div>
+                        </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="remember-me">
                             <label class="form-check-label" for="remember-me">
