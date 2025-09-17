@@ -26,6 +26,19 @@
    1. CSS VARIABLES AND THEMING
    ======================================== */
 
+/* Prevent white flash by setting default styles on html element */
+html {
+    background-color: #ffffff;
+    color: #212529;
+    transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+/* Dark theme default for html element to prevent flash */
+html[data-theme="dark"] {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
 /* Custom CSS Variables for theming */
 :root {
     /* Bootstrap color overrides */

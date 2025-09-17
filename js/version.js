@@ -13,10 +13,10 @@
  * It should be updated manually during releases to reflect the current version.
  */
 
-export const LEMMERIC_VERSION = '0.1.2';
+export const LEMMERIC_VERSION = '0.1.3';
 
 // Build date (automatically updated during deployment)
-export const BUILD_DATE = '2025-09-016';
+export const BUILD_DATE = '2025-09-017';
 
 // Repository URL (update this when you set up your GitHub repo)
 export const REPOSITORY_URL = 'https://github.com/JoshuaKimsey/Lemmeric';

@@ -11,6 +11,41 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     
+    <!-- ========================================
+         THEME PREVENTION SCRIPT
+         ======================================== -->
+    <!-- This script prevents white flash by applying theme before page renders -->
+    <script>
+        (function() {
+            // Get theme from localStorage or default to system preference
+            const getTheme = () => {
+                try {
+                    const saved = localStorage.getItem('lemmeric_theme');
+                    if (saved && (saved === 'light' || saved === 'dark')) {
+                        return saved;
+                    }
+                } catch (e) {
+                    // localStorage not available
+                }
+                
+                // Fallback to system preference
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            };
+            
+            // Apply theme immediately
+            const theme = getTheme();
+            document.documentElement.setAttribute('data-theme', theme);
+            
+            // Set CSS custom properties for immediate effect
+            if (theme === 'dark') {
+                document.documentElement.style.setProperty('--bs-body-bg', '#1a1a1a');
+                document.documentElement.style.setProperty('--bs-body-color', '#ffffff');
+                document.documentElement.style.setProperty('background-color', '#1a1a1a');
+                document.documentElement.style.setProperty('color', '#ffffff');
+            }
+        })();
+    </script>
+
     <!-- Custom CSS -->
     <link href="/assets/css/main.css" rel="stylesheet">
     <link href="/assets/css/themes.css" rel="stylesheet">
